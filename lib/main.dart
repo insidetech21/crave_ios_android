@@ -1,6 +1,5 @@
 import 'package:craveiospro/viewcust.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -39,10 +38,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
-  //TextEditingController gender = TextEditingController();
   TextEditingController mobilenumber = TextEditingController();
-  TextEditingController address = TextEditingController();
+  TextEditingController gender = TextEditingController();
+  TextEditingController addressStreet1 = TextEditingController();
+  TextEditingController addressStreet2 = TextEditingController();
+  TextEditingController addressCity = TextEditingController();
   TextEditingController pincode = TextEditingController();
+  TextEditingController state = TextEditingController();
+  TextEditingController country = TextEditingController();
+  TextEditingController companyName = TextEditingController();
+  TextEditingController companyAddress = TextEditingController();
+
+
+
 
 //
 //   String result = "Hello World...!";
@@ -86,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Enter Name',
+                labelText: 'Enter Name :',
                 hintText: 'Full Name',
                 icon: Icon(Icons.person),
               ),
@@ -100,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Enter Mobile Number',
+                labelText: 'Enter Mobile Number :',
                 hintText: 'Mobile Number',
                 icon: Icon(Icons.call),
               ),
@@ -115,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Enter Email Id',
+                labelText: 'Enter Email Id :',
                 hintText: 'Email Id',
                 icon: Icon(Icons.email),
               ),
@@ -167,11 +175,11 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.only(bottom: 30.0),
             ),
             TextFormField(
-              controller: address,
+              //controller: addressStreet1,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Enter Street 1:',
+                labelText: 'Enter Street 1 :',
                 hintText: 'Street 1 Address',
                 icon: Icon(Icons.location_city),
               ),
@@ -185,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Enter Street 2:',
+                labelText: 'Enter Street 2 :',
                 hintText: 'Street 2 Address',
                 icon: Icon(Icons.home),
               ),
@@ -199,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Enter City:',
+                labelText: 'Enter City :',
                 hintText: 'City',
                 icon: Icon(Icons.location_city),
               ),
@@ -214,7 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Enter Zip Code:',
+                labelText: 'Enter Zip Code :',
                 hintText: 'Zip',
                 icon: Icon(Icons.pin),
               ),
@@ -228,7 +236,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Enter State:',
+                labelText: 'Enter State :',
                 hintText: 'State',
                 icon: Icon(Icons.map),
               ),
@@ -242,7 +250,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Enter Country:',
+                labelText: 'Enter Country :',
                 hintText: 'Country',
                 icon: Icon(Icons.flag),
               ),
@@ -287,7 +295,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Enter Company Name',
+                labelText: 'Enter Company Name :',
                 hintText: 'Company Name',
                 icon: Icon(Icons.local_post_office),
               ),
@@ -300,7 +308,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Enter Mobile Number',
+                labelText: 'Enter Mobile Number :',
                 hintText: 'Mobile Number',
                 icon: Icon(Icons.call),
               ),
@@ -315,7 +323,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Enter Email Id',
+                labelText: 'Enter Email Id :',
                 hintText: 'Email Id',
                 icon: Icon(Icons.email),
               ),
@@ -337,29 +345,37 @@ class _MyHomePageState extends State<MyHomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text('Name: ${name.text}'),
-          Text('Email: ${email.text}'),
-          Text('Mobile Number: ${mobilenumber.text}'),
-          //Text('Gender: ${email.text}'),
-          Text('Address : ${address.text}'),
+          Text('Name : ${name.text}'),
+          Text('Email : ${email.text}'),
+          Text('Mobile Number : ${mobilenumber.text}'),
+          Text('Gender: ${gender.text}'),
+          Text('Address Street1 : ${addressStreet1.text}'),
+          Text('Address Street2 : ${addressStreet2.text}'),
           Text('PinCode : ${pincode.text}'),
+          Text('City : ${addressCity.text}'),
+          Text('State : ${state.text}'),
+          Text('Country : ${country.text}'),
 
           Center(
-            child: ElevatedButton(onPressed: (){
+            child: ElevatedButton(
+              onPressed: (){
               Navigator.push(context,
                     MaterialPageRoute(builder: ((context) =>const ViewCustomeer() ))
                     );
             }, child: const Text('View Data'),),
+
           ),
         ],
-      ))
+      ),
+    )
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title: const Center(child: Text('Crave Guest Registration')),),
+      appBar: AppBar(title: const Center(child: Text('Crave Guest Registration')),
+      ),
       //
       floatingActionButton: FloatingActionButton.extended(
           //icon: const Icon(Icons.save),
@@ -369,17 +385,33 @@ class _MyHomePageState extends State<MyHomePage> {
             final name2 = name.text;
             final email2= email.text;
             final mobilenumber2 = mobilenumber.text;
-            final pin=pincode.text;
+            final addressStreet1_2 = addressStreet1.text;
+            final addressStreet2_2 = addressStreet2.text;
+            final pincode2=pincode.text;
+            final addressCity2 = addressCity.text;
+            final state2 = state.text;
+            final country2 = country.text;
+            final companyName2 = companyName.text;
+            final companyAddress2 = companyAddress.text;
 
             createuser(
-                name: name2,
-                email:email2,
-                mobilenumber: mobilenumber2,
-                pincode:pin,
+              name: name2,
+              email:email2,
+              mobilenumber: mobilenumber2,
+              addressStreet1: addressStreet1_2,
+              addressStreet2: addressStreet2_2,
+              pincode: pincode2,
+              addressCity: addressCity2,
+              state: state2,
+              country: country2,
+              companyName: companyName2,
+              companyAdd: companyAddress2
+
             );
           },
-          label: const Text("Submit Data")),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          label: const Text("Submit Data"),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       
       //
       body: Stepper(
@@ -395,7 +427,7 @@ class _MyHomePageState extends State<MyHomePage> {
           },);
         },
         onStepCancel: (){
-          if(_activeStepIndex ==0){
+          if(_activeStepIndex == 0){
             return;
           }
           _activeStepIndex -=1;
@@ -409,16 +441,35 @@ class _MyHomePageState extends State<MyHomePage> {
     
 
     Future createuser( {
-      required String name,email,pincode,mobilenumber
+      required String
+      name,
+      email,
+      mobilenumber,
+      addressStreet1,
+      addressStreet2,
+      pincode,
+      addressCity,
+      state,
+      country,
+      companyName,
+      companyAdd,
       
       }) async {
     final docuser = FirebaseFirestore.instance.collection('guest').doc();
     final customer = Customer(
       id: docuser.id,
       name: name,
-      email:email,
+      email: email,
       mobilenumber: mobilenumber,
-      pincode:pincode
+      addressStreet1: addressStreet1,
+      addressStreet2: addressStreet2,
+      pincode: pincode,
+      addressCity: addressCity,
+      state: state,
+      country: country,
+      companyName: companyName,
+      companyAdd: companyAdd,
+
     );
     final json = customer.toJson();
     await docuser.set(json);
@@ -430,19 +481,60 @@ class _MyHomePageState extends State<MyHomePage> {
   final String name;
   final String email;
   final String mobilenumber;
+  final String addressStreet1;
+  final String addressStreet2;
   final String pincode;
+  final String addressCity;
+  final String state;
+  final String country;
+  final String companyName;
+  final String companyAdd;
+
 
   Customer({
     this.id = '',
     required this.name,
     required this.email,
-    required this. mobilenumber,
+    required this.mobilenumber,
+    required this.addressStreet1,
+    required this.addressStreet2,
     required this.pincode,
+    required this.addressCity,
+    required this.state,
+    required this.country,
+    required this.companyName,
+    required this.companyAdd,
+
   });
 
-  Map<String, dynamic> toJson() => {'id': id, 'name': name, 'email': email,'mobilenumber': mobilenumber, 'pincode':pincode};
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name': name,
+    'email': email,
+    'mobilenumber': mobilenumber,
+    'addressStreet1': addressStreet1,
+    'addressStreet2': addressStreet2,
+    'pincode': pincode,
+    'addressCity': addressCity,
+    'state': state,
+    'country': country,
+    'companyName':companyName,
+    'companyAdd': companyAdd,
+  };
 
   static Customer fromJson(Map<String, dynamic> json) =>
-      Customer(name: json['name'], email: json['email'],mobilenumber: json['mobilenumber'],pincode: json['pincode']);
+      Customer(
+          name: json['name'],
+          email: json['email'],
+          mobilenumber: json['mobilenumber'],
+          pincode: json['pincode'],
+          addressStreet1: json ['addressStreet1'],
+          addressStreet2: json ['addressStreet2'],
+          addressCity: json['addressCity'],
+          state: json['state'],
+          country: json['country'],
+          companyName: json['companyName'],
+          companyAdd: json['companyAdd'],
+      );
 }
   
