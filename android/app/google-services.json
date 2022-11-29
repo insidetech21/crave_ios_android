@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "151042498941",
+    "project_id": "crave-guest-registration-d2600",
+    "storage_bucket": "crave-guest-registration-d2600.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151042498941:android:99fd91b33c7fbe33efec14",
+        "android_client_info": {
+          "package_name": "com.example.crave_guest_registartion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151042498941-eke5lub98am4vomcu8a8mvc7kekon4i5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJ50kCV2WLGV6tKsMA6fqNua9n4QH3SYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "151042498941-eke5lub98am4vomcu8a8mvc7kekon4i5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "151042498941-6l4k2eqr0e3fka099aa3kr55uts6pd0a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.craveiospro"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151042498941:android:86851f4801ae9789efec14",
+        "android_client_info": {
+          "package_name": "com.example.craveiospro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151042498941-eke5lub98am4vomcu8a8mvc7kekon4i5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJ50kCV2WLGV6tKsMA6fqNua9n4QH3SYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "151042498941-eke5lub98am4vomcu8a8mvc7kekon4i5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "151042498941-6l4k2eqr0e3fka099aa3kr55uts6pd0a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.craveiospro"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
