@@ -175,7 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.only(bottom: 30.0),
             ),
             TextFormField(
-              //controller: addressStreet1,
+              controller: addressStreet1,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
@@ -190,6 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             TextFormField(
+              controller: addressStreet2,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
@@ -204,6 +205,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             TextFormField(
+              controller: addressCity,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
@@ -233,6 +235,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             TextFormField(
+              controller: state,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
@@ -247,6 +250,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             TextFormField(
+              controller: country,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
@@ -292,6 +296,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             TextFormField(
+              controller: companyName,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
@@ -300,11 +305,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.local_post_office),
               ),
             ),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 30.0),
+            ),
+            TextFormField(
+              controller: companyAddress,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                filled: true,
+                labelText: 'Enter company address :',
+                hintText: 'Address',
+                icon: Icon(Icons.home),
+              ),
+              keyboardType: TextInputType.text,
+            ),
 
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
             ),
             TextFormField(
+              controller: mobilenumber,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
@@ -355,6 +375,8 @@ class _MyHomePageState extends State<MyHomePage> {
           Text('City : ${addressCity.text}'),
           Text('State : ${state.text}'),
           Text('Country : ${country.text}'),
+          Text('Company Name : ${companyName.text}'),
+          Text('Company addr : ${companyAddress.text}'),
 
           Center(
             child: ElevatedButton(
