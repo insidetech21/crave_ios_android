@@ -8,7 +8,7 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
-   const MyApp()
+      const MyApp()
   );
 }
 class MyApp extends StatelessWidget {
@@ -268,7 +268,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-),
+    ),
 
 
     // Step(
@@ -381,10 +381,10 @@ class _MyHomePageState extends State<MyHomePage> {
           Center(
             child: ElevatedButton(
               onPressed: (){
-              Navigator.push(context,
+                Navigator.push(context,
                     MaterialPageRoute(builder: ((context) =>const ViewCustomeer() ))
-                    );
-            }, child: const Text('View Data'),),
+                );
+              }, child: const Text('View Data'),),
 
           ),
         ],
@@ -400,23 +400,23 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       //
       floatingActionButton: FloatingActionButton.extended(
-          //icon: const Icon(Icons.save),
-          onPressed: () {
-            //_scanQR(); // calling a function when user click on button
+        //icon: const Icon(Icons.save),
+        onPressed: () {
+          //_scanQR(); // calling a function when user click on button
 
-            final name2 = name.text;
-            final email2= email.text;
-            final mobilenumber2 = mobilenumber.text;
-            final addressStreet1_2 = addressStreet1.text;
-            final addressStreet2_2 = addressStreet2.text;
-            final pincode2=pincode.text;
-            final addressCity2 = addressCity.text;
-            final state2 = state.text;
-            final country2 = country.text;
-            final companyName2 = companyName.text;
-            final companyAddress2 = companyAddress.text;
+          final name2 = name.text;
+          final email2= email.text;
+          final mobilenumber2 = mobilenumber.text;
+          final addressStreet1_2 = addressStreet1.text;
+          final addressStreet2_2 = addressStreet2.text;
+          final pincode2=pincode.text;
+          final addressCity2 = addressCity.text;
+          final state2 = state.text;
+          final country2 = country.text;
+          final companyName2 = companyName.text;
+          final companyAddress2 = companyAddress.text;
 
-            createuser(
+          createuser(
               name: name2,
               email:email2,
               mobilenumber: mobilenumber2,
@@ -429,12 +429,12 @@ class _MyHomePageState extends State<MyHomePage> {
               companyName: companyName2,
               companyAdd: companyAddress2
 
-            );
-          },
-          label: const Text("Submit Data"),
+          );
+        },
+        label: const Text("Submit Data"),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
-      
+
       //
       body: Stepper(
         type: StepperType.horizontal,
@@ -459,24 +459,24 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
     );
-    }
-    
+  }
 
-    Future createuser( {
-      required String
-      name,
-      email,
-      mobilenumber,
-      addressStreet1,
-      addressStreet2,
-      pincode,
-      addressCity,
-      state,
-      country,
-      companyName,
-      companyAdd,
-      
-      }) async {
+
+  Future createuser( {
+    required String
+    name,
+    email,
+    mobilenumber,
+    addressStreet1,
+    addressStreet2,
+    pincode,
+    addressCity,
+    state,
+    country,
+    companyName,
+    companyAdd,
+
+  }) async {
     final docuser = FirebaseFirestore.instance.collection('guest').doc();
     final customer = Customer(
       id: docuser.id,
@@ -495,10 +495,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     final json = customer.toJson();
     await docuser.set(json);
-  }      
   }
+}
 
-  class Customer {
+class Customer {
   String id;
   final String name;
   final String email;
@@ -546,17 +546,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   static Customer fromJson(Map<String, dynamic> json) =>
       Customer(
-          name: json['name'],
-          email: json['email'],
-          mobilenumber: json['mobilenumber'],
-          pincode: json['pincode'],
-          addressStreet1: json ['addressStreet1'],
-          addressStreet2: json ['addressStreet2'],
-          addressCity: json['addressCity'],
-          state: json['state'],
-          country: json['country'],
-          companyName: json['companyName'],
-          companyAdd: json['companyAdd'],
+        name: json['name'],
+        email: json['email'],
+        mobilenumber: json['mobilenumber'],
+        pincode: json['pincode'],
+        addressStreet1: json ['addressStreet1'],
+        addressStreet2: json ['addressStreet2'],
+        addressCity: json['addressCity'],
+        state: json['state'],
+        country: json['country'],
+        companyName: json['companyName'],
+        companyAdd: json['companyAdd'],
       );
 }
   
