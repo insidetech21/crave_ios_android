@@ -1,19 +1,13 @@
-
-
 import 'dart:collection';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:craveiospro/readusers.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 import 'main.dart';
 
 final userref=FirebaseFirestore.instance.collection("guest");
 List<String> itemList = [];
 List<String> distinctIds=[];
-
-
 
 @override
 void initState() {
@@ -22,24 +16,23 @@ void initState() {
 
 }
 
-class ViewCustomeer extends StatefulWidget {
-  const ViewCustomeer({super.key});
+class ViewCustomer extends StatefulWidget {
+  const ViewCustomer({super.key});
 
   @override
-  State<ViewCustomeer> createState() => _ViewCustomeerState();
+  State<ViewCustomer> createState() => _ViewCustomerState();
 }
 
 Stream<List<Customer>> readuser() => FirebaseFirestore.instance.collection('guest').snapshots().map((snapshot)
 =>snapshot.docs.map((doc) => Customer.fromJson(doc.data())).toList() );
 
 Widget buildUser(Customer cust) => Card(
-
     child:
     Column(children: [
-      Text('${cust.name}'),
-      Text('${cust.email}'),
-      Text('${cust.mobilenumber}'),
-      Text('${cust.pincode}'),
+      Text(cust.name),
+      Text(cust.email),
+      Text(cust.mobilenumber),
+      Text(cust.pincode),
       //Text(${cust.id})
 
     ],)
@@ -47,24 +40,26 @@ Widget buildUser(Customer cust) => Card(
 
 );
 
-Future<List?> getUserList() async { // Added List? for better typing
+//Future<List?> getUserList() async {
+
+Future<Center> getUserList() async { // Added List? for better typing
 
   await FirebaseFirestore.instance.collection("guest").get().
   then((snapshot) => snapshot.docs.forEach((element) {
     itemList.add(element.reference.id);
     distinctIds = LinkedHashSet<String>.from(itemList).toList();
   }));
-
+  return const Center(child: CircularProgressIndicator());
 }
 
 
-class _ViewCustomeerState extends State<ViewCustomeer> {
+class _ViewCustomerState extends State<ViewCustomer> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: const Text('view data'),
+            title: const Center(child: Text('View Data')),
           ),
           body: FutureBuilder(
             future: getUserList(),

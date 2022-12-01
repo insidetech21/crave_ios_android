@@ -29,17 +29,18 @@ class ReadUsers extends StatelessWidget {
                   side: const BorderSide(
                     //color: Colors.greenAccent,
                     width: 1,
+                    color: Colors.transparent,
                   ),
-                  borderRadius: BorderRadius.circular(20.0),
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
-                color: Color.fromARGB(255, 198, 243, 241),
+                color: const Color.fromARGB(255, 170, 193, 232),
+                elevation: 10,
+                shadowColor: Colors.blueAccent,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
                   child: Text(
-                    'name: ${data['name']}' +
-                        '\nEmail: ${data['email']}' +
-                        '\nCity: ${data['addressCity']}',
-                    style: TextStyle(fontSize: 20),
+                    'name: ${data['name']}\nEmail: ${data['email']}\nCity: ${data['addressCity']}',
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ),
               ),

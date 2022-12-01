@@ -1,4 +1,5 @@
 import 'package:craveiospro/main.dart';
+import 'package:craveiospro/qr_scanner.dart';
 import 'package:craveiospro/viewcust.dart';
 import 'package:flutter/material.dart';
 
@@ -47,16 +48,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
             if(index == 1){
               //2. Item
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const ViewCustomeer()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const ViewCustomer()));
 
             }
             if(index == 2){
-
               //3. Item
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>  const MyCustomWidget()));
+
             }
             if(index == 3){
-
               //4. Item
+
             }
           },
           child: Column(

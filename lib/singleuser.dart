@@ -32,17 +32,20 @@ class _SingleuserreadState extends State<Singleuserread> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Card(
+                          elevation: 10,
+                          shadowColor: Colors.blueAccent,
                           shape: RoundedRectangleBorder(
                             side: const BorderSide(
                               //color: Colors.greenAccent,
                               width: 1,
+                              color: Colors.transparent,
                             ),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          color: Color.fromARGB(255, 198, 243, 238),
+                          color: const Color.fromARGB(255, 255, 255, 255),
                           child: Column(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 height: 50,
                               ),
                               Padding(
@@ -52,179 +55,179 @@ class _SingleuserreadState extends State<Singleuserread> {
                                   children: [
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Name: ',
                                           style: TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(width: 0,),
+                                        const SizedBox(width: 0,),
                                         Text(
                                           '${data['name']}',
-                                          style: TextStyle(fontSize: 20),
+                                          style: const TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(height: 50,),
+                                        const SizedBox(height: 50,),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Email: ',
                                           style: TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(width: 10,),
+                                        const SizedBox(width: 10,),
                                         Text(
                                           '${data['email']}',
-                                          style: TextStyle(fontSize: 20),
+                                          style: const TextStyle(fontSize: 20),
                                         )
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Mobile Number: ',
                                           style: TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(width: 20,),
+                                        const SizedBox(width: 20,),
                                         Text(
                                           '${data['mobilenumber']}',
-                                          style: TextStyle(fontSize: 20),
+                                          style: const TextStyle(fontSize: 20),
                                         )
                                         ,
-                                        SizedBox(height: 50,),
+                                        const SizedBox(height: 50,),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Pincode: ',
                                           style: TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(width: 20,),
+                                        const SizedBox(width: 20,),
                                         Text(
                                           '${data['pincode']}',
-                                          style: TextStyle(fontSize: 20),
+                                          style: const TextStyle(fontSize: 20),
                                         )
                                         ,
-                                        SizedBox(height: 50,),
+                                        const SizedBox(height: 50,),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'State: ',
                                           style: TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(width: 20,),
+                                        const SizedBox(width: 20,),
                                         Text(
                                           '${data['state']}',
-                                          style: TextStyle(fontSize: 20),
+                                          style: const TextStyle(fontSize: 20),
                                         )
                                         ,
-                                        SizedBox(height: 50,),
+                                        const SizedBox(height: 50,),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Country: ',
                                           style: TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(width: 20,),
+                                        const SizedBox(width: 20,),
                                         Text(
                                           '${data['country']}',
-                                          style: TextStyle(fontSize: 20),
+                                          style: const TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(height: 50,),
+                                        const SizedBox(height: 50,),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Company Name: ',
                                           style: TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(width: 20,),
+                                        const SizedBox(width: 20,),
                                         Text(
                                           '${data['companyName']}',
-                                          style: TextStyle(fontSize: 20),
+                                          style: const TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(height: 50,),
+                                        const SizedBox(height: 50,),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Company Address: ',
                                           style: TextStyle(fontSize: 20),
                                         ),
 
                                         Text(
                                           '${data['companyAdd']}',
-                                          style: TextStyle(fontSize: 20),
+                                          style: const TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(height: 50,),
+                                        const SizedBox(height: 50,),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'City Address: ',
                                           style: TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(width: 20,),
+                                        const SizedBox(width: 20,),
                                         Text(
                                           '${data['addressCity']}',
-                                          style: TextStyle(fontSize: 20),
+                                          style: const TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(height: 50,),
+                                        const SizedBox(height: 50,),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Address Street 1: ',
                                           style: TextStyle(fontSize: 20),
                                         ),
 
                                         Text(
                                           '${data['addressStreet1']}',
-                                          style: TextStyle(fontSize: 20),
+                                          style: const TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(height: 50,),
+                                        const SizedBox(height: 50,),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Address Street 2: ',
                                           style: TextStyle(fontSize: 20),
                                         ),
 
                                         Text(
                                           '${data['addressStreet1']}',
-                                          style: TextStyle(fontSize: 20),
+                                          style: const TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(height: 10,),
+                                        const SizedBox(height: 10,),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Mobile Number: ',
                                           style: TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(width: 20,),
+                                        const SizedBox(width: 20,),
                                         Text(
                                           '${data['mobilenumber']}',
-                                          style: TextStyle(fontSize: 20),
+                                          style: const TextStyle(fontSize: 20),
                                         ),
-                                        SizedBox(height: 50,),
+                                        const SizedBox(height: 50,),
                                       ],
                                     ),
 
                                   ],
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 50,
                               ),
                             ],
