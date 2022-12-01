@@ -1,3 +1,4 @@
+import 'package:craveiospro/dashboard_screen.dart';
 import 'package:craveiospro/viewcust.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,10 +22,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),
+      home: const DashboardScreen(),
     );
+
   }
 }
 class MyHomePage extends StatefulWidget {
@@ -378,15 +379,15 @@ class _MyHomePageState extends State<MyHomePage> {
           Text('Company Name : ${companyName.text}'),
           Text('Company addr : ${companyAddress.text}'),
 
-          Center(
-            child: ElevatedButton(
-              onPressed: (){
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) =>const ViewCustomeer() ))
-                );
-              }, child: const Text('View Data'),),
-
-          ),
+          // Center(
+          //   child: ElevatedButton(
+          //     onPressed: (){
+          //       Navigator.push(context,
+          //           MaterialPageRoute(builder: ((context) =>const ViewCustomeer() ))
+          //       );
+          //     }, child: const Text('View Data'),),
+          //
+          // ),
         ],
       ),
     )
@@ -395,8 +396,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //drawer: ,
       backgroundColor: Colors.white,
-      appBar: AppBar(title: const Center(child: Text('Crave Guest Registration')),
+      appBar: AppBar(title: const Center(child: Text('Crave Guest Registration...')),
       ),
       //
       floatingActionButton: FloatingActionButton.extended(

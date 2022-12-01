@@ -65,7 +65,6 @@ class _ViewCustomeerState extends State<ViewCustomeer> {
       home: Scaffold(
           appBar: AppBar(
             title: const Text('view data'),
-
           ),
           body: FutureBuilder(
             future: getUserList(),
