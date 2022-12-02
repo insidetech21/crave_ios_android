@@ -59,7 +59,8 @@ class _ViewCustomerState extends State<ViewCustomer> {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: const Center(child: Text('View Data')),
+            title: const Center(child: Text('View User Data')),
+            backgroundColor: const Color(0xFF004B8D),
           ),
           body: FutureBuilder(
             future: getUserList(),
@@ -73,6 +74,7 @@ class _ViewCustomerState extends State<ViewCustomer> {
                   }));
             },)
       ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

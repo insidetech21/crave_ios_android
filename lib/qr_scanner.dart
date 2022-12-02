@@ -19,6 +19,8 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('QR Scanner'),
+        backgroundColor: const
+        Color(0xFF004B8D),
       ),
       body: Center(
           child: Column(

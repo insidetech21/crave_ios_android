@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:craveiospro/singleuser.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class ReadUsers extends StatelessWidget {
   final String docid;
@@ -39,8 +38,8 @@ class ReadUsers extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
                   child: Text(
-                    'name: ${data['name']}\nEmail: ${data['email']}\nCity: ${data['addressCity']}',
-                    style: const TextStyle(fontSize: 20),
+                    'Name: ${data['name']}\nEmail: ${data['email']}\nCity: ${data['addressCity']}\nCompany: ${data['companyName']}\nWebsite: ${data['website']}',
+                    style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),
                   ),
                 ),
               ),

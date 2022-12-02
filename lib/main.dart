@@ -23,7 +23,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Crave Guest Registration',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        canvasColor: Colors.white70,
+        colorScheme: Theme.of(context).colorScheme.copyWith(
+          primary: Colors.blueGrey,
+          background: Colors.red,
+          secondary: Colors.blueGrey,
+        ),
       ),
       debugShowCheckedModeBanner: false,
       home: const DashboardScreen(),
@@ -52,9 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController country = TextEditingController();
   TextEditingController companyName = TextEditingController();
   TextEditingController companyAddress = TextEditingController();
-
-
-
+  TextEditingController companyMail = TextEditingController();
+  TextEditingController website = TextEditingController();
 
 //
 //   String result = "Hello World...!";
@@ -89,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
       isActive: _activeStepIndex >= 0,
       title: const Text('Personal\nDetails'),
       content: SingleChildScrollView(
-        padding: const EdgeInsets.only(top: 25.0, right: 30.0, bottom: 25.0, left: 10.0),
+        padding: const EdgeInsets.only(top: 25.0, right: 0.0, bottom: 25.0, left: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
@@ -153,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.all(0.0),
               child: DropdownButtonFormField<String>(
                 isExpanded: true,
-                iconSize: 32,
+                //iconSize: 30,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   filled: true,
@@ -161,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   hintText: 'Gender',
                   icon: Icon(Icons.people_rounded),
                 ),
-                icon: const Icon(Icons.arrow_drop_down, color: Colors.blueAccent,),
+                icon: const Icon(Icons.arrow_drop_down, color: Colors.blueGrey,),
                 items: <String>['Male', 'Female', 'Other'].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -169,9 +173,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
 
                 }).toList(),
-                onChanged: (values) {setState(() {
-
-                });},
+                onChanged: (values) {
+                  setState(() {}
+                  );
+                  },
               ),
             ),
 
@@ -187,6 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 hintText: 'Street 1 Address',
                 icon: Icon(Icons.location_city),
               ),
+              keyboardType: TextInputType.text,
             ),
 
             const Padding(
@@ -202,7 +208,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 hintText: 'Street 2 Address',
                 icon: Icon(Icons.home),
               ),
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text,
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
@@ -232,7 +238,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 hintText: 'Zip',
                 icon: Icon(Icons.pin),
               ),
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
@@ -306,8 +312,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 filled: true,
                 labelText: 'Enter Company Name :',
                 hintText: 'Company Name',
-                icon: Icon(Icons.local_post_office),
+                icon: Icon(Icons.corporate_fare),
               ),
+              keyboardType: TextInputType.text,
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
@@ -318,7 +325,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 border: OutlineInputBorder(),
                 filled: true,
                 labelText: 'Enter company address :',
-                hintText: 'Address',
+                hintText: 'Company Address',
                 icon: Icon(Icons.home),
               ),
               keyboardType: TextInputType.text,
@@ -327,32 +334,34 @@ class _MyHomePageState extends State<MyHomePage> {
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
             ),
-            TextFormField(
-              controller: mobilenumber,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                filled: true,
-                labelText: 'Enter Mobile Number :',
-                hintText: 'Mobile Number',
-                icon: Icon(Icons.call),
-              ),
-              keyboardType: TextInputType.number,
-            ),
 
-            const Padding(
-              padding: EdgeInsets.only(bottom: 30.0),
-            ),
             TextFormField(
-              controller: email,
+              controller: companyMail,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
                 labelText: 'Enter Email Id :',
-                hintText: 'Email Id',
+                hintText: 'Company Email Id',
                 icon: Icon(Icons.email),
               ),
               keyboardType: TextInputType.emailAddress,
             ),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 30.0),
+            ),
+
+            TextFormField(
+              controller: website,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                filled: true,
+                labelText: 'Enter Company Website :',
+                hintText: 'Company Website',
+                icon: Icon(Icons.web),
+              ),
+              keyboardType: TextInputType.number,
+            ),
+
 
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
@@ -364,34 +373,115 @@ class _MyHomePageState extends State<MyHomePage> {
     Step(
       state: StepState.complete,
       isActive: _activeStepIndex >= 2,
-      title: const Text('Confirm\nDetails'),
-      content: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text('Name : ${name.text}'),
-          Text('Email : ${email.text}'),
-          Text('Mobile Number : ${mobilenumber.text}'),
-          Text('Gender: ${gender.text}'),
-          Text('Address Street1 : ${addressStreet1.text}'),
-          Text('Address Street2 : ${addressStreet2.text}'),
-          Text('PinCode : ${pincode.text}'),
-          Text('City : ${addressCity.text}'),
-          Text('State : ${state.text}'),
-          Text('Country : ${country.text}'),
-          Text('Company Name : ${companyName.text}'),
-          Text('Company addr : ${companyAddress.text}'),
+      title: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text('Confirm\nDetails'),
+      ),
+      content: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text('Name : ${name.text}',
+                style: const TextStyle(
+                fontSize: 20,
+                wordSpacing: 1,
+                fontWeight: FontWeight.w500),
+            ),
+            Text('Email : ${email.text}',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+            Text('Mobile Number : ${mobilenumber.text}',
+              style: const TextStyle(
+                fontSize: 20,
+                wordSpacing: 1,
+                fontWeight: FontWeight.w500),
+            ),
+            Text('Gender: ${gender.text}',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+            Text('Address Street1 : ${addressStreet1.text}',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+            Text('Address Street2 : ${addressStreet2.text}',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+            Text('PinCode : ${pincode.text}',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+            Text('City : ${addressCity.text}',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+            Text('State : ${state.text}',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+            Text('Country : ${country.text}',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+            Text('Company Name : ${companyName.text}',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
 
-          // Center(
-          //   child: ElevatedButton(
-          //     onPressed: (){
-          //       Navigator.push(context,
-          //           MaterialPageRoute(builder: ((context) =>const ViewCustomeer() ))
-          //       );
-          //     }, child: const Text('View Data'),),
-          //
-          // ),
-        ],
+            Text('Company Add : ${companyAddress.text}',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+
+            Text('Company Mail : ${companyMail.text}',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+
+            Text('Company Website : ${website.text}',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+
+            // Center(
+            //   child: ElevatedButton(
+            //     onPressed: (){
+            //       Navigator.push(context,
+            //           MaterialPageRoute(builder: ((context) =>const ViewCustomeer() ))
+            //       );
+            //     }, child: const Text('View Data'),),
+            //
+            // ),
+          ],
+        ),
       ),
     )
   ];
@@ -401,10 +491,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       //drawer: ,
       backgroundColor: Colors.white,
-      appBar: AppBar(title: const Center(child: Text('Crave Guest Registration...')),
+      appBar:
+      AppBar(title: const Center(child: Text('Crave Guest Registration')),
+        backgroundColor: const Color(0xFF004B8D),
       ),
       //
       floatingActionButton: FloatingActionButton.extended(
+
+        backgroundColor: const Color(0xFF004B8D),
         //icon: const Icon(Icons.save),
         onPressed: () {
           //_scanQR(); // calling a function when user click on button
@@ -420,6 +514,8 @@ class _MyHomePageState extends State<MyHomePage> {
           final country2 = country.text;
           final companyName2 = companyName.text;
           final companyAddress2 = companyAddress.text;
+          final companyMail2 = companyMail.text;
+          final website2 = website.text;
 
           createuser(
               name: name2,
@@ -432,8 +528,9 @@ class _MyHomePageState extends State<MyHomePage> {
               state: state2,
               country: country2,
               companyName: companyName2,
-              companyAdd: companyAddress2
-
+              companyAdd: companyAddress2,
+              companyMail: companyMail2,
+              website: website2,
           );
         },
         label: const Text("Submit Data"),
@@ -480,6 +577,8 @@ class _MyHomePageState extends State<MyHomePage> {
     country,
     companyName,
     companyAdd,
+    companyMail,
+    website,
 
   }) async {
     final docuser = FirebaseFirestore.instance.collection('guest').doc();
@@ -496,6 +595,8 @@ class _MyHomePageState extends State<MyHomePage> {
       country: country,
       companyName: companyName,
       companyAdd: companyAdd,
+      companyMail: companyMail,
+      website: website,
 
     );
     final json = customer.toJson();
@@ -516,6 +617,8 @@ class Customer {
   final String country;
   final String companyName;
   final String companyAdd;
+  final String companyMail;
+  final String website;
 
 
   Customer({
@@ -531,6 +634,8 @@ class Customer {
     required this.country,
     required this.companyName,
     required this.companyAdd,
+    required this.companyMail,
+    required this.website,
 
   });
 
@@ -547,6 +652,8 @@ class Customer {
     'country': country,
     'companyName':companyName,
     'companyAdd': companyAdd,
+    'companyMail': companyMail,
+    'website': website,
   };
 
   static Customer fromJson(Map<String, dynamic> json) =>
@@ -562,6 +669,8 @@ class Customer {
         country: json['country'],
         companyName: json['companyName'],
         companyAdd: json['companyAdd'],
+        companyMail: json['companyMail'],
+        website: json['website'],
       );
 }
   

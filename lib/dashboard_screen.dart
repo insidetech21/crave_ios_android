@@ -111,7 +111,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   children: const [
                     Center(
                       child: Text(
-                        "User Registration Dashboard",
+                        "Crave User Registration Dashboard",
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold
