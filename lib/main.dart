@@ -3,8 +3,11 @@ import 'package:craveiospro/viewcust.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:intl/intl.dart';
 import 'custom_date_picker_form_field.dart';
+
 
 //mohnish
 
@@ -59,11 +62,24 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController companyAddress = TextEditingController();
   TextEditingController companyMail = TextEditingController();
   TextEditingController website = TextEditingController();
-  TextEditingController date = TextEditingController();
-  final TextEditingController _dateOfBirthController = TextEditingController();
-  DateTime? _dateOfBirth;
+  TextEditingController interestedIn = TextEditingController();
+  TextEditingController nextsteps = TextEditingController();
+  TextEditingController reachoutin = TextEditingController();
+  TextEditingController qr = TextEditingController();
+  //TextEditingController nextstepsplanned = TextEditingController();
+  //TextEditingController date = TextEditingController();
+  final TextEditingController dateOfNextStepscontroller = TextEditingController();
+  DateTime? _dateofNextStep;
+  TextEditingController comments = TextEditingController();
 
-//
+  String genderValue = '';
+  String interestedInValue = '';
+  String nextStepsValue = '';
+  String reachOutValue = '';
+
+  var getResult = '';
+
+
 //   String result = "Hello World...!";
 //   Future _scanQR() async {
 //     var cameraStatus = await Permission.camera.status;
@@ -111,6 +127,26 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
 
+            const Padding(
+              padding: EdgeInsets.only(bottom: 30.0),
+            ),
+
+            // const Card(
+            //   child: Text('Tap here to Scan QR')
+            //
+            // ),
+            TextFormField(
+              controller: qr,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                filled: true,
+                labelText: 'Personal Data :',
+                //hintText: 'Scan QR/Bar Code',
+                icon: Icon(Icons.qr_code),
+              ),
+              readOnly: true,
+              showCursor: false,
+            ),
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
             ),
@@ -176,7 +212,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 }).toList(),
                 onChanged: (values) {
-                  setState(() {}
+                  setState(() {
+                    genderValue = values!;
+                  }
                   );
                 },
               ),
@@ -282,7 +320,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     ),
 
-
     // Step(
     //   state: _activeStepIndex<= 1? StepState.editing : StepState.complete,
     //   isActive: _activeStepIndex >= 1,
@@ -328,7 +365,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 filled: true,
                 labelText: 'Enter company address :',
                 hintText: 'Company Address',
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.place),
               ),
               keyboardType: TextInputType.text,
             ),
@@ -376,19 +413,30 @@ class _MyHomePageState extends State<MyHomePage> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   filled: true,
-                  labelText: 'Interested In:',
+                  labelText: 'Interested In :',
                   hintText: 'Select your preference',
                   icon: Icon(Icons.interests),
                 ),
                 icon: const Icon(Icons.arrow_drop_down, color: Colors.blueGrey,),
-                items: <String>['Meeting','Proposal','Workshop','Other'].map((String value) {
+                items: <String>[
+                  'cMaintenance',
+                  'cCalibration',
+                  'cFSM',
+                  'Facility Maintenance',
+                  'cDispatch',
+                  'Warehouse',
+                  'cTrack',
+                  'Truck Loading'
+                ].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
                   );
                 }).toList(),
                 onChanged: (values) {
-                  setState(() {}
+                  setState(() {
+                    interestedInValue = values!;
+                  }
                   );
                 },
               ),
@@ -398,6 +446,69 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.only(bottom: 30.0),
             ),
 
+            Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: DropdownButtonFormField<String>(
+                isExpanded: true,
+                //iconSize: 30,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  labelText: 'Next Steps :',
+                  hintText: 'Select your preference',
+                  icon: Icon(Icons.next_plan),
+                ),
+                icon: const Icon(Icons.arrow_drop_down, color: Colors.blueGrey,),
+                items: <String>['Meeting','Proposal','Workshop','Other'].map((String value1) {
+                  return DropdownMenuItem<String>(
+                    value: value1,
+                    child: Text(value1),
+                  );
+                }).toList(),
+                onChanged: (values) {
+                  setState(() {
+                    nextStepsValue = values!;
+                  }
+                  );
+                },
+              ),
+            ),
+
+            const Padding(
+              padding: EdgeInsets.only(bottom: 30.0),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: DropdownButtonFormField<String>(
+                isExpanded: true,
+                //iconSize: 30,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  labelText: 'Reach Out In :',
+                  hintText: 'Select your preference',
+                  icon: Icon(Icons.handshake),
+                ),
+                icon: const Icon(Icons.arrow_drop_down, color: Colors.blueGrey,),
+                items: <String>['1M','3M','6M','12M'].map((String value1) {
+                  return DropdownMenuItem<String>(
+                    value: value1,
+                    child: Text(value1),
+                  );
+                }).toList(),
+                onChanged: (values) {
+                  setState(() {
+                    reachOutValue = values!;
+                  }
+                  );
+                },
+              ),
+            ),
+
+            const Padding(
+              padding: EdgeInsets.only(bottom: 30.0),
+            ),
 
             // date field
 
@@ -428,10 +539,10 @@ class _MyHomePageState extends State<MyHomePage> {
             //   keyboardType: TextInputType.text,
             // ),
 
-
             CustomDatePickerFormField(
-                controller: _dateOfBirthController,
-                txtLabel: "Date Of Birth",
+                controller: dateOfNextStepscontroller,
+                txtLabel: "Next Steps Planned On :",
+                //hintText: 'Select your preference',
                 callback: () {
                   pickDateOfBirth(context);
                 }),
@@ -442,6 +553,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             TextFormField(
               //controller: ,
+              controller: comments,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 filled: true,
@@ -475,6 +587,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   wordSpacing: 1,
                   fontWeight: FontWeight.w500),
             ),
+
+            Text('Personal Data : $getResult',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+
             Text('Email : ${email.text}',
               style: const TextStyle(
                   fontSize: 20,
@@ -487,7 +607,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   wordSpacing: 1,
                   fontWeight: FontWeight.w500),
             ),
-            Text('Gender: ${gender.text}',
+            Text('Gender: $genderValue',
               style: const TextStyle(
                   fontSize: 20,
                   wordSpacing: 1,
@@ -557,6 +677,40 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.w500),
             ),
 
+            Text('Interested In : $interestedInValue',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+            Text('Next Steps : $nextStepsValue',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+
+            Text('Reach Out In : $reachOutValue',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+
+            Text('Next Steps Planned : ${dateOfNextStepscontroller.text}',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+
+            Text('Comments : ${comments.text}',
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
+            ),
+
             // Center(
             //   child: ElevatedButton(
             //     onPressed: (){
@@ -578,12 +732,32 @@ class _MyHomePageState extends State<MyHomePage> {
       //drawer: ,
       backgroundColor: Colors.white,
       appBar:
-      AppBar(title: const Center(child: Text('Crave Guest Registration')),
+      AppBar(
+        title: const Center(child:
+        Text('Crave Client Registration')
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.qr_code,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              scanQRCode();
+              qr.value = TextEditingValue(
+                text: getResult,
+                selection: TextSelection.fromPosition(
+                  TextPosition(offset: getResult.length),
+                ),
+              );
+              // do something
+            },
+          )
+        ],
         backgroundColor: const Color(0xFF004B8D),
       ),
       //
       floatingActionButton: FloatingActionButton.extended(
-
         backgroundColor: const Color(0xFF004B8D),
         //icon: const Icon(Icons.save),
         onPressed: () {
@@ -602,6 +776,12 @@ class _MyHomePageState extends State<MyHomePage> {
           final companyAddress2 = companyAddress.text;
           final companyMail2 = companyMail.text;
           final website2 = website.text;
+          final interestedIn2 = interestedInValue;
+          final nextSteps2 = nextStepsValue;
+          final reachOutIn2 = reachOutValue;
+          final nextStepsPlanned2 = dateOfNextStepscontroller;
+          final comments2 = comments;
+
 
           createuser(
             name: name2,
@@ -617,12 +797,16 @@ class _MyHomePageState extends State<MyHomePage> {
             companyAdd: companyAddress2,
             companyMail: companyMail2,
             website: website2,
+            interestedInValue: interestedIn2,
+            nextStepsValue: nextSteps2,
+            reachOutValue: reachOutIn2,
+            dateOfNextStepscontroller: nextStepsPlanned2,
+            comments: comments2,
           );
         },
         label: const Text("Submit Data"),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
-
       //
       body: Stepper(
         type: StepperType.horizontal,
@@ -649,7 +833,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-
   Future createuser( {
     required String
     name,
@@ -665,6 +848,12 @@ class _MyHomePageState extends State<MyHomePage> {
     companyAdd,
     companyMail,
     website,
+    interestedInValue,
+    nextStepsValue,
+    reachOutValue,
+    dateOfNextStepscontroller,
+    comments,
+
 
   }) async {
     final docuser = FirebaseFirestore.instance.collection('guest').doc();
@@ -683,6 +872,11 @@ class _MyHomePageState extends State<MyHomePage> {
       companyAdd: companyAdd,
       companyMail: companyMail,
       website: website,
+      interestedInValue:interestedInValue ,
+      nextStepsValue: nextStepsValue,
+      reachOutValue: reachOutValue,
+      dateOfNextStepscontroller: dateOfNextStepscontroller,
+      comments: comments,
 
     );
     final json = customer.toJson();
@@ -693,7 +887,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final initialDate = DateTime.now();
     final newDate = await showDatePicker(
       context: context,
-      initialDate: _dateOfBirth ?? initialDate,
+      initialDate: _dateofNextStep ?? initialDate,
       firstDate: DateTime(DateTime.now().year - 100),
       lastDate: DateTime(DateTime.now().year + 1),
       builder: (context, child) => Theme(
@@ -711,11 +905,28 @@ class _MyHomePageState extends State<MyHomePage> {
       return;
     }
     setState(() {
-      _dateOfBirth = newDate;
+      _dateofNextStep = newDate;
       String dob = DateFormat('dd/MM/yyy').format(newDate);
 
-      _dateOfBirthController.text = dob;
+      dateOfNextStepscontroller.text = dob;
     });
+  }
+
+  void scanQRCode() async {
+    try{
+      final qrCode = await FlutterBarcodeScanner.scanBarcode('#ff6666', 'Cancel', true, ScanMode.QR);
+
+      if (!mounted) return;
+
+      setState(() {
+        getResult = qrCode;
+      });
+      // print("QRCode_Result: ");
+      // print(qrCode);
+    } on PlatformException {
+      getResult = 'Failed to scan QR Code.';
+    }
+
   }
 }
 
@@ -734,6 +945,11 @@ class Customer {
   final String companyAdd;
   final String companyMail;
   final String website;
+  final String interestedInValue;
+  final String nextStepsValue;
+  final String reachOutValue;
+  final String dateOfNextStepscontroller;
+  final String comments;
 
 
   Customer({
@@ -751,6 +967,11 @@ class Customer {
     required this.companyAdd,
     required this.companyMail,
     required this.website,
+    required this.interestedInValue,
+    required this.nextStepsValue,
+    required this.reachOutValue,
+    required this.dateOfNextStepscontroller,
+    required this.comments,
 
   });
 
@@ -769,6 +990,11 @@ class Customer {
     'companyAdd': companyAdd,
     'companyMail': companyMail,
     'website': website,
+    'interestedInValue' : interestedInValue,
+    'nextStepsValue' : nextStepsValue,
+    'reachOutValue' : reachOutValue,
+    'dateOfNextStepscontroller' : dateOfNextStepscontroller,
+    'comments' : comments,
   };
 
   static Customer fromJson(Map<String, dynamic> json) =>
@@ -786,6 +1012,11 @@ class Customer {
         companyAdd: json['companyAdd'],
         companyMail: json['companyMail'],
         website: json['website'],
+        interestedInValue: json['interestedIn'],
+        nextStepsValue: json['nextStepsValue'],
+        reachOutValue: json['reachOutValue'],
+        dateOfNextStepscontroller: json['dateOfNextStepscontroller'],
+        comments: json['comments'],
       );
 }
 

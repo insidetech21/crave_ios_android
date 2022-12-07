@@ -16,7 +16,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Card makeDashboardItems(String title, String img, int index){
     return Card(
-      elevation: 2,
+      elevation: 8,
       margin: const EdgeInsets.all(8),
       child: Container(
         decoration: BoxDecoration(
@@ -56,10 +56,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Navigator.push(context, MaterialPageRoute(builder: (context) =>  const MyCustomWidget()));
 
             }
-            if(index == 3){
-              //4. Item
-
-            }
+            // if(index == 3){
+            //   //4. Item
+            //
+            // }
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -94,7 +94,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,47 +101,57 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: Column(
         children: [
           const SizedBox(height: 100),
-          Padding(padding: const EdgeInsets.only(left: 16, right: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Center(
-                      child: Text(
-                        "Crave Client Registration Dashboard",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 30,
+                  right: 0,
+                  bottom: 20,
+                  top: 0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const [
+                      Center(
+                        child: Text(
+                          "Client Registration Dashboard",
+                           style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
 
-                    SizedBox(height: 4,),
-
-                    // Text(
-                    //   "Items: ",
-                    //   style: TextStyle(
-                    //       fontSize: 18,
-                    //       fontWeight: FontWeight.bold
-                    //   ),
-                    // ),
-                  ],
-                )
-              ],
+                      //SizedBox(height: 10),
+                      // Text(
+                      //   "Items: ",
+                      //   style: TextStyle(
+                      //       fontSize: 18,
+                      //       fontWeight: FontWeight.bold
+                      //   ),
+                      // ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
 
-          const SizedBox(height: 20),
-          Expanded(child: GridView.count(crossAxisCount: 2,padding:  const EdgeInsets.all(2),
+          const SizedBox(height: 160),
+          Expanded(child: GridView.count(
+            crossAxisCount: 2,
+            padding:  const EdgeInsets.all(2),
             children: [
-              makeDashboardItems("Insert Data", "assets/user.png", 0),
-              makeDashboardItems("View Data", "assets/view.png", 1),
-              makeDashboardItems("Scan", "assets/barcode-scan.png", 2),
-              makeDashboardItems("About", "assets/about.png", 3)
-
-            ],))
+              makeDashboardItems("Add Client", "assets/user.png",0),
+              makeDashboardItems("Client List", "assets/view.png",1),
+              // makeDashboardItems("Scan", "assets/barcode-scan.png",2),
+              // makeDashboardItems("About", "assets/about.png",3),
+            ],
+          ),
+          ),
         ],
       ),
       // appBar: AppBar(
