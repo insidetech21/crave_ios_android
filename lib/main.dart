@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Crave Guest Registration',
+      title: 'Crave Client Registration',
       theme: ThemeData(
         canvasColor: Colors.white70,
         colorScheme: Theme.of(context).colorScheme.copyWith(
@@ -59,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController companyAddress = TextEditingController();
   TextEditingController companyMail = TextEditingController();
   TextEditingController website = TextEditingController();
+  TextEditingController date = TextEditingController();
 
 //
 //   String result = "Hello World...!";
@@ -171,7 +172,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     value: value,
                     child: Text(value),
                   );
-
                 }).toList(),
                 onChanged: (values) {
                   setState(() {}
@@ -301,7 +301,7 @@ class _MyHomePageState extends State<MyHomePage> {
       isActive: _activeStepIndex >= 1,
       title: const Text('Company\nDetails'),
       content: SingleChildScrollView(
-        padding: const EdgeInsets.only(top: 25.0, right: 30.0, bottom: 25.0, left: 10.0),
+        padding: const EdgeInsets.only(top: 25.0, right: 0.0, bottom: 25.0, left: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
@@ -359,12 +359,85 @@ class _MyHomePageState extends State<MyHomePage> {
                 hintText: 'Company Website',
                 icon: Icon(Icons.web),
               ),
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text,
             ),
-
 
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: DropdownButtonFormField<String>(
+                isExpanded: true,
+                //iconSize: 30,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  labelText: 'Interested In:',
+                  hintText: 'Select your preference',
+                  icon: Icon(Icons.interests),
+                ),
+                icon: const Icon(Icons.arrow_drop_down, color: Colors.blueGrey,),
+                items: <String>['Meeting','Proposal','Workshop','Other'].map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (values) {
+                  setState(() {}
+                  );
+                },
+              ),
+            ),
+
+            const Padding(
+              padding: EdgeInsets.only(bottom: 30.0),
+            ),
+
+            TextFormField(
+              controller: date,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                filled: true,
+                labelText: ' Select Date',
+                //hintText: 'Select Date',
+                icon: Icon(Icons.calendar_today),
+              ),
+              onTap: () async {
+                DateTime? pickeddate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2101));
+
+                if(pickeddate != null){
+                  setState(() {
+                    //date.text = ('yyyy-MM-dd').format(pickeddate);
+
+                  });
+                }
+
+                },
+              keyboardType: TextInputType.text,
+            ),
+
+            const Padding(
+              padding: EdgeInsets.only(bottom: 30.0),
+            ),
+
+            TextFormField(
+              //controller: ,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                filled: true,
+                labelText: 'Comments :',
+                hintText: 'Any Comments ?',
+                icon: Icon(Icons.comment),
+              ),
+              keyboardType: TextInputType.text,
+              maxLines: 2,
             ),
           ],
         ),
@@ -673,4 +746,44 @@ class Customer {
         website: json['website'],
       );
 }
-  
+
+
+/*
+Future <void> pickDateOfBirth(BuildContext context) async{
+
+  final initialDate = DateTime.now();
+  final newDate = await showDatePicker(
+      context: context,
+      initialDate: _dateOfBirth ?? initialDate, // for selected date as it is
+      firstDate: DateTime(DateTime.now().year - 100),
+      lastDate: DateTime(DateTime.now().year + 1),
+
+      builder: (context,child) => Theme(
+        data: ThemeData().copyWith(
+          colorScheme: const ColorScheme.light(
+            primary: Colors.yellow,
+            onPrimary: Colors.pink,
+            onSurface: Colors.black,
+          ),
+          dialogBackgroundColor: Colors.white,
+        ),
+        child: child ?? const Text(''),
+      )
+  );
+
+  if(newDate == null)
+  {
+    return;
+  }
+
+  setState(() {
+
+    _dateOfBirth = newDate; // for selected date as it is
+    String dob = DateFormat('dd/MM/yyyy').format(newDate);
+    //_dateOfBirthController.text = newDate.toIso8601String();
+    _dateOfBirthController.text = dob;
+  });
+}
+}
+
+*/

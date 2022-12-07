@@ -111,7 +111,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   children: const [
                     Center(
                       child: Text(
-                        "Crave User Registration Dashboard",
+                        "Crave Client Registration Dashboard",
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold
@@ -141,7 +141,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
               makeDashboardItems("View Data", "assets/view.png", 1),
               makeDashboardItems("Scan", "assets/barcode-scan.png", 2),
               makeDashboardItems("About", "assets/about.png", 3)
-
 
             ],))
         ],
