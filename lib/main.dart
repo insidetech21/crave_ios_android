@@ -3,10 +3,10 @@ import 'package:craveiospro/viewcust.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:intl/intl.dart';
+import 'custom_date_picker_form_field.dart';
 
 //mohnish
-
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,6 +60,8 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController companyMail = TextEditingController();
   TextEditingController website = TextEditingController();
   TextEditingController date = TextEditingController();
+  final TextEditingController _dateOfBirthController = TextEditingController();
+  DateTime? _dateOfBirth;
 
 //
 //   String result = "Hello World...!";
@@ -92,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Step(
       state: _activeStepIndex<= 0? StepState.editing : StepState.complete,
       isActive: _activeStepIndex >= 0,
-      title: const Text('Personal\nDetails'),
+      title: const Text('Step 1'),
       content: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 25.0, right: 0.0, bottom: 25.0, left: 10.0),
         child: Column(
@@ -176,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onChanged: (values) {
                   setState(() {}
                   );
-                  },
+                },
               ),
             ),
 
@@ -299,7 +301,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Step(
       state: _activeStepIndex<= 1? StepState.editing : StepState.complete,
       isActive: _activeStepIndex >= 1,
-      title: const Text('Company\nDetails'),
+      title: const Text('Step 2'),
       content: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 25.0, right: 0.0, bottom: 25.0, left: 10.0),
         child: Column(
@@ -396,32 +398,43 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.only(bottom: 30.0),
             ),
 
-            TextFormField(
-              controller: date,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                filled: true,
-                labelText: ' Select Date',
-                //hintText: 'Select Date',
-                icon: Icon(Icons.calendar_today),
-              ),
-              onTap: () async {
-                DateTime? pickeddate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2101));
 
-                if(pickeddate != null){
-                  setState(() {
-                    //date.text = ('yyyy-MM-dd').format(pickeddate);
+            // date field
 
-                  });
-                }
+            // TextFormField(
+            //   controller: date,
+            //   decoration: const InputDecoration(
+            //     border: OutlineInputBorder(),
+            //     filled: true,
+            //     labelText: ' Select Date',
+            //     //hintText: 'Select Date',
+            //     icon: Icon(Icons.calendar_today),
+            //   ),
+            //   onTap: () async {
+            //     DateTime? pickeddate = await showDatePicker(
+            //         context: context,
+            //         initialDate: DateTime.now(),
+            //         firstDate: DateTime(2000),
+            //         lastDate: DateTime(2101));
 
-                },
-              keyboardType: TextInputType.text,
-            ),
+            //     if(pickeddate != null){
+            //       setState(() {
+            //         //date.text = ('yyyy-MM-dd').format(pickeddate);
+
+            //       });
+            //     }
+
+            //     },
+            //   keyboardType: TextInputType.text,
+            // ),
+
+
+            CustomDatePickerFormField(
+                controller: _dateOfBirthController,
+                txtLabel: "Date Of Birth",
+                callback: () {
+                  pickDateOfBirth(context);
+                }),
 
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
@@ -448,7 +461,7 @@ class _MyHomePageState extends State<MyHomePage> {
       isActive: _activeStepIndex >= 2,
       title: const Padding(
         padding: EdgeInsets.all(8.0),
-        child: Text('Confirm\nDetails'),
+        child: Text('Step 3'),
       ),
       content: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -457,10 +470,10 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text('Name : ${name.text}',
-                style: const TextStyle(
-                fontSize: 20,
-                wordSpacing: 1,
-                fontWeight: FontWeight.w500),
+              style: const TextStyle(
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
             ),
             Text('Email : ${email.text}',
               style: const TextStyle(
@@ -470,9 +483,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text('Mobile Number : ${mobilenumber.text}',
               style: const TextStyle(
-                fontSize: 20,
-                wordSpacing: 1,
-                fontWeight: FontWeight.w500),
+                  fontSize: 20,
+                  wordSpacing: 1,
+                  fontWeight: FontWeight.w500),
             ),
             Text('Gender: ${gender.text}',
               style: const TextStyle(
@@ -591,19 +604,19 @@ class _MyHomePageState extends State<MyHomePage> {
           final website2 = website.text;
 
           createuser(
-              name: name2,
-              email:email2,
-              mobilenumber: mobilenumber2,
-              addressStreet1: addressStreet1_2,
-              addressStreet2: addressStreet2_2,
-              pincode: pincode2,
-              addressCity: addressCity2,
-              state: state2,
-              country: country2,
-              companyName: companyName2,
-              companyAdd: companyAddress2,
-              companyMail: companyMail2,
-              website: website2,
+            name: name2,
+            email:email2,
+            mobilenumber: mobilenumber2,
+            addressStreet1: addressStreet1_2,
+            addressStreet2: addressStreet2_2,
+            pincode: pincode2,
+            addressCity: addressCity2,
+            state: state2,
+            country: country2,
+            companyName: companyName2,
+            companyAdd: companyAddress2,
+            companyMail: companyMail2,
+            website: website2,
           );
         },
         label: const Text("Submit Data"),
@@ -674,6 +687,35 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     final json = customer.toJson();
     await docuser.set(json);
+  }
+
+  Future<void> pickDateOfBirth(BuildContext context) async {
+    final initialDate = DateTime.now();
+    final newDate = await showDatePicker(
+      context: context,
+      initialDate: _dateOfBirth ?? initialDate,
+      firstDate: DateTime(DateTime.now().year - 100),
+      lastDate: DateTime(DateTime.now().year + 1),
+      builder: (context, child) => Theme(
+          data: ThemeData().copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Color(0xFF004B8D),
+              onPrimary: Colors.white,
+              onSecondary: Colors.black,
+            ),
+            dialogBackgroundColor: Colors.white,
+          ),
+          child: child ?? const Text('')),
+    );
+    if (newDate == null) {
+      return;
+    }
+    setState(() {
+      _dateOfBirth = newDate;
+      String dob = DateFormat('dd/MM/yyy').format(newDate);
+
+      _dateOfBirthController.text = dob;
+    });
   }
 }
 
@@ -750,14 +792,12 @@ class Customer {
 
 /*
 Future <void> pickDateOfBirth(BuildContext context) async{
-
   final initialDate = DateTime.now();
   final newDate = await showDatePicker(
       context: context,
       initialDate: _dateOfBirth ?? initialDate, // for selected date as it is
       firstDate: DateTime(DateTime.now().year - 100),
       lastDate: DateTime(DateTime.now().year + 1),
-
       builder: (context,child) => Theme(
         data: ThemeData().copyWith(
           colorScheme: const ColorScheme.light(
@@ -770,14 +810,11 @@ Future <void> pickDateOfBirth(BuildContext context) async{
         child: child ?? const Text(''),
       )
   );
-
   if(newDate == null)
   {
     return;
   }
-
   setState(() {
-
     _dateOfBirth = newDate; // for selected date as it is
     String dob = DateFormat('dd/MM/yyyy').format(newDate);
     //_dateOfBirthController.text = newDate.toIso8601String();
@@ -785,5 +822,4 @@ Future <void> pickDateOfBirth(BuildContext context) async{
   });
 }
 }
-
 */
