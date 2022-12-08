@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController mobilenumber = TextEditingController();
-  TextEditingController gender = TextEditingController();
+  //TextEditingController gender = TextEditingController();
   TextEditingController addressStreet1 = TextEditingController();
   TextEditingController addressStreet2 = TextEditingController();
   TextEditingController addressCity = TextEditingController();
@@ -764,7 +764,8 @@ class _MyHomePageState extends State<MyHomePage> {
           //_scanQR(); // calling a function when user click on button
 
           final name2 = name.text;
-          final email2= email.text;
+          final email2 = email.text;
+          final genderValue2 = genderValue;
           final mobilenumber2 = mobilenumber.text;
           final addressStreet1_2 = addressStreet1.text;
           final addressStreet2_2 = addressStreet2.text;
@@ -779,13 +780,14 @@ class _MyHomePageState extends State<MyHomePage> {
           final interestedIn2 = interestedInValue;
           final nextSteps2 = nextStepsValue;
           final reachOutIn2 = reachOutValue;
-          final nextStepsPlanned2 = dateOfNextStepscontroller;
-          final comments2 = comments;
+          final nextStepsPlanned2 = dateOfNextStepscontroller.text;
+          final comments2 = comments.text;
 
 
           createuser(
             name: name2,
             email:email2,
+            genderValue: genderValue2,
             mobilenumber: mobilenumber2,
             addressStreet1: addressStreet1_2,
             addressStreet2: addressStreet2_2,
@@ -837,6 +839,7 @@ class _MyHomePageState extends State<MyHomePage> {
     required String
     name,
     email,
+    genderValue,
     mobilenumber,
     addressStreet1,
     addressStreet2,
@@ -855,12 +858,14 @@ class _MyHomePageState extends State<MyHomePage> {
     comments,
 
 
+
   }) async {
     final docuser = FirebaseFirestore.instance.collection('guest').doc();
     final customer = Customer(
       id: docuser.id,
       name: name,
       email: email,
+      genderValue: genderValue,
       mobilenumber: mobilenumber,
       addressStreet1: addressStreet1,
       addressStreet2: addressStreet2,
@@ -934,6 +939,7 @@ class Customer {
   String id;
   final String name;
   final String email;
+  final String genderValue;
   final String mobilenumber;
   final String addressStreet1;
   final String addressStreet2;
@@ -956,6 +962,7 @@ class Customer {
     this.id = '',
     required this.name,
     required this.email,
+    required this.genderValue,
     required this.mobilenumber,
     required this.addressStreet1,
     required this.addressStreet2,
@@ -979,6 +986,7 @@ class Customer {
     'id': id,
     'name': name,
     'email': email,
+    'genderValue': genderValue,
     'mobilenumber': mobilenumber,
     'addressStreet1': addressStreet1,
     'addressStreet2': addressStreet2,
@@ -990,10 +998,10 @@ class Customer {
     'companyAdd': companyAdd,
     'companyMail': companyMail,
     'website': website,
-    'interestedInValue' : interestedInValue,
-    'nextStepsValue' : nextStepsValue,
-    'reachOutValue' : reachOutValue,
-    'dateOfNextStepscontroller' : dateOfNextStepscontroller,
+    'interestedIn' : interestedInValue,
+    'nextSteps' : nextStepsValue,
+    'reachOut' : reachOutValue,
+    'dateOfNextStepsPlanned' : dateOfNextStepscontroller,
     'comments' : comments,
   };
 
@@ -1001,6 +1009,7 @@ class Customer {
       Customer(
         name: json['name'],
         email: json['email'],
+        genderValue: json['genderValue'],
         mobilenumber: json['mobilenumber'],
         pincode: json['pincode'],
         addressStreet1: json ['addressStreet1'],
@@ -1013,9 +1022,9 @@ class Customer {
         companyMail: json['companyMail'],
         website: json['website'],
         interestedInValue: json['interestedIn'],
-        nextStepsValue: json['nextStepsValue'],
-        reachOutValue: json['reachOutValue'],
-        dateOfNextStepscontroller: json['dateOfNextStepscontroller'],
+        nextStepsValue: json['nextSteps'],
+        reachOutValue: json['reachOut'],
+        dateOfNextStepscontroller: json['dateOfNextStepsPlanned'],
         comments: json['comments'],
       );
 }

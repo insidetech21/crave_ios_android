@@ -106,7 +106,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                                           ),
                                           const SizedBox(width: 0,),
                                           Text(
-                                            '${data['gender']}',
+                                            '${data['genderValue']}',
                                             style: const TextStyle(fontSize: 20),
                                           ),
                                           const SizedBox(height: 40,),
@@ -236,7 +236,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                                       Row(
                                         children: [
                                           const Text(
-                                            'Company Name : ',
+                                            'C-Name : ',
                                             style: TextStyle(fontSize: 20,
                                                 fontWeight: FontWeight.w600
                                             ),
@@ -255,7 +255,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                                       Row(
                                         children: [
                                           const Text(
-                                            'Company Address : ',
+                                            'C-Add : ',
                                             style: TextStyle(fontSize: 20,
                                                 fontWeight: FontWeight.w600
                                             ),
@@ -273,7 +273,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                                       Row(
                                         children: [
                                           const Text(
-                                            'Company Mail : ',
+                                            'C-Mail : ',
                                             style: TextStyle(fontSize: 20,
                                                 fontWeight: FontWeight.w600
                                             ),
@@ -301,6 +301,101 @@ class _SingleuserreadState extends State<Singleuserread> {
                                           const SizedBox(width: 0,),
                                           Text(
                                             '${data['website']}',
+                                            style: const TextStyle(fontSize: 20
+                                            ),
+                                            maxLines: 2,
+                                          ),
+                                          const SizedBox(height: 40,),
+                                        ],
+                                      ),
+
+                                      Row(
+                                        children: [
+                                          const Text(
+                                            'Interested In :',
+                                            style: TextStyle(fontSize: 20,
+                                                fontWeight: FontWeight.w600
+                                            ),
+                                          ),
+                                          const SizedBox(width: 0,),
+                                          Text(
+                                            '${data['interestedIn']}',
+                                            style: const TextStyle(fontSize: 20
+                                            ),
+                                            maxLines: 2,
+                                          ),
+                                          const SizedBox(height: 40,),
+                                        ],
+                                      ),
+
+                                      Row(
+                                        children: [
+                                          const Text(
+                                            'Next Steps :',
+                                            style: TextStyle(fontSize: 20,
+                                                fontWeight: FontWeight.w600
+                                            ),
+                                          ),
+                                          const SizedBox(width: 0,),
+                                          Text(
+                                            '${data['nextSteps']}',
+                                            style: const TextStyle(fontSize: 20
+                                            ),
+                                            maxLines: 2,
+                                          ),
+                                          const SizedBox(height: 40,),
+                                        ],
+                                      ),
+
+                                      Row(
+                                        children: [
+                                          const Text(
+                                            'Reach Out In :',
+                                            style: TextStyle(fontSize: 20,
+                                                fontWeight: FontWeight.w600
+                                            ),
+                                          ),
+                                          const SizedBox(width: 0,),
+                                          Text(
+                                            '${data['reachOut']}',
+                                            style: const TextStyle(fontSize: 20
+                                            ),
+                                            maxLines: 2,
+                                          ),
+                                          const SizedBox(height: 40,),
+                                        ],
+                                      ),
+
+                                      Row(
+                                        children: [
+                                          const Text(
+                                            'D-N-S Planned :',
+                                            style: TextStyle(fontSize: 20,
+                                                fontWeight: FontWeight.w600
+                                            ),
+                                          ),
+                                          const SizedBox(width: 0,),
+                                          Text(
+                                            '${data['dateOfNextStepsPlanned']}',
+                                            style: const TextStyle(fontSize: 20
+                                            ),
+                                            maxLines: 2,
+                                          ),
+                                          const SizedBox(height: 40,),
+                                        ],
+                                      ),
+
+                                      Row(
+                                        children: [
+                                          const Text(
+                                            'Comments :',
+                                            style: TextStyle(fontSize: 20,
+                                                fontWeight: FontWeight.w600
+                                            ),
+                                          ),
+                                          const SizedBox(width: 0,),
+                                          Text(
+                                            '${data['comments']}',
                                             style: const TextStyle(fontSize: 20
                                             ),
                                             maxLines: 2,

@@ -38,7 +38,12 @@ class ReadUsers extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
                   child: Text(
-                    'Name: ${data['name']}\nEmail: ${data['email']}\nCity: ${data['addressCity']}\nCompany: ${data['companyName']}\nWebsite: ${data['website']}',
+                    'Name : ${data['name']}\n'
+                        'Email : ${data['email']}\n'
+                        'City : ${data['addressCity']}\n'
+                        'Company : ${data['companyName']}\n'
+                        'Website : ${data['website']}\n'
+                        'Interested In : ${data['interestedIn']}',
                     style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),
                   ),
                 ),
