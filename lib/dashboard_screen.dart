@@ -1,4 +1,5 @@
 import 'package:craveiospro/main.dart';
+import 'package:craveiospro/ocr_scanner.dart';
 import 'package:craveiospro/qr_scanner.dart';
 import 'package:craveiospro/viewcust.dart';
 import 'package:flutter/material.dart';
@@ -51,9 +52,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Navigator.push(context, MaterialPageRoute(builder: (context) => const ViewCustomer()));
 
             }
-            if(index == 2){
+           if(index == 2){
               //3. Item
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>  const MyCustomWidget()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>  const OcrScanner()));
 
             }
             // if(index == 3){
@@ -147,8 +148,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             children: [
               makeDashboardItems("Add Client", "assets/user.png",0),
               makeDashboardItems("Client List", "assets/view.png",1),
-              // makeDashboardItems("Scan", "assets/barcode-scan.png",2),
-              // makeDashboardItems("About", "assets/about.png",3),
+              makeDashboardItems("Scan", "assets/ocr.png",2),
+              makeDashboardItems("About", "assets/about.png",3),
             ],
           ),
           ),

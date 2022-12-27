@@ -1,5 +1,8 @@
 import 'package:craveiospro/dashboard_screen.dart';
+import 'package:craveiospro/image_pic.dart';
 import 'package:craveiospro/viewcust.dart';
+import 'package:csc_picker/csc_picker.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,9 +10,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:intl/intl.dart';
 import 'custom_date_picker_form_field.dart';
-
-
-//mohnish
+import 'package:firebase_database/firebase_database.dart';
+import 'ocr_scanner.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:csc_picker/csc_picker.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +21,15 @@ Future main() async {
   runApp(
       const MyApp()
   );
+  FirebaseDatabase.instance.setPersistenceEnabled(true);
+  final scoresRef = FirebaseDatabase.instance.ref("scores");
+  scoresRef.keepSynced(true);
+
+  final FirebaseDatabase database = FirebaseDatabase.instance;
+  //database.setPersistenceEnabled(true);
+  database.setPersistenceCacheSizeBytes(10000000);
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   // This widget is the root of your application.
@@ -46,6 +58,13 @@ class MyHomePage extends StatefulWidget {
 }
 class _MyHomePageState extends State<MyHomePage> {
 
+  String selectedImagePath = ""; // For Image Picker
+  XFile? image;                  // For Image Picker
+
+  final ImagePicker picker = ImagePicker();    // For Image Picker
+
+  bool isCompleted = false; //Check completeness of input
+  final _formKey = GlobalKey<FormState>(); // form object to be used for form validation
   int _activeStepIndex = 0;
 
   TextEditingController name = TextEditingController();
@@ -73,6 +92,9 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController comments = TextEditingController();
 
   String genderValue = '';
+  String cityValue = '';
+  String stateValue = '';
+  String countryValue = '';
   String interestedInValue = '';
   String nextStepsValue = '';
   String reachOutValue = '';
@@ -112,30 +134,37 @@ class _MyHomePageState extends State<MyHomePage> {
       isActive: _activeStepIndex >= 0,
       title: const Text('Step 1'),
       content: SingleChildScrollView(
-        padding: const EdgeInsets.only(top: 25.0, right: 0.0, bottom: 25.0, left: 10.0),
+        padding: const EdgeInsets.only(top: 25.0, right: 0.0, bottom: 25.0, left: 0.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             TextFormField(
               controller: name,
               decoration: const InputDecoration(
+                fillColor: Colors.transparent,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                ),
+
                 border: OutlineInputBorder(),
                 filled: true,
                 labelText: 'Enter Name :',
                 hintText: 'Full Name',
                 icon: Icon(Icons.person),
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please Enter Full Name';
+                }
+                return null;
+              },
             ),
 
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
             ),
 
-            // const Card(
-            //   child: Text('Tap here to Scan QR')
-            //
-            // ),
-            TextFormField(
+           /* TextFormField(
               controller: qr,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
@@ -144,15 +173,34 @@ class _MyHomePageState extends State<MyHomePage> {
                 //hintText: 'Scan QR/Bar Code',
                 icon: Icon(Icons.qr_code),
               ),
-              readOnly: true,
+              readOnly: false,
               showCursor: false,
+              autocorrect: true,
+              enableIMEPersonalizedLearning: true,
+              // onChanged: (qr){
+              //   dispose();
+              // },
+
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please Scan the QR or Bar Code';
+                }
+                return null;
+              },
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
-            ),
+            ),*/
+
             TextFormField(
               controller: mobilenumber,
               decoration: const InputDecoration(
+
+                fillColor: Colors.transparent,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                ),
+
                 border: OutlineInputBorder(),
                 filled: true,
                 labelText: 'Enter Mobile Number :',
@@ -160,6 +208,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.call),
               ),
               keyboardType: TextInputType.number,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please Enter Mobile Number';
+                }
+                return null;
+              },
             ),
 
             const Padding(
@@ -168,6 +222,12 @@ class _MyHomePageState extends State<MyHomePage> {
             TextFormField(
               controller: email,
               decoration: const InputDecoration(
+
+                fillColor: Colors.transparent,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                ),
+
                 border: OutlineInputBorder(),
                 filled: true,
                 labelText: 'Enter Email Id :',
@@ -175,6 +235,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.email),
               ),
               keyboardType: TextInputType.emailAddress,
+
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please Enter Email ID';
+                }
+                return null;
+              },
             ),
 
             const Padding(
@@ -198,12 +265,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 isExpanded: true,
                 //iconSize: 30,
                 decoration: const InputDecoration(
+                  fillColor: Colors.transparent,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                  ),
                   border: OutlineInputBorder(),
                   filled: true,
                   labelText: 'Select Gender',
                   hintText: 'Gender',
                   icon: Icon(Icons.people_rounded),
                 ),
+
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please Select Gender';
+                  }
+                  return null;
+                },
                 icon: const Icon(Icons.arrow_drop_down, color: Colors.blueGrey,),
                 items: <String>['Male', 'Female', 'Other'].map((String value) {
                   return DropdownMenuItem<String>(
@@ -226,6 +304,10 @@ class _MyHomePageState extends State<MyHomePage> {
             TextFormField(
               controller: addressStreet1,
               decoration: const InputDecoration(
+                fillColor: Colors.transparent,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                ),
                 border: OutlineInputBorder(),
                 filled: true,
                 labelText: 'Enter Street 1 :',
@@ -233,6 +315,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.location_city),
               ),
               keyboardType: TextInputType.text,
+
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please Enter Street 1';
+                }
+                return null;
+              },
             ),
 
             const Padding(
@@ -242,6 +331,10 @@ class _MyHomePageState extends State<MyHomePage> {
             TextFormField(
               controller: addressStreet2,
               decoration: const InputDecoration(
+                fillColor: Colors.transparent,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                ),
                 border: OutlineInputBorder(),
                 filled: true,
                 labelText: 'Enter Street 2 :',
@@ -249,57 +342,282 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.home),
               ),
               keyboardType: TextInputType.text,
+
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please Enter Street 2';
+                }
+                return null;
+              },
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
             ),
 
-            TextFormField(
-              controller: addressCity,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                filled: true,
-                labelText: 'Enter City :',
-                hintText: 'City',
-                icon: Icon(Icons.location_city),
-              ),
-              keyboardType: TextInputType.text,
-            ),
-            const Padding(
-              padding: EdgeInsets.only(bottom: 30.0),
-            ),
+            // TextFormField(
+            //   controller: addressCity,
+            //   decoration: const InputDecoration(
+            //     border: OutlineInputBorder(),
+            //     filled: true,
+            //     labelText: 'Enter City :',
+            //     hintText: 'City',
+            //     icon: Icon(Icons.location_city),
+            //   ),
+            //   keyboardType: TextInputType.text,
+            //
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please Enter City';
+            //     }
+            //     return null;
+            //   },
+            // ),
+            // const Padding(
+            //   padding: EdgeInsets.only(bottom: 30.0),
+            // ),
 
             TextFormField(
               controller: pincode,
               decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+                fillColor: Colors.transparent,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                ),
+                border: OutlineInputBorder(
+                ),
                 filled: true,
+                //fillColor: Color(0xFF004B8D),
                 labelText: 'Enter Zip Code :',
                 hintText: 'Zip',
                 icon: Icon(Icons.pin),
               ),
               keyboardType: TextInputType.number,
+
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please Enter Zip Code';
+                }
+                return null;
+              },
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
             ),
 
+            Column(
+              //crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CSCPicker(
+                  ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
+                  dropdownDecoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(05)),
+                      color: Colors.transparent,
+                      border:
+                      Border.all(color: const Color(0xFF004B8D), width: 1)),
+
+                  ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
+                  disabledDropdownDecoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(5)),
+                      color: Colors.grey.shade200,
+                      border:
+                      Border.all(color: const Color(0xFF004B8D), width: 1)),
+
+                  layout: Layout.vertical,
+                  //flagState: CountryFlag.DISABLE,
+
+                  onCountryChanged: (countryValue){
+                    setState(() {
+                      countryValue = countryValue;
+                    });
+                  },
+
+                  onStateChanged: (stateValue){
+                    setState(() {
+                      stateValue = stateValue;
+                    });
+                  },
+                  onCityChanged: (cityValue){
+                    setState(() {
+                      cityValue = cityValue;
+                    });
+                  },
+
+                  ///Enable disable state dropdown [OPTIONAL PARAMETER]
+                  showStates: false,
+
+                  /// Enable disable city drop down [OPTIONAL PARAMETER]
+                  showCities: false,
+
+
+                  ///Default Country
+                  //defaultCountry: DefaultCountry.India,
+                  //defaultCountry: DefaultCountry.United_States,
+
+
+                  dropdownDialogRadius: 20.0,
+
+                  ///selected item style [OPTIONAL PARAMETER]
+                  selectedItemStyle: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                  ),
+
+                  ///DropdownDialog Heading style [OPTIONAL PARAMETER]
+                  dropdownHeadingStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+
+                  ///DropdownDialog Item style [OPTIONAL PARAMETER]
+                  dropdownItemStyle: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                  ),
+
+                  //currentCountry:,
+
+                  ///Disable country dropdown (Note: use it with default country)
+                  disableCountry: false,
+
+                  ///Search bar radius [OPTIONAL PARAMETER]
+                  searchBarRadius: 50.0,
+
+                ),
+              ],
+            ),
+
+            // Padding(
+            //   padding: const EdgeInsets.all(0.0),
+            //   child: DropdownButtonFormField<String>(
+            //     isExpanded: true,
+            //     //iconSize: 30,
+            //     decoration: const InputDecoration(
+            //       border: OutlineInputBorder(),
+            //       filled: true,
+            //       labelText: 'Select State',
+            //       hintText: 'State',
+            //       icon: Icon(Icons.people_rounded),
+            //     ),
+            //
+            //     validator: (value) {
+            //       if (value == null || value.isEmpty) {
+            //         return 'Please Select State';
+            //       }
+            //       return null;
+            //     },
+            //     icon: const Icon(Icons.arrow_drop_down, color: Colors.blueGrey,),
+            //     items: <String>['Maharashtra','Gujarat','Up', 'MP','Assam'].map((String value) {
+            //       return DropdownMenuItem<String>(
+            //         value: value,
+            //         child: Text(value),
+            //       );
+            //     }).toList(),
+            //     onChanged: (values) {
+            //       setState(() {
+            //         genderValue = values!;
+            //       }
+            //       );
+            //     },
+            //   ),
+            // ),
+
+            // const Padding(
+            //   padding: EdgeInsets.only(bottom: 30.0),
+            // ),
+
+            // TextFormField(
+            //   controller: state,
+            //   decoration: const InputDecoration(
+            //     border: OutlineInputBorder(),
+            //     filled: true,
+            //     labelText: 'Enter State :',
+            //     hintText: 'State',
+            //     icon: Icon(Icons.map),
+            //   ),
+            //   keyboardType: TextInputType.text,
+            //
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please Enter State';
+            //     }
+            //     return null;
+            //   },
+            // ),
+
+            // const Padding(
+            //   padding: EdgeInsets.only(bottom: 30.0),
+            // ),
+
+
+            // Padding(
+            //   padding: const EdgeInsets.all(0.0),
+            //   child: DropdownButtonFormField<String>(
+            //     isExpanded: true,
+            //     //iconSize: 30,
+            //     decoration: const InputDecoration(
+            //       border: OutlineInputBorder(),
+            //       filled: true,
+            //       labelText: 'Select Country',
+            //       hintText: 'Country',
+            //       icon: Icon(Icons.people_rounded),
+            //     ),
+            //     validator: (value) {
+            //       if (value == null || value.isEmpty) {
+            //         return 'Please Select Country';
+            //       }
+            //       return null;
+            //     },
+            //     icon: const Icon(Icons.arrow_drop_down, color: Colors.blueGrey,),
+            //     items: <String>['US', 'UK', 'Canada','India','Other'].map((String value) {
+            //       return DropdownMenuItem<String>(
+            //         value: value,
+            //         child: Text(value),
+            //       );
+            //     }).toList(),
+            //     onChanged: (values) {
+            //       setState(() {
+            //         genderValue = values!;
+            //       }
+            //       );
+            //     },
+            //   ),
+            // ),
+
+            const Padding(
+              padding: EdgeInsets.only(bottom: 30.0),
+            ),
+
             TextFormField(
-              controller: state,
+              controller: name,
               decoration: const InputDecoration(
+                fillColor: Colors.transparent,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                ),
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Enter State :',
-                hintText: 'State',
-                icon: Icon(Icons.map),
+                labelText: 'Select Image :',
+                hintText: 'Tap here for selecting Image',
+                icon: Icon(Icons.image),
               ),
-              keyboardType: TextInputType.text,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please Upload Image';
+                }
+                return null;
+              },
+              onTap: (){
+                //Navigator.push(context, route)
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>  const ImagePic()));
+              },
             ),
+
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
             ),
 
-            TextFormField(
+
+           /* TextFormField(
               controller: country,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
@@ -309,11 +627,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.flag),
               ),
               keyboardType: TextInputType.text,
+
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please Enter Country';
+                }
+                return null;
+              },
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
-            ),
-
+            ),*/
 
           ],
         ),
@@ -347,6 +671,12 @@ class _MyHomePageState extends State<MyHomePage> {
             TextFormField(
               controller: companyName,
               decoration: const InputDecoration(
+
+                fillColor: Colors.transparent,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                ),
+
                 border: OutlineInputBorder(),
                 filled: true,
                 labelText: 'Enter Company Name :',
@@ -354,6 +684,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.corporate_fare),
               ),
               keyboardType: TextInputType.text,
+
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please Enter Company Name';
+                }
+                return null;
+              },
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
@@ -361,6 +698,12 @@ class _MyHomePageState extends State<MyHomePage> {
             TextFormField(
               controller: companyAddress,
               decoration: const InputDecoration(
+
+                fillColor: Colors.transparent,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                ),
+
                 border: OutlineInputBorder(),
                 filled: true,
                 labelText: 'Enter company address :',
@@ -368,6 +711,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.place),
               ),
               keyboardType: TextInputType.text,
+
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please Enter Company Address';
+                }
+                return null;
+              },
             ),
 
             const Padding(
@@ -377,6 +727,12 @@ class _MyHomePageState extends State<MyHomePage> {
             TextFormField(
               controller: companyMail,
               decoration: const InputDecoration(
+
+                fillColor: Colors.transparent,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                ),
+
                 border: OutlineInputBorder(),
                 filled: true,
                 labelText: 'Enter Email Id :',
@@ -384,6 +740,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.email),
               ),
               keyboardType: TextInputType.emailAddress,
+
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please Enter Company Email ID';
+                }
+                return null;
+              },
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 30.0),
@@ -392,6 +755,12 @@ class _MyHomePageState extends State<MyHomePage> {
             TextFormField(
               controller: website,
               decoration: const InputDecoration(
+
+                fillColor: Colors.transparent,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                ),
+
                 border: OutlineInputBorder(),
                 filled: true,
                 labelText: 'Enter Company Website :',
@@ -399,6 +768,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.web),
               ),
               keyboardType: TextInputType.text,
+
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please Enter Company Website';
+                }
+                return null;
+              },
             ),
 
             const Padding(
@@ -411,12 +787,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 isExpanded: true,
                 //iconSize: 30,
                 decoration: const InputDecoration(
+
+                  fillColor: Colors.transparent,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                  ),
+
                   border: OutlineInputBorder(),
                   filled: true,
                   labelText: 'Interested In :',
                   hintText: 'Select your preference',
                   icon: Icon(Icons.interests),
                 ),
+
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please Select your preference';
+                  }
+                  return null;
+                },
+
                 icon: const Icon(Icons.arrow_drop_down, color: Colors.blueGrey,),
                 items: <String>[
                   'cMaintenance',
@@ -440,6 +830,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 },
               ),
+
             ),
 
             const Padding(
@@ -452,12 +843,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 isExpanded: true,
                 //iconSize: 30,
                 decoration: const InputDecoration(
+
+                  fillColor: Colors.transparent,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                  ),
+
                   border: OutlineInputBorder(),
                   filled: true,
                   labelText: 'Next Steps :',
                   hintText: 'Select your preference',
                   icon: Icon(Icons.next_plan),
                 ),
+
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please Select your next Steps';
+                  }
+                  return null;
+                },
+
                 icon: const Icon(Icons.arrow_drop_down, color: Colors.blueGrey,),
                 items: <String>['Meeting','Proposal','Workshop','Other'].map((String value1) {
                   return DropdownMenuItem<String>(
@@ -484,12 +889,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 isExpanded: true,
                 //iconSize: 30,
                 decoration: const InputDecoration(
+
+                  fillColor: Colors.transparent,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                  ),
+
                   border: OutlineInputBorder(),
                   filled: true,
                   labelText: 'Reach Out In :',
                   hintText: 'Select your preference',
                   icon: Icon(Icons.handshake),
                 ),
+
+                // validator: (value) {
+                //   if (value == null || value.isEmpty) {
+                //     return 'Please Select your preference';
+                //   }
+                //   return null;
+                // },
+
                 icon: const Icon(Icons.arrow_drop_down, color: Colors.blueGrey,),
                 items: <String>['1M','3M','6M','12M'].map((String value1) {
                   return DropdownMenuItem<String>(
@@ -555,12 +974,25 @@ class _MyHomePageState extends State<MyHomePage> {
               //controller: ,
               controller: comments,
               decoration: const InputDecoration(
+
+                fillColor: Colors.transparent,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                ),
+
                 border: OutlineInputBorder(),
                 filled: true,
                 labelText: 'Comments :',
                 hintText: 'Any Comments ?',
                 icon: Icon(Icons.comment),
               ),
+
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please Enter comments';
+                }
+                return null;
+              },
               keyboardType: TextInputType.text,
               maxLines: 2,
             ),
@@ -739,17 +1171,18 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(
-              Icons.qr_code,
+              Icons.document_scanner,
               color: Colors.white,
             ),
             onPressed: () {
-              scanQRCode();
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>  const OcrScanner()));
+              /*scanQRCode();
               qr.value = TextEditingValue(
                 text: getResult,
                 selection: TextSelection.fromPosition(
                   TextPosition(offset: getResult.length),
                 ),
-              );
+              );*/
               // do something
             },
           )
@@ -810,30 +1243,95 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       //
-      body: Stepper(
-        type: StepperType.horizontal,
-        currentStep: _activeStepIndex,
-        steps: stepList(),
-        onStepContinue: () {
-          if (_activeStepIndex < (stepList().length - 1)) {
-            _activeStepIndex += 1;
-          }
-          setState(() {
 
-          },);
-        },
-        onStepCancel: (){
-          if(_activeStepIndex == 0){
-            return;
-          }
-          _activeStepIndex -=1;
-          setState(() {
-
-          });
-        },
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 05),
+        height: 600,
+        child: Stepper(
+          type: StepperType.horizontal,
+          currentStep: _activeStepIndex,
+          steps: stepList(),
+          onStepContinue: () {
+            if (_activeStepIndex < (stepList().length - 1)) {
+              _activeStepIndex += 1;
+            }
+            setState(() {
+            },);
+          },
+          onStepCancel: (){
+            if(_activeStepIndex == 0){
+              return;
+            }
+            _activeStepIndex -=1;
+            setState(() {
+            });
+          },
+            // For Controlling the Stepper Buttons
+            controlsBuilder: (BuildContext context, ControlsDetails details) {
+              return Row(
+                children: <Widget>[
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: details.onStepContinue,
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF004B8D),
+                          // padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                          // textStyle: TextStyle(
+                          //     fontSize: 30,
+                          //     fontWeight: FontWeight.bold)
+                        ),
+                      child: Text(_activeStepIndex  == stepList().length-1? "SUBMIT" : "NEXT"),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  if(_activeStepIndex != 0)
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: details.onStepCancel,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF004B8D),
+                      ),
+                      child: const Text('PREVIOUS'),
+                    ),
+                  ),
+                ],
+              );
+            }
+        ),
       ),
+
+     /* body: const CSCPicker(
+
+        onCountryChanged: (){},
+        onStateChanged: (){},
+        onCityChanged: (){},
+      ),*/
+
     );
   }
+
+  // Its for Validation part
+
+  // bool isCompleted(){
+  //   if (_activeStepIndex == 0){
+  //     //check steps fields
+  //     if(name.text.isEmpty || email.text.isEmpty){
+  //       return false;
+  //     } else{
+  //       return true; // if all fields are not empty
+  //     }
+  //     else  if(_activeStepIndex == 1){
+  //     //it will check second step
+  //       if(companyName.text.isEmpty){
+  //         return false;
+  //       } else{
+  //         return true;
+  //       }
+  //   }
+  //   }
+  // }
 
   Future createuser( {
     required String
@@ -856,8 +1354,6 @@ class _MyHomePageState extends State<MyHomePage> {
     reachOutValue,
     dateOfNextStepscontroller,
     comments,
-
-
 
   }) async {
     final docuser = FirebaseFirestore.instance.collection('guest').doc();
@@ -920,7 +1416,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void scanQRCode() async {
     try{
       final qrCode = await FlutterBarcodeScanner.scanBarcode('#ff6666', 'Cancel', true, ScanMode.QR);
-
       if (!mounted) return;
 
       setState(() {

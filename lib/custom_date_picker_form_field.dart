@@ -22,9 +22,14 @@ class CustomDatePickerFormField extends StatelessWidget {
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
 
-        border: OutlineInputBorder(),
+        fillColor: Colors.transparent,
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+        ),
+
+        border: const OutlineInputBorder(),
         filled: true,
-        icon: Icon(Icons.date_range),
+        icon: const Icon(Icons.date_range),
 
 
 
