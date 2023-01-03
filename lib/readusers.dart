@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ReadUsers extends StatelessWidget {
   final String docid;
-  ReadUsers({required this.docid});
+  const ReadUsers({super.key, required this.docid});
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +39,15 @@ class ReadUsers extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
                   child: Text(
                     'Name : ${data['name']}\n'
-                        'Email : ${data['email']}\n'
-                        'City : ${data['addressCity']}\n'
+                        'Email : ${data['genderValue']}\n'
+                        'Gender : ${data['email']}\n'
+                        'City : ${data['cityValue1']}\n'
+                        'State : ${data['stateValue1']}\n'
+                        'Country : ${data['countryValue1']}\n'
                         'Company : ${data['companyName']}\n'
+                        'Next Steps Planned : ${data['dateOfNextStepscontroller.text']}\n'
                         'Website : ${data['website']}\n'
-                        'Interested In : ${data['interestedIn']}',
+                        'Interested In : ${data['interestedInValue']}',
                     style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),
                   ),
                 ),

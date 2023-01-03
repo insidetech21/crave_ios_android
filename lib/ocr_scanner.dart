@@ -42,7 +42,7 @@ class _OcrScannerState extends State<OcrScanner> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF004B8D),
         centerTitle: true,
-        title: const Text("OCR"),
+        title: const Text("Scan Your Card Here"),
       ),
       body: Center(
           child: SingleChildScrollView(

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'main.dart';
 
 class Singleuserread extends StatefulWidget {
   final String docid;
@@ -15,7 +16,83 @@ class _SingleuserreadState extends State<Singleuserread> {
     CollectionReference users = FirebaseFirestore.instance.collection("guest");
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Single User View'),
+        title: const Text('Client Details'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.update,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              showAlertDialog(BuildContext context) {
+                // set up the buttons
+                Widget cancelButton = TextButton(
+                  child: const Text("Cancel"),
+                  onPressed:  () {},
+                );
+                Widget continueButton = TextButton(
+                  child: const Text("Continue"),
+                  onPressed:  () {},
+                );
+
+                // set up the AlertDialog
+                AlertDialog alert = AlertDialog(
+                  title: const Text("AlertDialog"),
+                  content: const Text("Would you like to continue With Update this Record?"),
+                  actions: [
+                    cancelButton,
+                    continueButton,
+                  ],
+                );
+
+                // show the dialog
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return alert;
+                  },
+                );
+              }
+            },
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              showAlertDialog(BuildContext context) {
+                // set up the buttons
+                Widget cancelButton = TextButton(
+                  child: const Text("Cancel"),
+                  onPressed:  () {},
+                );
+                Widget continueButton = TextButton(
+                  child: const Text("Yes"),
+                  onPressed:  () {},
+                );
+
+                // set up the AlertDialog
+                AlertDialog alert = AlertDialog(
+                  title: const Text("AlertDialog"),
+                  content: const Text("Do You Want to Delete this record ?"),
+                  actions: [
+                    cancelButton,
+                    continueButton,
+                  ],
+                );
+
+                // show the dialog
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return alert;
+                  },
+                );
+              }
+            },
+          )
+        ],
         backgroundColor: const
         Color(0xFF004B8D),
       ),
@@ -192,7 +269,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                                           ),
                                           const SizedBox(width: 0,),
                                           Text(
-                                            '${data['addressCity']}',
+                                            '${data['cityValue1']}',
                                             style: const TextStyle(fontSize: 20),
                                           ),
                                           const SizedBox(height: 40,),
@@ -209,7 +286,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                                           ),
                                           const SizedBox(width: 0,),
                                           Text(
-                                            '${data['state']}',
+                                            '${data['stateValue1']}',
                                             style: const TextStyle(fontSize: 20),
                                           )
                                           ,
@@ -226,7 +303,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                                           ),
                                           const SizedBox(width: 0,),
                                           Text(
-                                            '${data['country']}',
+                                            '${data['countryValue1']}',
                                             style: const TextStyle(fontSize: 20),
                                           ),
                                           const SizedBox(height: 40,),
@@ -318,7 +395,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                                           ),
                                           const SizedBox(width: 0,),
                                           Text(
-                                            '${data['interestedIn']}',
+                                            '${data['interestedInValue']}',
                                             style: const TextStyle(fontSize: 20
                                             ),
                                             maxLines: 2,
@@ -337,7 +414,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                                           ),
                                           const SizedBox(width: 0,),
                                           Text(
-                                            '${data['nextSteps']}',
+                                            '${data['nextStepsValue']}',
                                             style: const TextStyle(fontSize: 20
                                             ),
                                             maxLines: 2,
@@ -356,7 +433,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                                           ),
                                           const SizedBox(width: 0,),
                                           Text(
-                                            '${data['reachOut']}',
+                                            '${data['reachOutValue']}',
                                             style: const TextStyle(fontSize: 20
                                             ),
                                             maxLines: 2,
@@ -375,7 +452,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                                           ),
                                           const SizedBox(width: 0,),
                                           Text(
-                                            '${data['dateOfNextStepsPlanned']}',
+                                            '${data['dateOfNextStepscontroller']}',
                                             style: const TextStyle(fontSize: 20
                                             ),
                                             maxLines: 2,
@@ -419,6 +496,7 @@ class _SingleuserreadState extends State<Singleuserread> {
             }
             return const Center(child: CircularProgressIndicator());
           })),
+
     );
   }
 }
