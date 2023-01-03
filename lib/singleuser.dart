@@ -395,7 +395,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                                           ),
                                           const SizedBox(width: 0,),
                                           Text(
-                                            '${data['interestedInValue']}',
+                                            '${data["interestedInValue"]}',
                                             style: const TextStyle(fontSize: 20
                                             ),
                                             maxLines: 2,

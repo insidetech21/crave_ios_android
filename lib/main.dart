@@ -21,13 +21,14 @@ Future main() async {
   runApp(
       const MyApp()
   );
-  FirebaseDatabase.instance.setPersistenceEnabled(true);
-  final scoresRef = FirebaseDatabase.instance.ref("scores");
-  scoresRef.keepSynced(true);
 
-  final FirebaseDatabase database = FirebaseDatabase.instance;
-  database.setPersistenceEnabled(true);
-  database.setPersistenceCacheSizeBytes(10000000);
+  /*FirebaseDatabase.instance.setPersistenceEnabled(true);
+  final scoresRef = FirebaseDatabase.instance.ref("scores");
+  scoresRef.keepSynced(true);*/
+
+/*  final FirebaseDatabase database = FirebaseDatabase.instance;*/
+/*  database.setPersistenceEnabled(true);
+  database.setPersistenceCacheSizeBytes(10000000);*/
 }
 
 class MyApp extends StatelessWidget {
@@ -59,7 +60,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   String selectedImagePath = ""; // For Image Picker
-  XFile? image; // For Image Picker
+  //XFile? image; // For Image Picker
 
   Uint8List? _bytesImage;
   String imgString = "";
@@ -69,6 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isCompleted = false; //Check completeness of input
  /* final _formKey = GlobalKey<
       FormState>();*/ // form object to be used for form validation
+
   int _activeStepIndex = 0;
 
   TextEditingController name = TextEditingController();
@@ -76,22 +78,12 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController mobilenumber = TextEditingController();
   TextEditingController addressStreet1 = TextEditingController();
   TextEditingController addressStreet2 = TextEditingController();
-  //TextEditingController addressCity = TextEditingController();
   TextEditingController pincode = TextEditingController();
-  //TextEditingController state = TextEditingController();
-  //TextEditingController country = TextEditingController();
   TextEditingController companyName = TextEditingController();
   TextEditingController companyAddress = TextEditingController();
   TextEditingController companyMail = TextEditingController();
   TextEditingController website = TextEditingController();
-  TextEditingController interestedIn = TextEditingController();
-  TextEditingController nextsteps = TextEditingController();
-  TextEditingController reachoutin = TextEditingController();
   TextEditingController comments = TextEditingController();
-  //TextEditingController qr = TextEditingController();
-
-  //TextEditingController nextstepsplanned = TextEditingController();
-  //TextEditingController date = TextEditingController();
   final TextEditingController dateOfNextStepscontroller = TextEditingController();
   DateTime? _dateofNextStep;
 
@@ -103,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String nextStepsValue = '';
   String reachOutValue = '';
 
-  //var getResult = '';
+  var getResult = '';
 
   File? _image;
 
@@ -1329,6 +1321,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const OcrScanner()));
+
               /*scanQRCode();
               qr.value = TextEditingValue(
                 text: getResult,
@@ -1338,7 +1331,7 @@ class _MyHomePageState extends State<MyHomePage> {
               );*/
               // do something
             },
-          )
+          ),
         ],
         backgroundColor: const Color(0xFF004B8D),
       ),
@@ -1375,7 +1368,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
           createuser(
-            //_image: image,
+            //_image: image2,
             name: name2,
             email: email2,
             genderValue: genderValue2,
@@ -1398,10 +1391,12 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         },
         label: const Text("Submit Data"),
+
+          // code added for Firebase Connection Checking
+
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       //
-
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 05),
         height: 600,
@@ -1662,17 +1657,17 @@ class Customer {
     'addressStreet1': addressStreet1,
     'addressStreet2': addressStreet2,
     'pincode': pincode,
-    'city': cityValue1,
-    'state': stateValue1,
-    'country': countryValue1,
+    'cityValue1': cityValue1,
+    'stateValue1': stateValue1,
+    'countryValue1': countryValue1,
     'companyName':companyName,
     'companyAdd': companyAdd,
     'companyMail': companyMail,
     'website': website,
-    'interestedIn' : interestedInValue,
-    'nextSteps' : nextStepsValue,
-    'reachOut' : reachOutValue,
-    'dateOfNextStepsPlanned' : dateOfNextStepscontroller,
+    'interestedInValue' : interestedInValue,
+    'nextStepsValue' : nextStepsValue,
+    'reachOutValue' : reachOutValue,
+    'dateOfNextStepscontroller' : dateOfNextStepscontroller,
     'comments' : comments,
   };
 
@@ -1685,17 +1680,17 @@ class Customer {
         pincode: json['pincode'],
         addressStreet1: json ['addressStreet1'],
         addressStreet2: json ['addressStreet2'],
-        cityValue1: json['city'],
-        stateValue1: json['state'],
-        countryValue1: json['country'],
+        cityValue1: json['cityValue1'],
+        stateValue1: json['stateValue1'],
+        countryValue1: json['countryValue1'],
         companyName: json['companyName'],
         companyAdd: json['companyAdd'],
         companyMail: json['companyMail'],
         website: json['website'],
-        interestedInValue: json['interestedIn'],
-        nextStepsValue: json['nextSteps'],
-        reachOutValue: json['reachOut'],
-        dateOfNextStepscontroller: json['dateOfNextStepsPlanned'],
+        interestedInValue: json['interestedInValue'],
+        nextStepsValue: json['nextStepsValue'],
+        reachOutValue: json['reachOutValue'],
+        dateOfNextStepscontroller: json['dateOfNextStepscontroller'],
         comments: json['comments'],
       );
 }
