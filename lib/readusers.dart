@@ -32,9 +32,9 @@ class ReadUsers extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                color: const Color.fromARGB(255, 170, 193, 232),
+                color: const Color.fromARGB(255, 173, 238, 248),
                 elevation: 10,
-                shadowColor: Colors.blueAccent,
+                shadowColor: const Color(0xFF00D3FF),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
                   child: Text(
@@ -44,10 +44,10 @@ class ReadUsers extends StatelessWidget {
                         'City : ${data['cityValue1']}\n'
                         'State : ${data['stateValue1']}\n'
                         'Country : ${data['countryValue1']}\n'
-                        'Company : ${data['companyName']}\n'
-                        'Next Steps Planned : ${data['dateOfNextStepscontroller']}\n'
-                        'Website : ${data['website']}\n'
-                        'Interested In : ${data['interestedInValue']}',
+                        'Company : ${data['companyName']}\n',
+                        //'Next Steps Planned : ${data['dateOfNextStepscontroller']}\n'
+                        // 'Website : ${data['website']}\n'
+                        // 'Interested In : ${data['interestedInValue']}'
                     style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),
                   ),
                 ),

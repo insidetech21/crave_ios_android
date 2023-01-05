@@ -59,8 +59,8 @@ class _ViewCustomerState extends State<ViewCustomer> {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: const Center(child: Text('View User Data')),
-            backgroundColor: const Color(0xFF004B8D),
+            title: const Center(child: Text('Client Data')),
+            backgroundColor: const Color(0xFF00D3FF),
           ),
           body: FutureBuilder(
             future: getUserList(),

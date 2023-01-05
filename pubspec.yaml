@@ -49,6 +49,7 @@ dependencies:
   image_cropper: ^3.0.1
 
   shared_preferences: ^2.0.15
+  country_picker: ^2.0.19
 
 flutter_icons:
   android: true

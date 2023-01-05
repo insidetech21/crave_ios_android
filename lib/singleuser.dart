@@ -94,7 +94,7 @@ class _SingleuserreadState extends State<Singleuserread> {
           )
         ],
         backgroundColor: const
-        Color(0xFF004B8D),
+        Color(0xFF00D3FF),
       ),
       body: FutureBuilder<DocumentSnapshot>(
           future: users.doc(widget.docid).get(),
@@ -115,7 +115,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                           Card(
                             //semanticContainer: true,
                             elevation: 10,
-                            shadowColor: Colors.blue,
+                            shadowColor: const Color(0xFF00D3FF),
                             shape: RoundedRectangleBorder(
                               side: const BorderSide(
                                 //color: Colors.greenAccent,

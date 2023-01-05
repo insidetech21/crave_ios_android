@@ -15,93 +15,95 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   //lets Create Dashboard Items
 
-  Card makeDashboardItems(String title, String img, int index){
-    return Card(
-      elevation: 8,
-      margin: const EdgeInsets.all(8),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          gradient: const LinearGradient(
-            begin: FractionalOffset(0.0, 0.0),
-            end: FractionalOffset(3.0, -1.0),
-            colors:
-            [
-              Color(0xFF004B8D),
-              Color(0xFFffffff)
-            ],
+  Center makeDashboardItems(String title, String img, int index){
+    return Center(
+      child: Card(
+        elevation: 20,
+        margin: const EdgeInsets.all(8),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            gradient: const LinearGradient(
+              begin: FractionalOffset(0.0, 0.0),
+              end: FractionalOffset(3.0, -1.0),
+              colors:
+              [
+                Color(0xFFffffff),
+                Color(0xFF00D3FF),
+              ],
+            ),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0xFF00D3FF),
+                blurRadius: 3,
+                offset: Offset(2, 2),
+              )],
           ),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.white,
-              blurRadius: 3,
-              offset: Offset(2, 2),
-            )],
-        ),
-        child: InkWell(
-          onTap: (){
-            if (index == 0) {
+          child: InkWell(
+            onTap: (){
+              if (index == 0) {
+                //1.Item
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHomePage()));
+              }
+              if(index == 1){
+                //2. Item
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ViewCustomer()));
+              }
+             /*if(index == 2){
+                //3. Item
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>  const OcrScanner()));
 
-              //1.Item
-
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHomePage()));
-            }
-
-            if(index == 1){
-              //2. Item
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const ViewCustomer()));
-
-            }
-           /*if(index == 2){
-              //3. Item
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>  const OcrScanner()));
-
-            }*/
-            // if(index == 3){
-            //   //4. Item
-            //
-            // }
-          },
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            verticalDirection: VerticalDirection.down,
-            children: [
-              const SizedBox(
-                height: 50,),
-              Center(
-                child: Image.asset(
-                  img,
-                  height: 50,
-                  width: 50,
+              }*/
+              // if(index == 3){
+              //   //4. Item
+              //
+              // }
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              verticalDirection: VerticalDirection.down,
+              children: [
+                const SizedBox(
+                  height: 10,),
+                Center(
+                  child: Image.asset(
+                    img,
+                    height: 50,
+                    width: 50,
+                  ),
                 ),
-              ),
 
-              const SizedBox(height: 20),
-              Center(child: Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                const SizedBox(height: 15),
+                Column(
+                  children: [
+                    Center(child: Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.blueGrey,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    ),
+                  ],
                 ),
-              ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
+
       ),
-
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 170, 193, 232),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Column(
         children: [
-          const SizedBox(height: 100),
+          const SizedBox(height: 200),
           Center(
             child: Padding(
               padding: const EdgeInsets.only(
@@ -120,6 +122,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: Text(
                           "Client Registration Dashboard",
                            style: TextStyle(
+                             //backgroundColor: Color(0xFF00D3FF),
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
                           ),
@@ -135,16 +138,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       //   ),
                       // ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
           ),
 
-          const SizedBox(height: 160),
-          Expanded(child: GridView.count(
-            crossAxisCount: 2,
-            padding:  const EdgeInsets.all(2),
+          const Card(
+              elevation: 15,
+              shadowColor: Color(0xFF00D3FF),
+              child: SizedBox(height: 50),
+          ),
+          Expanded(
+            child: GridView.count(
+            crossAxisCount: 1,
+            childAspectRatio: 3,
+            crossAxisSpacing: 10,
+            padding:  const EdgeInsets.all(10),
             children: [
               makeDashboardItems("Add Client", "assets/user.png",0),
               makeDashboardItems("Client List", "assets/view.png",1),

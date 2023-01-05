@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        backgroundColor: const Color(0xFF004B8D),
+        backgroundColor: const Color(0xFF00D3FF),
       ),
       home: const OcrScanner(),
     );
@@ -40,7 +40,7 @@ class _OcrScannerState extends State<OcrScanner> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF004B8D),
+        backgroundColor: const Color(0xFF00D3FF),
         centerTitle: true,
         title: const Text("Scan Your Card Here"),
       ),
@@ -67,7 +67,7 @@ class _OcrScannerState extends State<OcrScanner> {
                             padding: const EdgeInsets.only(top: 10),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                foregroundColor: const Color(0xFF004B8D),
+                                foregroundColor: const Color(0xFF00D3FF),
                                 backgroundColor: Colors.white,
                                 shadowColor: const Color(0xFF004B8D),
                                 elevation: 10,
@@ -103,7 +103,7 @@ class _OcrScannerState extends State<OcrScanner> {
                             padding: const EdgeInsets.only(top: 10),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                foregroundColor: const Color(0xFF004B8D),
+                                foregroundColor: const Color(0xFF00D3FF),
                                 backgroundColor: Colors.white,
                                 shadowColor: const Color(0xFF004B8D),
                                 elevation: 10,

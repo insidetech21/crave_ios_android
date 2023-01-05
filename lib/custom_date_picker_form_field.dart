@@ -24,12 +24,27 @@ class CustomDatePickerFormField extends StatelessWidget {
 
         fillColor: Colors.transparent,
         enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+          borderSide: BorderSide(color: Color(0xFF00D3FF), width: 1),
         ),
 
         border: const OutlineInputBorder(),
         filled: true,
-        icon: const Icon(Icons.date_range),
+        prefixIcon: const Align(
+          widthFactor: 1.0,
+          heightFactor: 1.0,
+          child:  Card(
+            color: Color(0xFF00D3FF),
+            child: SizedBox(
+              height: 58,
+              width: 48,
+              child: Icon(
+                Icons.date_range,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
+          ),
+        ),
 
 
 
