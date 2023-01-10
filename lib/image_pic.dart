@@ -158,6 +158,7 @@ class _ImagePicState extends State<ImagePic> {
     } else {
       return '';
     }
+    //print(file.name)
   }
 
   selectImageFromCamera() async {

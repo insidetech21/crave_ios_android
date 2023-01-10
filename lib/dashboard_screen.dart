@@ -1,6 +1,4 @@
 import 'package:craveiospro/main.dart';
-import 'package:craveiospro/ocr_scanner.dart';
-import 'package:craveiospro/qr_scanner.dart';
 import 'package:craveiospro/viewcust.dart';
 import 'package:flutter/material.dart';
 

@@ -5,7 +5,9 @@ import 'package:craveiospro/SelectPhotoOptionsScreen.dart';
 import 'package:craveiospro/dashboard_screen.dart';
 import 'package:craveiospro/utility.dart';
 import 'package:csc_picker/csc_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,8 +15,8 @@ import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'custom_date_picker_form_field.dart';
-import 'ocr_scanner.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,13 +25,14 @@ Future main() async {
       const MyApp()
   );
 
-  FirebaseDatabase.instance.setPersistenceEnabled(true);
-  final scoresRef = FirebaseDatabase.instance.ref("scores");
-  scoresRef.keepSynced(true);
+  // FirebaseDatabase.instance.setPersistenceEnabled(true);
+  // final scoresRef = FirebaseDatabase.instance.ref("scores");
+  // scoresRef.keepSynced(true);
+  //
+  // final FirebaseDatabase database = FirebaseDatabase.instance;
+  // database.setPersistenceEnabled(true);
+  // database.setPersistenceCacheSizeBytes(10000000);
 
-  final FirebaseDatabase database = FirebaseDatabase.instance;
-  database.setPersistenceEnabled(true);
-  database.setPersistenceCacheSizeBytes(10000000);
 }
 
 class MyApp extends StatelessWidget {
@@ -65,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Uint8List? _bytesImage;
   String imgString = "";
 
-  final ImagePicker picker = ImagePicker(); // For Image Picker
+  //final ImagePicker picker = ImagePicker(); // For Image Picker
 
   bool isCompleted = false; //Check completeness of input
  /* final _formKey = GlobalKey<
@@ -113,6 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // final bytes = File().readAsBytesSync();
         // String imgString= base64Encode(bytes);
         //String imgString = base64Encode(_image);
+        //final File img2=File(_image.path)
         imgString = Utility.base64String(_image!.readAsBytesSync());
         Navigator.of(context).pop();
       });
@@ -1707,8 +1711,6 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const OcrScanner()));
 
               /*scanQRCode();
               qr.value = TextEditingValue(
@@ -1728,6 +1730,8 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: const Color(0xFF00D3FF),
         //icon: const Icon(Icons.save),
         onPressed: () {
+
+          uploadFile();
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Data Submitted Successfully !"),
           ));
@@ -1753,6 +1757,7 @@ class _MyHomePageState extends State<MyHomePage> {
           final reachOutIn2 = reachOutValue;
           final nextStepsPlanned2 = dateOfNextStepscontroller.text;
           final comments2 = comments.text;
+
 
 
           createuser(
@@ -1905,7 +1910,7 @@ class _MyHomePageState extends State<MyHomePage> {
     comments,
 
   }) async {
-    final docuser = FirebaseFirestore.instance.collection('guest').doc();
+    final docuser = FirebaseFirestore.instance.collection('vasant').doc();
     final customer = Customer(
       id: docuser.id,
       name: name,
@@ -1987,6 +1992,31 @@ class _MyHomePageState extends State<MyHomePage> {
     _bytesImage = const Base64Decoder().convert(img);
     return _bytesImage;
   }
+
+  Future uploadFile() async {
+    final file = File(_image!.path);
+    final path = "visiting_cards/${_image!.path}";
+
+    final ref = FirebaseStorage.instance.ref().child(path);
+    ref.putFile(file);
+
+      }
+
+/*Future uploadFile() async{
+    try{
+
+      firebase_storage.UploadTask uploadTask;
+
+      firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance.
+      ref().
+      child('visiting_cards');
+
+      ref.putFile(_image.path)
+    }
+    catch(e){
+      print(e);
+    }
+}*/
 }
 
 class Customer {
