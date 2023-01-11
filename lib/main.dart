@@ -1,12 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:country_picker/country_picker.dart';
 import 'package:craveiospro/SelectPhotoOptionsScreen.dart';
 import 'package:craveiospro/dashboard_screen.dart';
 import 'package:craveiospro/utility.dart';
 import 'package:csc_picker/csc_picker.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

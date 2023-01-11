@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:craveiospro/update_client.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
 
@@ -32,6 +33,7 @@ class _SingleuserreadState extends State<Singleuserread> {
               color: Colors.white,
             ),
             onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateClient(docid: widget.docid,)));
               showAlertDialog(BuildContext context) {
                 // set up the buttons
                 Widget cancelButton = TextButton(
