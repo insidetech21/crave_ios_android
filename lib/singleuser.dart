@@ -1,16 +1,24 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
 
 class Singleuserread extends StatefulWidget {
+
   final String docid;
   Singleuserread({required this.docid});
+
 
   @override
   State<Singleuserread> createState() => _SingleuserreadState();
 }
 
 class _SingleuserreadState extends State<Singleuserread> {
+
+  Uint8List? _bytesImage;
+
   @override
   Widget build(BuildContext context) {
     CollectionReference users = FirebaseFirestore.instance.collection("vasant");
@@ -135,6 +143,51 @@ class _SingleuserreadState extends State<Singleuserread> {
                                       left: 10, top: 5, bottom: 5),
                                   child: Column(
                                     children: [
+                                      Row(
+                                        children: [
+                                          /*const Text(
+                                            'Image : ',
+                                            style: TextStyle(fontSize: 20,
+                                                fontWeight: FontWeight.w600
+                                            ),
+                                          ),*/
+                                          const SizedBox(width: 0,),
+                                          Container(
+                                              height: 150.0,
+                                              width: 320.0,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.rectangle,
+                                                color: Colors.grey.shade200,
+                                              ),
+                                              child: Center(
+                                                child: "${data['_image']}" == null
+                                                    ? const Text(
+                                                  'No image selected',
+                                                  style:
+                                                  TextStyle(fontSize: 20),
+                                                )
+                                                    : Hero(
+                                                  tag: 'emimg-"${data['_image']}"',
+                                                  child:
+                                                  Container(
+                                                    //duration: Duration(milliseconds: 300),
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                        image: Image.memory(setImage("${data['_image']}")).image,
+                                                        fit: BoxFit.cover,
+                                                      ),
+
+                                                      // your own shape
+                                                      shape: BoxShape.rectangle,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )),
+                                          const SizedBox(height: 40,),
+                                        ],
+                                      ),
+
+
                                       Row(
                                         children: [
                                           const Text(
@@ -498,5 +551,10 @@ class _SingleuserreadState extends State<Singleuserread> {
           })),
 
     );
+
+  }
+  setImage(String img) {
+    _bytesImage = const Base64Decoder().convert(img);
+    return _bytesImage;
   }
 }

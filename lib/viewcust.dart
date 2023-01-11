@@ -23,7 +23,7 @@ class ViewCustomer extends StatefulWidget {
   State<ViewCustomer> createState() => _ViewCustomerState();
 }
 
-Stream<List<Customer>> readuser() => FirebaseFirestore.instance.collection('guest').snapshots().map((snapshot)
+Stream<List<Customer>> readuser() => FirebaseFirestore.instance.collection('vasant').snapshots().map((snapshot)
 =>snapshot.docs.map((doc) => Customer.fromJson(doc.data())).toList() );
 
 Widget buildUser(Customer cust) => Card(

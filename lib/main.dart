@@ -101,6 +101,8 @@ class _MyHomePageState extends State<MyHomePage> {
   var getResult = '';
 
   File? _image;
+  UploadTask? uploadTask;
+  late final urlDownload;
 
   Future _pickImage(ImageSource source) async {
     try {
@@ -1737,7 +1739,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ));
           //_scanQR(); // calling a function when user click on button
 
-          //final image2 = _image;
+          final image2 = urlDownload();
           final name2 = name.text;
           final email2 = email.text;
           final genderValue2 = genderValue;
@@ -1761,7 +1763,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
           createuser(
-            //_image: image2,
+            image: image2,
             name: name2,
             email: email2,
             genderValue: genderValue2,
@@ -1889,6 +1891,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future createuser({
     required String
+    image,
     name,
     email,
     genderValue,
@@ -1913,6 +1916,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final docuser = FirebaseFirestore.instance.collection('vasant').doc();
     final customer = Customer(
       id: docuser.id,
+      image: image,
       name: name,
       email: email,
       genderValue: genderValue,
@@ -1998,9 +2002,19 @@ class _MyHomePageState extends State<MyHomePage> {
     final path = "visiting_cards/${_image!.path}";
 
     final ref = FirebaseStorage.instance.ref().child(path);
-    ref.putFile(file);
+    uploadTask = ref.putFile(file);
 
-      }
+    final snapshot = await uploadTask!.whenComplete(() => null);
+
+    urlDownload = await snapshot.ref.getDownloadURL();
+    print('Download Link:$urlDownload');
+    //Image.network(urlDownload);
+    setState(() {
+
+      uploadTask = null;
+    });
+
+  }
 
 /*Future uploadFile() async{
     try{
@@ -2010,7 +2024,6 @@ class _MyHomePageState extends State<MyHomePage> {
       firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance.
       ref().
       child('visiting_cards');
-
       ref.putFile(_image.path)
     }
     catch(e){
@@ -2021,6 +2034,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class Customer {
   String id;
+  final String image;
   final String name;
   final String email;
   final String genderValue;
@@ -2044,6 +2058,7 @@ class Customer {
 
   Customer({
     this.id = '',
+    required this.image,
     required this.name,
     required this.email,
     required this.genderValue,
@@ -2067,6 +2082,7 @@ class Customer {
   });
 
   Map<String, dynamic> toJson() => {
+    'image': image,
     'id': id,
     'name': name,
     'email': email,
@@ -2091,6 +2107,7 @@ class Customer {
 
   static Customer fromJson(Map<String, dynamic> json) =>
       Customer(
+        image: json['image'],
         name: json['name'],
         email: json['email'],
         genderValue: json['genderValue'],

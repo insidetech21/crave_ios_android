@@ -39,6 +39,7 @@ class ReadUsers extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
                   child: Text(
                     'Name : ${data['name']}\n'
+                        'Image : ${data['image']}\n'
                         'Email : ${data['email']}\n'
                         'Gender : ${data['genderValue']}\n'
                         'City : ${data['cityValue1']}\n'

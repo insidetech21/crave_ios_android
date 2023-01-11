@@ -57,36 +57,47 @@ class _DashboardScreenState extends State<DashboardScreen> {
               //
               // }
             },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              verticalDirection: VerticalDirection.down,
-              children: [
-                const SizedBox(
-                  height: 10,),
-                Center(
-                  child: Image.asset(
-                    img,
-                    height: 50,
-                    width: 50,
-                  ),
-                ),
-
-                const SizedBox(height: 15),
-                Column(
-                  children: [
-                    Center(child: Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.blueGrey,
-                        fontWeight: FontWeight.bold,
+            child: Card(
+              elevation: 15,
+              shadowColor: const Color(0xFF00D3FF),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                verticalDirection: VerticalDirection.down,
+                children: [
+                      const Center(
+                        child: Card(
+                          //elevation: 35,
+                          color: Color(0xFF00D3FF),
+                          shadowColor: Color(0xFF00D3FF),
+                          child: SizedBox(
+                            height: double.maxFinite,
+                            width: 80,
+                              child: Icon(
+                                  Icons.person_add,
+                                  size: 50,color: Colors.white
+                              ),
+                          ),
+                          /*child: Image.asset(
+                            img,
+                            height: 60,
+                            width: 80,
+                          ),*/
+                        ),
                       ),
-                    ),
-                    ),
-                  ],
-                ),
-              ],
+                      const SizedBox(width: 50),
+                          Center(child: Text(
+                            title,
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontStyle: FontStyle.normal,
+                              color: Colors.black54,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          ),
+                        ],
+              ),
             ),
           ),
         ),
