@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //final ImagePicker picker = ImagePicker(); // For Image Picker
 
   bool isCompleted = false; //Check completeness of input
- /* final _formKey = GlobalKey<
+  /* final _formKey = GlobalKey<
       FormState>();*/ // form object to be used for form validation
 
   int _activeStepIndex = 0;
@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   File? _image;
   UploadTask? uploadTask;
-  late final urlDownload;
+  String? urlDownload;
 
   Future _pickImage(ImageSource source) async {
     try {
@@ -202,51 +202,51 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 Card(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)
+                      borderRadius: BorderRadius.circular(10.0)
                   ),
                   elevation: 15,
                   shadowColor: const Color(0xFF00D3FF),
                   child: TextFormField(
-                      controller: name,
-                      decoration: const InputDecoration(
-                        /*prefixIcon: Container(
+                    controller: name,
+                    decoration: const InputDecoration(
+                      /*prefixIcon: Container(
                           width:100, //Set it according to your need
                           color: Colors.cyan,
                         ),*/
-                        fillColor: Colors.transparent,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color(0xFF00D3FF), width: 1),
-                        ),
+                      fillColor: Colors.transparent,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color(0xFF00D3FF), width: 1),
+                      ),
 
-                        border: OutlineInputBorder(),
-                        filled: true,
-                        labelText: 'Enter Name :',
-                        hintText: 'Full Name',
-                        prefixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: Card(
-                            color: Color(0xFF00D3FF),
-                            child: SizedBox(
-                              height: 58,
-                              width: 48,
-                              child: Icon(
-                                Icons.person,
-                                color: Colors.white,
-                                size: 30,
-                              ),
+                      border: OutlineInputBorder(),
+                      filled: true,
+                      labelText: 'Enter Name :',
+                      hintText: 'Full Name',
+                      prefixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Card(
+                          color: Color(0xFF00D3FF),
+                          child: SizedBox(
+                            height: 58,
+                            width: 48,
+                            child: Icon(
+                              Icons.person,
+                              color: Colors.white,
+                              size: 30,
                             ),
                           ),
                         ),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please Enter Full Name';
-                        }
-                        return null;
-                      },
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please Enter Full Name';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
 
                 const Padding(
@@ -585,57 +585,57 @@ class _MyHomePageState extends State<MyHomePage> {
                 // ),
 
 
-                  Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)
-                    ),
-                    elevation: 15,
-                    shadowColor: const Color(0xFF00D3FF),
-                    child: TextFormField(
-                            controller: pincode,
-                            decoration: const InputDecoration(
-                              fillColor: Colors.transparent,
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color(0xFF00D3FF), width: 1),
-                              ),
-                              filled: true,
-                              //fillColor: Color(0xFF004B8D),
-                              labelText: 'Enter Zip Code :',
-                              hintText: 'Zip',
-                              prefixIcon: Align(
-                                widthFactor: 1.0,
-                                heightFactor: 1.0,
-                                child:  Card(
-                                  color: Color(0xFF00D3FF),
-                                  child: SizedBox(
-                                    height: 58,
-                                    width: 48,
-                                    child: Icon(
-                                      Icons.numbers,
-                                      color: Colors.white,
-                                      size: 30,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            keyboardType: TextInputType.number,
-
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please Enter Zip Code';
-                              }
-                              return null;
-                            },
-                          ),
+                Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)
                   ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  child: TextFormField(
+                    controller: pincode,
+                    decoration: const InputDecoration(
+                      fillColor: Colors.transparent,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color(0xFF00D3FF), width: 1),
+                      ),
+                      filled: true,
+                      //fillColor: Color(0xFF004B8D),
+                      labelText: 'Enter Zip Code :',
+                      hintText: 'Zip',
+                      prefixIcon: Align(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child:  Card(
+                          color: Color(0xFF00D3FF),
+                          child: SizedBox(
+                            height: 58,
+                            width: 48,
+                            child: Icon(
+                              Icons.numbers,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    keyboardType: TextInputType.number,
+
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please Enter Zip Code';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
 
                 const Padding(
                   padding: EdgeInsets.only(bottom: 30.0),
                 ),
 
-               /* showCountryPicker(
+                /* showCountryPicker(
                   context: context,
                   countryFilter: <String>['CD', 'CG', 'KE', 'UG'], // only specific countries
                   onSelect: (){},
@@ -846,12 +846,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   shadowColor: const Color(0xFF00D3FF),
                   child: Center(
                     child: GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        _showSelectPhotoOptions(context);
-                      },
-                      child: Center(
-                        child: Container(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          _showSelectPhotoOptions(context);
+                        },
+                        child: Center(
+                          child: Container(
                             height: 180.0,
                             width: 300.0,
                             decoration: const BoxDecoration(
@@ -865,35 +865,35 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(fontSize: 20),
                               )
                                   : Center(
-                                    /*child: Container(
+                                /*child: Container(
                                       decoration:const BoxDecoration(
                                         //backgroundImage: FileImage(_image!),
                                         shape: BoxShape.rectangle,
                                         color: Color(0xFFDDE8EB),
                                       ),*/
-                                        child: Container(
-                                          //duration: Duration(milliseconds: 300),
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: Image.memory(setImage(imgString)).image,
-                                              fit: BoxFit.cover,
-                                            ),
-                                            // your own shape
-                                            shape: BoxShape.rectangle,
-                                          ),
-                                        ),
+                                child: Container(
+                                  //duration: Duration(milliseconds: 300),
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: Image.memory(setImage(imgString)).image,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    // your own shape
+                                    shape: BoxShape.rectangle,
+                                  ),
+                                ),
                                 /*CircleAvatar(
                                 backgroundImage: FileImage(_image!),
                                 radius: 100.0,
                                           *//*backgroundColor: Colors.yellow,*//*
                               ),*/
-                                      ),
-                                    ),
-                                  ),
-                            )
-                        ),
-                      ),
+                              ),
+                            ),
+                          ),
+                        )
                     ),
+                  ),
+                ),
 
                 const Padding(
                   padding: EdgeInsets.only(bottom: 30.0),
@@ -1558,7 +1558,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontWeight: FontWeight.w500),
                 ),
 
-               /* Text('Personal Data : $getResult',
+                /* Text('Personal Data : $getResult',
                   style: const TextStyle(
                       fontSize: 20,
                       wordSpacing: 1,
@@ -1739,7 +1739,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ));
           //_scanQR(); // calling a function when user click on button
 
-          final image2 = urlDownload();
+          //final image2 = _image;
+          final image2 = urlDownload!;
           final name2 = name.text;
           final email2 = email.text;
           final genderValue2 = genderValue;
@@ -1763,6 +1764,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
           createuser(
+            //_image: image2,
             image: image2,
             name: name2,
             email: email2,
@@ -1787,7 +1789,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         label: const Text("Submit Data"),
 
-          // code added for Firebase Connection Checking
+        // code added for Firebase Connection Checking
 
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
@@ -1913,10 +1915,10 @@ class _MyHomePageState extends State<MyHomePage> {
     comments,
 
   }) async {
-    final docuser = FirebaseFirestore.instance.collection('vasant').doc();
+    final docuser = FirebaseFirestore.instance.collection('guest2').doc();
     final customer = Customer(
       id: docuser.id,
-      image: image,
+      image:image,
       name: name,
       email: email,
       genderValue: genderValue,
@@ -1997,6 +1999,16 @@ class _MyHomePageState extends State<MyHomePage> {
     return _bytesImage;
   }
 
+  // Future uploadFile() async {
+  //   final file = File(_image!.path);
+  //   final path = "visiting_cards/${_image!.path}";
+
+  //   final ref = FirebaseStorage.instance.ref().child(path);
+  //   ref.putFile(file);
+
+  //     }
+
+
   Future uploadFile() async {
     final file = File(_image!.path);
     final path = "visiting_cards/${_image!.path}";
@@ -2024,6 +2036,7 @@ class _MyHomePageState extends State<MyHomePage> {
       firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance.
       ref().
       child('visiting_cards');
+
       ref.putFile(_image.path)
     }
     catch(e){
@@ -2082,7 +2095,7 @@ class Customer {
   });
 
   Map<String, dynamic> toJson() => {
-    'image': image,
+    'image':image,
     'id': id,
     'name': name,
     'email': email,

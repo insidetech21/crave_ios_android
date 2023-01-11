@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'main.dart';
 
-final userref=FirebaseFirestore.instance.collection("guest");
+final userref=FirebaseFirestore.instance.collection("guest2");
 List<String> itemList = [];
 List<String> distinctIds=[];
 
@@ -23,7 +23,7 @@ class ViewCustomer extends StatefulWidget {
   State<ViewCustomer> createState() => _ViewCustomerState();
 }
 
-Stream<List<Customer>> readuser() => FirebaseFirestore.instance.collection('vasant').snapshots().map((snapshot)
+Stream<List<Customer>> readuser() => FirebaseFirestore.instance.collection('guest2').snapshots().map((snapshot)
 =>snapshot.docs.map((doc) => Customer.fromJson(doc.data())).toList() );
 
 Widget buildUser(Customer cust) => Card(
@@ -44,7 +44,7 @@ Widget buildUser(Customer cust) => Card(
 
 Future<Center> getUserList() async { // Added List? for better typing
 
-  await FirebaseFirestore.instance.collection("vasant").get().
+  await FirebaseFirestore.instance.collection("guest2").get().
   then((snapshot) => snapshot.docs.forEach((element) {
     itemList.add(element.reference.id);
     distinctIds = LinkedHashSet<String>.from(itemList).toList();

@@ -21,7 +21,7 @@ class _SingleuserreadState extends State<Singleuserread> {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference users = FirebaseFirestore.instance.collection("vasant");
+    CollectionReference users = FirebaseFirestore.instance.collection("guest2");
     return Scaffold(
       appBar: AppBar(
         title: const Text('Client Details'),
@@ -69,6 +69,7 @@ class _SingleuserreadState extends State<Singleuserread> {
               color: Colors.white,
             ),
             onPressed: () {
+              deleteUser(widget.docid);
               showAlertDialog(BuildContext context) {
                 // set up the buttons
                 Widget cancelButton = TextButton(
@@ -160,26 +161,18 @@ class _SingleuserreadState extends State<Singleuserread> {
                                                 color: Colors.grey.shade200,
                                               ),
                                               child: Center(
-                                                child: "${data['_image']}" == null
+                                                child: '${data['image']}' == null
                                                     ? const Text(
                                                   'No image selected',
                                                   style:
                                                   TextStyle(fontSize: 20),
                                                 )
                                                     : Hero(
-                                                  tag: 'emimg-"${data['_image']}"',
+                                                  tag: 'emimg-"${data['image']}',
                                                   child:
                                                   Container(
-                                                    //duration: Duration(milliseconds: 300),
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        image: Image.memory(setImage("${data['_image']}")).image,
-                                                        fit: BoxFit.cover,
-                                                      ),
+                                                    child: Image.network('${data['image']}'),
 
-                                                      // your own shape
-                                                      shape: BoxShape.rectangle,
-                                                    ),
                                                   ),
                                                 ),
                                               )),
@@ -552,9 +545,22 @@ class _SingleuserreadState extends State<Singleuserread> {
 
     );
 
+
   }
-  setImage(String img) {
-    _bytesImage = const Base64Decoder().convert(img);
-    return _bytesImage;
+
+  // For Deleting USer
+  CollectionReference guests =
+  FirebaseFirestore.instance.collection('guest2');
+
+
+  Future<void> deleteUser(id)
+  {
+    //print("User Deleted $id");
+    return guests
+        .doc(id)
+        .delete()
+        .then((value) => print('User Deleted'))
+        .catchError((error) => print('Failed to Delete User: $error'));
   }
+
 }
