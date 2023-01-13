@@ -199,217 +199,284 @@ class _MyHomePageState extends State<MyHomePage> {
           state: _activeStepIndex <= 0 ? StepState.editing : StepState.complete,
           isActive: _activeStepIndex >= 0,
           title: const Text('Step 1'),
-          content: SingleChildScrollView(
-            padding: const EdgeInsets.only(
-                top: 25.0, right: 0.0, bottom: 25.0, left: 0.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)
-                  ),
-                  elevation: 15,
-                  shadowColor: const Color(0xFF00D3FF),
-                  child: TextFormField(
-                    controller: name,
-                    decoration: const InputDecoration(
-                      /*prefixIcon: Container(
-                          width:100, //Set it according to your need
-                          color: Colors.cyan,
-                        ),*/
-                      fillColor: Colors.transparent,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color(0xFF00D3FF), width: 1),
-                      ),
-
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      labelText: 'Enter Name :',
-                      hintText: 'Full Name',
-                      prefixIcon: Align(
-                        widthFactor: 1.0,
-                        heightFactor: 1.0,
-                        child: Card(
-                          color: Color(0xFF00D3FF),
-                          child: SizedBox(
-                            height: 58,
-                            width: 48,
-                            child: Icon(
-                              Icons.person,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Full Name';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 30.0),
-                ),
-
-                /* TextFormField(
-              controller: qr,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                filled: true,
-                labelText: 'Personal Data :',
-                //hintText: 'Scan QR/Bar Code',
-                icon: Icon(Icons.qr_code),
-              ),
-              readOnly: false,
-              showCursor: false,
-              autocorrect: true,
-              enableIMEPersonalizedLearning: true,
-              // onChanged: (qr){
-              //   dispose();
-              // },
-
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please Scan the QR or Bar Code';
-                }
-                return null;
-              },
-            ),
-            const Padding(
-              padding: EdgeInsets.only(bottom: 30.0),
-            ),*/
-
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)
-                  ),
-                  elevation: 15,
-                  shadowColor: const Color(0xFF00D3FF),
-                  child: TextFormField(
-                    controller: mobilenumber,
-                    decoration: const InputDecoration(
-                      fillColor: Colors.transparent,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color(0xFF00D3FF), width: 1),
-                      ),
-
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      labelText: 'Enter Mobile Number :',
-                      hintText: 'Mobile Number',
-                      prefixIcon: Align(
-                        widthFactor: 1.0,
-                        heightFactor: 1.0,
-                        child: Card(
-                          color: Color(0xFF00D3FF),
-                          child: SizedBox(
-                            height: 58,
-                            width: 48,
-                            child: Icon(
-                              Icons.phone,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Mobile Number';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 30.0),
-                ),
-
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)
-                  ),
-                  elevation: 15,
-                  shadowColor: const Color(0xFF00D3FF),
-                  child: TextFormField(
-                    controller: email,
-                    decoration: const InputDecoration(
-
-                      fillColor: Colors.transparent,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color(0xFF00D3FF), width: 1),
-                      ),
-
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      labelText: 'Enter Email Id :',
-                      hintText: 'Email Id',
-                      prefixIcon: Align(
-                        widthFactor: 1.0,
-                        heightFactor: 1.0,
-                        child: Card(
-                          color: Color(0xFF00D3FF),
-                          child: SizedBox(
-                            height: 58,
-                            width: 48,
-                            child: Icon(
-                              Icons.mail,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Email ID';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 30.0),
-                ),
-
-                // TextFormField(
-                //   controller: email,
-                //   decoration: const InputDecoration(
-                //     border: OutlineInputBorder(),
-                //     filled: true,
-                //     labelText: 'Select Gender',
-                //     hintText: 'Gender',
-                //     icon: Icon(Icons.people),
-                //   ),
-                //   keyboardType: TextInputType.text,
-                // ),
-                Padding(
-                  padding: const EdgeInsets.all(1.0),
-                  child: Card(
+          content: Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.only(
+                  top: 25.0, right: 0.0, bottom: 25.0, left: 0.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0)
                     ),
                     elevation: 15,
                     shadowColor: const Color(0xFF00D3FF),
-                    child: DropdownButtonFormField<String>(
-                      isExpanded: true,
-                      //iconSize: 30,
+                    child: TextFormField(
+                      controller: name,
+                      decoration: const InputDecoration(
+                        /*prefixIcon: Container(
+                            width:100, //Set it according to your need
+                            color: Colors.cyan,
+                          ),*/
+                        fillColor: Colors.transparent,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+
+                        border: OutlineInputBorder(),
+                        filled: true,
+                        labelText: 'Enter Name :',
+                        hintText: 'Full Name',
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.person,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please Enter Full Name';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 30.0),
+                  ),
+
+                  /* TextFormField(
+                controller: qr,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  labelText: 'Personal Data :',
+                  //hintText: 'Scan QR/Bar Code',
+                  icon: Icon(Icons.qr_code),
+                ),
+                readOnly: false,
+                showCursor: false,
+                autocorrect: true,
+                enableIMEPersonalizedLearning: true,
+                // onChanged: (qr){
+                //   dispose();
+                // },
+
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please Scan the QR or Bar Code';
+                  }
+                  return null;
+                },
+              ),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 30.0),
+              ),*/
+
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)
+                    ),
+                    elevation: 15,
+                    shadowColor: const Color(0xFF00D3FF),
+                    child: TextFormField(
+                      controller: mobilenumber,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+
+                        border: OutlineInputBorder(),
+                        filled: true,
+                        labelText: 'Enter Mobile Number :',
+                        hintText: 'Mobile Number',
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.phone,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please Enter Mobile Number';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 30.0),
+                  ),
+
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)
+                    ),
+                    elevation: 15,
+                    shadowColor: const Color(0xFF00D3FF),
+                    child: TextFormField(
+                      controller: email,
+                      decoration: const InputDecoration(
+
+                        fillColor: Colors.transparent,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+
+                        border: OutlineInputBorder(),
+                        filled: true,
+                        labelText: 'Enter Email Id :',
+                        hintText: 'Email Id',
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.mail,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please Enter Email ID';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 30.0),
+                  ),
+
+                  // TextFormField(
+                  //   controller: email,
+                  //   decoration: const InputDecoration(
+                  //     border: OutlineInputBorder(),
+                  //     filled: true,
+                  //     labelText: 'Select Gender',
+                  //     hintText: 'Gender',
+                  //     icon: Icon(Icons.people),
+                  //   ),
+                  //   keyboardType: TextInputType.text,
+                  // ),
+                  Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)
+                      ),
+                      elevation: 15,
+                      shadowColor: const Color(0xFF00D3FF),
+                      child: DropdownButtonFormField<String>(
+                        isExpanded: true,
+                        //iconSize: 30,
+                        decoration: const InputDecoration(
+                          fillColor: Colors.transparent,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF00D3FF), width: 1),
+                          ),
+                          border: OutlineInputBorder(),
+                          filled: true,
+                          labelText: 'Select Gender',
+                          hintText: 'Gender',
+                          prefixIcon: Align(
+                            widthFactor: 1.0,
+                            heightFactor: 1.0,
+                            child:  Card(
+                              color: Color(0xFF00D3FF),
+                              child: SizedBox(
+                                height: 58,
+                                width: 48,
+                                child: Icon(
+                                  Icons.people,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Select Gender';
+                          }
+                          return null;
+                        },
+                        icon: const Icon(
+                          Icons.arrow_drop_down, color: Colors.blueGrey,),
+                        items: <String>['Male', 'Female', 'Other'].map((
+                            String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (values) {
+                          setState(() {
+                            genderValue = values!;
+                            gender.text = genderValue;
+                          }
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 30.0),
+                  ),
+
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)
+                    ),
+                    elevation: 15,
+                    shadowColor: const Color(0xFF00D3FF),
+                    child: TextFormField(
+                      controller: addressStreet1,
                       decoration: const InputDecoration(
                         fillColor: Colors.transparent,
                         enabledBorder: OutlineInputBorder(
@@ -418,8 +485,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         border: OutlineInputBorder(),
                         filled: true,
-                        labelText: 'Select Gender',
-                        hintText: 'Gender',
+                        labelText: 'Enter Street 1 :',
+                        hintText: 'Street 1 Address',
                         prefixIcon: Align(
                           widthFactor: 1.0,
                           heightFactor: 1.0,
@@ -429,7 +496,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               height: 58,
                               width: 48,
                               child: Icon(
-                                Icons.people,
+                                Icons.location_city,
                                 color: Colors.white,
                                 size: 30,
                               ),
@@ -437,525 +504,460 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
+                      keyboardType: TextInputType.text,
 
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please Select Gender';
+                          return 'Please Enter Street 1';
                         }
                         return null;
                       },
-                      icon: const Icon(
-                        Icons.arrow_drop_down, color: Colors.blueGrey,),
-                      items: <String>['Male', 'Female', 'Other'].map((
-                          String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (values) {
-                        setState(() {
-                          genderValue = values!;
-                          gender.text = genderValue;
-                        }
-                        );
-                      },
                     ),
                   ),
-                ),
 
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 30.0),
-                ),
-
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 30.0),
                   ),
-                  elevation: 15,
-                  shadowColor: const Color(0xFF00D3FF),
-                  child: TextFormField(
-                    controller: addressStreet1,
-                    decoration: const InputDecoration(
-                      fillColor: Colors.transparent,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color(0xFF00D3FF), width: 1),
-                      ),
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      labelText: 'Enter Street 1 :',
-                      hintText: 'Street 1 Address',
-                      prefixIcon: Align(
-                        widthFactor: 1.0,
-                        heightFactor: 1.0,
-                        child:  Card(
-                          color: Color(0xFF00D3FF),
-                          child: SizedBox(
-                            height: 58,
-                            width: 48,
-                            child: Icon(
-                              Icons.location_city,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
-                        ),
-                      ),
+
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)
                     ),
-                    keyboardType: TextInputType.text,
-
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Street 1';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 30.0),
-                ),
-
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)
-                  ),
-                  elevation: 15,
-                  shadowColor: const Color(0xFF00D3FF),
-                  child: TextFormField(
-                    controller: addressStreet2,
-                    decoration: const InputDecoration(
-                      fillColor: Colors.transparent,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color(0xFF00D3FF), width: 1),
-                      ),
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      labelText: 'Enter Street 2 :',
-                      hintText: 'Street 2 Address',
-                      prefixIcon: Align(
-                        widthFactor: 1.0,
-                        heightFactor: 1.0,
-                        child:  Card(
-                          color: Color(0xFF00D3FF),
-                          child: SizedBox(
-                            height: 58,
-                            width: 48,
-                            child: Icon(
-                              Icons.streetview,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
+                    elevation: 15,
+                    shadowColor: const Color(0xFF00D3FF),
+                    child: TextFormField(
+                      controller: addressStreet2,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
                         ),
-                      ),
-                    ),
-                    keyboardType: TextInputType.text,
-
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Street 2';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 30.0),
-                ),
-
-                // TextFormField(
-                //   controller: addressCity,
-                //   decoration: const InputDecoration(
-                //     border: OutlineInputBorder(),
-                //     filled: true,
-                //     labelText: 'Enter City :',
-                //     hintText: 'City',
-                //     icon: Icon(Icons.location_city),
-                //   ),
-                //   keyboardType: TextInputType.text,
-                //
-                //   validator: (value) {
-                //     if (value == null || value.isEmpty) {
-                //       return 'Please Enter City';
-                //     }
-                //     return null;
-                //   },
-                // ),
-                // const Padding(
-                //   padding: EdgeInsets.only(bottom: 30.0),
-                // ),
-
-
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)
-                  ),
-                  elevation: 15,
-                  shadowColor: const Color(0xFF00D3FF),
-                  child: TextFormField(
-                    controller: pincode,
-                    decoration: const InputDecoration(
-                      fillColor: Colors.transparent,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color(0xFF00D3FF), width: 1),
-                      ),
-                      filled: true,
-                      //fillColor: Color(0xFF004B8D),
-                      labelText: 'Enter Zip Code :',
-                      hintText: 'Zip',
-                      prefixIcon: Align(
-                        widthFactor: 1.0,
-                        heightFactor: 1.0,
-                        child:  Card(
-                          color: Color(0xFF00D3FF),
-                          child: SizedBox(
-                            height: 58,
-                            width: 48,
-                            child: Icon(
-                              Icons.numbers,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    keyboardType: TextInputType.number,
-
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Zip Code';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 30.0),
-                ),
-
-                /* showCountryPicker(
-                  context: context,
-                  countryFilter: <String>['CD', 'CG', 'KE', 'UG'], // only specific countries
-                  onSelect: (){},
-                ),*/
-
-                Padding(
-                  padding: const EdgeInsets.only(top: 0.0),
-                  child: Column(
-                    //crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)
-                        ),
-                        elevation: 15,
-                        //color: Colors.transparent,
-                        shadowColor: const Color(0xFF00D3FF),
-                        child: CSCPicker(
-                          ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
-                          dropdownDecoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                  Radius.circular(05)),
-                              color: Colors.transparent,
-                              border:
-                              Border.all(color: const Color(0xFF00D3FF), width: 1)),
-
-                          ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
-                          disabledDropdownDecoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                  Radius.circular(5)),
-                              color: Colors.grey.shade200,
-                              border:
-                              Border.all(color: Colors.grey.shade500, width: 1)),
-
-                          layout: Layout.vertical,
-                          //flagState: CountryFlag.DISABLE,
-
-                          onCountryChanged: (value) {
-                            setState(() {
-                              countryValue1 = value.toString();
-                              country.text = countryValue1;
-                            });
-                          },
-
-                          onStateChanged: (value) {
-                            setState(() {
-                              stateValue1 = value.toString();
-                              state.text = stateValue1;
-                            });
-                          },
-
-                          onCityChanged: (value){
-                            setState(() {
-                              cityValue1 = value.toString();
-                              city.text = cityValue1;
-                            });
-                          },
-
-                          ///Enable disable state dropdown [OPTIONAL PARAMETER]
-                          showStates: true,
-
-                          /// Enable disable city drop down [OPTIONAL PARAMETER]
-                          showCities: true,
-
-
-                          ///Default Country
-                          //defaultCountry: DefaultCountry.India,
-                          //defaultCountry: DefaultCountry.United_States,
-
-                          dropdownDialogRadius: 20.0,
-
-                          ///selected item style [OPTIONAL PARAMETER]
-                          selectedItemStyle: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                          ),
-
-                          ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                          dropdownHeadingStyle: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-
-                          ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                          dropdownItemStyle: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                          ),
-
-                          //currentCountry:,
-
-                          ///Disable country dropdown (Note: use it with default country)
-                          disableCountry: false,
-
-                          ///Search bar radius [OPTIONAL PARAMETER]
-                          searchBarRadius: 50.0,
-
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // Padding(
-                //   padding: const EdgeInsets.all(0.0),
-                //   child: DropdownButtonFormField<String>(
-                //     isExpanded: true,
-                //     //iconSize: 30,
-                //     decoration: const InputDecoration(
-                //       border: OutlineInputBorder(),
-                //       filled: true,
-                //       labelText: 'Select State',
-                //       hintText: 'State',
-                //       icon: Icon(Icons.people_rounded),
-                //     ),
-                //
-                //     validator: (value) {
-                //       if (value == null || value.isEmpty) {
-                //         return 'Please Select State';
-                //       }
-                //       return null;
-                //     },
-                //     icon: const Icon(Icons.arrow_drop_down, color: Colors.blueGrey,),
-                //     items: <String>['Maharashtra','Gujarat','Up', 'MP','Assam'].map((String value) {
-                //       return DropdownMenuItem<String>(
-                //         value: value,
-                //         child: Text(value),
-                //       );
-                //     }).toList(),
-                //     onChanged: (values) {
-                //       setState(() {
-                //         genderValue = values!;
-                //       }
-                //       );
-                //     },
-                //   ),
-                // ),
-
-                // const Padding(
-                //   padding: EdgeInsets.only(bottom: 30.0),
-                // ),
-
-                // TextFormField(
-                //   controller: state,
-                //   decoration: const InputDecoration(
-                //     border: OutlineInputBorder(),
-                //     filled: true,
-                //     labelText: 'Enter State :',
-                //     hintText: 'State',
-                //     icon: Icon(Icons.map),
-                //   ),
-                //   keyboardType: TextInputType.text,
-                //
-                //   validator: (value) {
-                //     if (value == null || value.isEmpty) {
-                //       return 'Please Enter State';
-                //     }
-                //     return null;
-                //   },
-                // ),
-
-                // const Padding(
-                //   padding: EdgeInsets.only(bottom: 30.0),
-                // ),
-
-
-                // Padding(
-                //   padding: const EdgeInsets.all(0.0),
-                //   child: DropdownButtonFormField<String>(
-                //     isExpanded: true,
-                //     //iconSize: 30,
-                //     decoration: const InputDecoration(
-                //       border: OutlineInputBorder(),
-                //       filled: true,
-                //       labelText: 'Select Country',
-                //       hintText: 'Country',
-                //       icon: Icon(Icons.people_rounded),
-                //     ),
-                //     validator: (value) {
-                //       if (value == null || value.isEmpty) {
-                //         return 'Please Select Country';
-                //       }
-                //       return null;
-                //     },
-                //     icon: const Icon(Icons.arrow_drop_down, color: Colors.blueGrey,),
-                //     items: <String>['US', 'UK', 'Canada','India','Other'].map((String value) {
-                //       return DropdownMenuItem<String>(
-                //         value: value,
-                //         child: Text(value),
-                //       );
-                //     }).toList(),
-                //     onChanged: (values) {
-                //       setState(() {
-                //         genderValue = values!;
-                //       }
-                //       );
-                //     },
-                //   ),
-                // ),
-
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 30.0),
-                ),
-
-
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)
-                  ),
-                  elevation: 15,
-                  shadowColor: const Color(0xFF00D3FF),
-                  child: Center(
-                    child: GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onTap: () {
-                          _showSelectPhotoOptions(context);
-                        },
-                        child: Center(
-                          child: Container(
-                            height: 180.0,
-                            width: 300.0,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: Color(0xFFDDE8EB),
-                            ),
-                            child: Center(
-                              child: _image == null
-                                  ? const Text(
-                                'Select Image',
-                                style: TextStyle(fontSize: 20),
-                              )
-                                  : Center(
-                                /*child: Container(
-                                      decoration:const BoxDecoration(
-                                        //backgroundImage: FileImage(_image!),
-                                        shape: BoxShape.rectangle,
-                                        color: Color(0xFFDDE8EB),
-                                      ),*/
-                                child: Container(
-                                  //duration: Duration(milliseconds: 300),
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: Image.memory(setImage(imgString)).image,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    // your own shape
-                                    shape: BoxShape.rectangle,
-                                  ),
-                                ),
-                                /*CircleAvatar(
-                                backgroundImage: FileImage(_image!),
-                                radius: 100.0,
-                                          *//*backgroundColor: Colors.yellow,*//*
-                              ),*/
+                        border: OutlineInputBorder(),
+                        filled: true,
+                        labelText: 'Enter Street 2 :',
+                        hintText: 'Street 2 Address',
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child:  Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.streetview,
+                                color: Colors.white,
+                                size: 30,
                               ),
                             ),
                           ),
-                        )
+                        ),
+                      ),
+                      keyboardType: TextInputType.text,
+
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please Enter Street 2';
+                        }
+                        return null;
+                      },
                     ),
                   ),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 30.0),
+                  ),
+
+                  // TextFormField(
+                  //   controller: addressCity,
+                  //   decoration: const InputDecoration(
+                  //     border: OutlineInputBorder(),
+                  //     filled: true,
+                  //     labelText: 'Enter City :',
+                  //     hintText: 'City',
+                  //     icon: Icon(Icons.location_city),
+                  //   ),
+                  //   keyboardType: TextInputType.text,
+                  //
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return 'Please Enter City';
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
+                  // const Padding(
+                  //   padding: EdgeInsets.only(bottom: 30.0),
+                  // ),
+
+
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)
+                    ),
+                    elevation: 15,
+                    shadowColor: const Color(0xFF00D3FF),
+                    child: TextFormField(
+                      controller: pincode,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        filled: true,
+                        //fillColor: Color(0xFF004B8D),
+                        labelText: 'Enter Zip Code :',
+                        hintText: 'Zip',
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child:  Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.numbers,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      keyboardType: TextInputType.number,
+
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please Enter Zip Code';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 30.0),
+                  ),
+
+                  /* showCountryPicker(
+                    context: context,
+                    countryFilter: <String>['CD', 'CG', 'KE', 'UG'], // only specific countries
+                    onSelect: (){},
+                  ),*/
+
+                  Padding(
+                    padding: const EdgeInsets.only(top: 0.0),
+                    child: Column(
+                      //crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)
+                          ),
+                          elevation: 15,
+                          //color: Colors.transparent,
+                          shadowColor: const Color(0xFF00D3FF),
+                          child: CSCPicker(
+                            ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
+                            dropdownDecoration: BoxDecoration(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(05)),
+                                color: Colors.transparent,
+                                border:
+                                Border.all(color: const Color(0xFF00D3FF), width: 1)),
+
+                            ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
+                            disabledDropdownDecoration: BoxDecoration(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(5)),
+                                color: Colors.grey.shade200,
+                                border:
+                                Border.all(color: Colors.grey.shade500, width: 1)),
+
+                            layout: Layout.vertical,
+                            //flagState: CountryFlag.DISABLE,
+
+                            onCountryChanged: (value) {
+                              setState(() {
+                                countryValue1 = value.toString();
+                                country.text = countryValue1;
+                              });
+                            },
+
+                            onStateChanged: (value) {
+                              setState(() {
+                                stateValue1 = value.toString();
+                                state.text = stateValue1;
+                              });
+                            },
+
+                            onCityChanged: (value){
+                              setState(() {
+                                cityValue1 = value.toString();
+                                city.text = cityValue1;
+                              });
+                            },
+
+                            ///Enable disable state dropdown [OPTIONAL PARAMETER]
+                            showStates: true,
+
+                            /// Enable disable city drop down [OPTIONAL PARAMETER]
+                            showCities: true,
+
+
+                            ///Default Country
+                            //defaultCountry: DefaultCountry.India,
+                            //defaultCountry: DefaultCountry.United_States,
+
+                            dropdownDialogRadius: 20.0,
+
+                            ///selected item style [OPTIONAL PARAMETER]
+                            selectedItemStyle: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                            ),
+
+                            ///DropdownDialog Heading style [OPTIONAL PARAMETER]
+                            dropdownHeadingStyle: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+
+                            ///DropdownDialog Item style [OPTIONAL PARAMETER]
+                            dropdownItemStyle: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                            ),
+
+                            //currentCountry:,
+
+                            ///Disable country dropdown (Note: use it with default country)
+                            disableCountry: false,
+
+                            ///Search bar radius [OPTIONAL PARAMETER]
+                            searchBarRadius: 50.0,
+
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // Padding(
+                  //   padding: const EdgeInsets.all(0.0),
+                  //   child: DropdownButtonFormField<String>(
+                  //     isExpanded: true,
+                  //     //iconSize: 30,
+                  //     decoration: const InputDecoration(
+                  //       border: OutlineInputBorder(),
+                  //       filled: true,
+                  //       labelText: 'Select State',
+                  //       hintText: 'State',
+                  //       icon: Icon(Icons.people_rounded),
+                  //     ),
+                  //
+                  //     validator: (value) {
+                  //       if (value == null || value.isEmpty) {
+                  //         return 'Please Select State';
+                  //       }
+                  //       return null;
+                  //     },
+                  //     icon: const Icon(Icons.arrow_drop_down, color: Colors.blueGrey,),
+                  //     items: <String>['Maharashtra','Gujarat','Up', 'MP','Assam'].map((String value) {
+                  //       return DropdownMenuItem<String>(
+                  //         value: value,
+                  //         child: Text(value),
+                  //       );
+                  //     }).toList(),
+                  //     onChanged: (values) {
+                  //       setState(() {
+                  //         genderValue = values!;
+                  //       }
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
+
+                  // const Padding(
+                  //   padding: EdgeInsets.only(bottom: 30.0),
+                  // ),
+
+                  // TextFormField(
+                  //   controller: state,
+                  //   decoration: const InputDecoration(
+                  //     border: OutlineInputBorder(),
+                  //     filled: true,
+                  //     labelText: 'Enter State :',
+                  //     hintText: 'State',
+                  //     icon: Icon(Icons.map),
+                  //   ),
+                  //   keyboardType: TextInputType.text,
+                  //
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return 'Please Enter State';
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
+
+                  // const Padding(
+                  //   padding: EdgeInsets.only(bottom: 30.0),
+                  // ),
+
+
+                  // Padding(
+                  //   padding: const EdgeInsets.all(0.0),
+                  //   child: DropdownButtonFormField<String>(
+                  //     isExpanded: true,
+                  //     //iconSize: 30,
+                  //     decoration: const InputDecoration(
+                  //       border: OutlineInputBorder(),
+                  //       filled: true,
+                  //       labelText: 'Select Country',
+                  //       hintText: 'Country',
+                  //       icon: Icon(Icons.people_rounded),
+                  //     ),
+                  //     validator: (value) {
+                  //       if (value == null || value.isEmpty) {
+                  //         return 'Please Select Country';
+                  //       }
+                  //       return null;
+                  //     },
+                  //     icon: const Icon(Icons.arrow_drop_down, color: Colors.blueGrey,),
+                  //     items: <String>['US', 'UK', 'Canada','India','Other'].map((String value) {
+                  //       return DropdownMenuItem<String>(
+                  //         value: value,
+                  //         child: Text(value),
+                  //       );
+                  //     }).toList(),
+                  //     onChanged: (values) {
+                  //       setState(() {
+                  //         genderValue = values!;
+                  //       }
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
+
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 30.0),
+                  ),
+
+
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)
+                    ),
+                    elevation: 15,
+                    shadowColor: const Color(0xFF00D3FF),
+                    child: Center(
+                      child: GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: () {
+                            _showSelectPhotoOptions(context);
+                          },
+                          child: Center(
+                            child: Container(
+                              height: 180.0,
+                              width: 300.0,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: Color(0xFFDDE8EB),
+                              ),
+                              child: Center(
+                                child: _image == null
+                                    ? const Text(
+                                  'Select Image',
+                                  style: TextStyle(fontSize: 20),
+                                )
+                                    : Center(
+                                  /*child: Container(
+                                        decoration:const BoxDecoration(
+                                          //backgroundImage: FileImage(_image!),
+                                          shape: BoxShape.rectangle,
+                                          color: Color(0xFFDDE8EB),
+                                        ),*/
+                                  child: Container(
+                                    //duration: Duration(milliseconds: 300),
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: Image.memory(setImage(imgString)).image,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      // your own shape
+                                      shape: BoxShape.rectangle,
+                                    ),
+                                  ),
+                                  /*CircleAvatar(
+                                  backgroundImage: FileImage(_image!),
+                                  radius: 100.0,
+                                            *//*backgroundColor: Colors.yellow,*//*
+                                ),*/
+                                ),
+                              ),
+                            ),
+                          )
+                      ),
+                    ),
+                  ),
+
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 30.0),
+                  ),
+
+                  // TextFormField(
+                  //   controller: name,
+                  //   decoration: const InputDecoration(
+                  //     fillColor: Colors.transparent,
+                  //     enabledBorder: OutlineInputBorder(
+                  //       borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
+                  //     ),
+                  //     border: OutlineInputBorder(),
+                  //     filled: true,
+                  //     labelText: 'Select Image :',
+                  //     hintText: 'Tap here for selecting Image',
+                  //     icon: Icon(Icons.image),
+                  //   ),
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return 'Please Upload Image';
+                  //     }
+                  //     return null;
+                  //   },
+                  //   onTap: (){
+                  //     //Navigator.push(context, route)
+                  //     Navigator.push(context, MaterialPageRoute(builder: (context) =>  const ImagePic()));
+                  //   },
+                  // ),
+
+
+                  /* TextFormField(
+                controller: country,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  labelText: 'Enter Country :',
+                  hintText: 'Country',
+                  icon: Icon(Icons.flag),
                 ),
+                keyboardType: TextInputType.text,
 
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 30.0),
-                ),
-
-                // TextFormField(
-                //   controller: name,
-                //   decoration: const InputDecoration(
-                //     fillColor: Colors.transparent,
-                //     enabledBorder: OutlineInputBorder(
-                //       borderSide: BorderSide(color: Color(0xFF004B8D), width: 1),
-                //     ),
-                //     border: OutlineInputBorder(),
-                //     filled: true,
-                //     labelText: 'Select Image :',
-                //     hintText: 'Tap here for selecting Image',
-                //     icon: Icon(Icons.image),
-                //   ),
-                //   validator: (value) {
-                //     if (value == null || value.isEmpty) {
-                //       return 'Please Upload Image';
-                //     }
-                //     return null;
-                //   },
-                //   onTap: (){
-                //     //Navigator.push(context, route)
-                //     Navigator.push(context, MaterialPageRoute(builder: (context) =>  const ImagePic()));
-                //   },
-                // ),
-
-
-                /* TextFormField(
-              controller: country,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                filled: true,
-                labelText: 'Enter Country :',
-                hintText: 'Country',
-                icon: Icon(Icons.flag),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please Enter Country';
+                  }
+                  return null;
+                },
               ),
-              keyboardType: TextInputType.text,
+              const Padding(
+                padding: EdgeInsets.only(bottom: 30.0),
+              ),*/
 
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please Enter Country';
-                }
-                return null;
-              },
-            ),
-            const Padding(
-              padding: EdgeInsets.only(bottom: 30.0),
-            ),*/
-
-              ],
+                ],
+              ),
             ),
           ),
         ),

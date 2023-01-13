@@ -31,14 +31,15 @@ class UpdateClient extends StatefulWidget {
   final String companyMail;
   final String comments;
   final String website;
-  //final String genderValue;
+  final String genderValue;
   final String cityValue1;
   final String stateValue1;
   final String countryValue1;
   final String InterestedInValue;
   final String nextStepsValue;
   final String reachOutValue;
-  // final DateTime? dateofNextStep;
+  final String old_image;
+  final String dateofNextStep;
 
 
   const UpdateClient(
@@ -55,14 +56,15 @@ class UpdateClient extends StatefulWidget {
         required this.companyMail,
         required this.comments,
         required this.website,
-       // required this.genderValue,
+        required this.genderValue,
         required this.cityValue1,
         required this.stateValue1,
         required this.countryValue1,
         required this.InterestedInValue,
         required this.nextStepsValue,
         required this.reachOutValue,
-        // required this.dateofNextStep
+        required this.old_image,
+        required this.dateofNextStep,
       });
 
 /*  final String docid;
@@ -102,6 +104,15 @@ class _UpdateClientState extends State<UpdateClient> {
   TextEditingController companyMail1 = TextEditingController();
   TextEditingController website1 = TextEditingController();
   TextEditingController comments1 = TextEditingController();
+  TextEditingController countryValue1 = TextEditingController();
+  TextEditingController stateValue1 = TextEditingController();
+  TextEditingController cityValue1 = TextEditingController();
+
+  TextEditingController nextStepPlanned1 = TextEditingController();
+
+
+
+
 
   _buildtext(TextEditingController controller, String labelText) {
     return Container(
@@ -122,6 +133,8 @@ class _UpdateClientState extends State<UpdateClient> {
   String interestedInValue_1 = '';
   String nextStepsValue_1 = '';
   String reachOutValue_1 = '';
+  String old_image1 = '';
+
 
   var getResult = '';
 
@@ -149,13 +162,22 @@ class _UpdateClientState extends State<UpdateClient> {
     companyMail1.text=widget.companyMail;
     website1.text=widget.website;
     comments1.text=widget.comments;
-    //genderValue_1 =widget.genderValue;
+    genderValue_1 =widget.genderValue;
     stateValue1_1=widget.stateValue1;
     countryValue1_1= widget.countryValue1;
     cityValue1_1=widget.cityValue1;
     interestedInValue_1=widget.InterestedInValue;
     nextStepsValue_1=widget.nextStepsValue;
     reachOutValue_1= widget.reachOutValue;
+
+    old_image1 = widget.old_image;
+
+    countryValue1.text = countryValue1_1;
+    stateValue1.text = stateValue1_1;
+    cityValue1.text = cityValue1_1;
+    nextStepPlanned1.text = widget.dateofNextStep;
+
+
     // _dateofNextStep=widget.dateofNextStep;
 
 
@@ -475,7 +497,7 @@ class _UpdateClientState extends State<UpdateClient> {
                       elevation: 15,
                       shadowColor: const Color(0xFF00D3FF),
                       child: DropdownButtonFormField<String>(
-                        //value: genderValue_1,
+                        value: genderValue_1,
                         isExpanded: true,
                         //iconSize: 30,
                         decoration: const InputDecoration(
@@ -707,109 +729,158 @@ class _UpdateClientState extends State<UpdateClient> {
                     padding: EdgeInsets.only(bottom: 30.0),
                   ),
 
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)
+                    ),
+                    elevation: 15,
+                    shadowColor: const Color(0xFF00D3FF),
+                    child: TextFormField(
+                      controller: countryValue1,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        filled: true,
+                        //fillColor: Color(0xFF004B8D),
+                        labelText: 'Country:',
+                        //hintText: 'Zip',
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.flag,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      keyboardType: TextInputType.number,
+
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please Enter Zip Code';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+
+
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 30.0),
+                  ),
+
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)
+                    ),
+                    elevation: 15,
+                    shadowColor: const Color(0xFF00D3FF),
+                    child: TextFormField(
+                      controller: stateValue1,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        filled: true,
+                        //fillColor: Color(0xFF004B8D),
+                        labelText: 'State:',
+                        //hintText: 'Zip',
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.flag,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      keyboardType: TextInputType.number,
+
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please Enter Zip Code';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 30.0),
+                  ),
+
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)
+                    ),
+                    elevation: 15,
+                    shadowColor: const Color(0xFF00D3FF),
+                    child: TextFormField(
+                      controller: cityValue1,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        filled: true,
+                        //fillColor: Color(0xFF004B8D),
+                        labelText: 'City:',
+                        //hintText: 'Zip',
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.location_city,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      keyboardType: TextInputType.number,
+
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please Enter Zip Code';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+
                   /* showCountryPicker(
                   context: context,
                   countryFilter: <String>['CD', 'CG', 'KE', 'UG'], // only specific countries
                   onSelect: (){},
                 ),*/
-
-                  Padding(
-                    padding: const EdgeInsets.only(top: 0.0),
-                    child: Column(
-                      //crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)
-                          ),
-                          elevation: 15,
-                          //color: Colors.transparent,
-                          shadowColor: const Color(0xFF00D3FF),
-                          child: CSCPicker(
-
-                            ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
-                            dropdownDecoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(05)),
-                                color: Colors.transparent,
-                                border:
-                                Border.all(color: const Color(0xFF00D3FF),
-                                    width: 1)),
-
-                            ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
-                            disabledDropdownDecoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(5)),
-                                color: Colors.grey.shade200,
-                                border:
-                                Border.all(color: Colors.grey.shade500,
-                                    width: 1)),
-
-                            layout: Layout.vertical,
-                            //flagState: CountryFlag.DISABLE,
-
-                            onCountryChanged: (value) {
-                              setState(() {
-                                countryValue1_1 = value.toString();
-                              });
-                            },
-
-                            onStateChanged: (value) {
-                              setState(() {
-                                stateValue1_1 = value.toString();
-                              });
-                            },
-
-                            onCityChanged: (value) {
-                              setState(() {
-                                cityValue1_1 = value.toString();
-                              });
-                            },
-
-                            ///Enable disable state dropdown [OPTIONAL PARAMETER]
-                            showStates: true,
-
-                            /// Enable disable city drop down [OPTIONAL PARAMETER]
-                            showCities: true,
-
-
-                            ///Default Country
-                            //defaultCountry: DefaultCountry.India,
-                            //defaultCountry: DefaultCountry.United_States,
-
-                            dropdownDialogRadius: 20.0,
-
-                            ///selected item style [OPTIONAL PARAMETER]
-                            selectedItemStyle: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                            ),
-
-                            ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                            dropdownHeadingStyle: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-
-                            ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                            dropdownItemStyle: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                            ),
-
-                            //currentCountry:,
-
-                            ///Disable country dropdown (Note: use it with default country)
-                            disableCountry: false,
-
-                            ///Search bar radius [OPTIONAL PARAMETER]
-                            searchBarRadius: 50.0,
-
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
 
                   // Padding(
                   //   padding: const EdgeInsets.all(0.0),
@@ -933,7 +1004,7 @@ class _UpdateClientState extends State<UpdateClient> {
                                 color: Color(0xFFDDE8EB),
                               ),
                               child: Center(
-                                child: _image == null
+                                child: old_image1 == null
                                     ? const Text(
                                   'Select Image',
                                   style: TextStyle(fontSize: 20),
@@ -946,18 +1017,27 @@ class _UpdateClientState extends State<UpdateClient> {
                                         color: Color(0xFFDDE8EB),
                                       ),*/
                                   child: Container(
-                                    //duration: Duration(milliseconds: 300),
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: Image
-                                            .memory(setImage(imgString))
-                                            .image,
-                                        fit: BoxFit.cover,
+                                      height: 200.0,
+                                      width: 320.0,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.grey.shade200,
                                       ),
-                                      // your own shape
-                                      shape: BoxShape.rectangle,
-                                    ),
-                                  ),
+                                      child: Center(
+                                        child: '${old_image1}' == null
+                                            ? const Text(
+                                          'No image selected',
+                                          style:
+                                          TextStyle(fontSize: 20),
+                                        )
+                                            : Hero(
+                                          tag: 'emimg-"${[old_image1]}',
+                                          child:
+                                          Container(
+                                            child: Image.network(old_image1),
+                                          ),
+                                        ),
+                                      )),
                                   /*CircleAvatar(
                                 backgroundImage: FileImage(_image!),
                                 radius: 100.0,
@@ -1268,6 +1348,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     child: Padding(
                       padding: const EdgeInsets.all(0.0),
                       child: DropdownButtonFormField<String>(
+                        value :interestedInValue_1,
                         isExpanded: true,
                         //iconSize: 30,
                         decoration: const InputDecoration(
@@ -1279,6 +1360,7 @@ class _UpdateClientState extends State<UpdateClient> {
                           ),
 
                           border: OutlineInputBorder(),
+
                           filled: true,
                           labelText: 'Interested In :',
                           hintText: 'Select your preference',
@@ -1348,6 +1430,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     child: Padding(
                       padding: const EdgeInsets.all(0.0),
                       child: DropdownButtonFormField<String>(
+                        value :nextStepsValue_1,
                         isExpanded: true,
                         //iconSize: 30,
                         decoration: const InputDecoration(
@@ -1424,6 +1507,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     child: Padding(
                       padding: const EdgeInsets.all(0.0),
                       child: DropdownButtonFormField<String>(
+                        value :reachOutValue_1,
                         isExpanded: true,
                         //iconSize: 30,
                         decoration: const InputDecoration(
@@ -1522,7 +1606,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     elevation: 15,
                     shadowColor: const Color(0xFF00D3FF),
                     child: CustomDatePickerFormField(
-                        controller: dateOfNextStepscontroller,
+                        controller: nextStepPlanned1,
                         txtLabel: "Next Steps Planned On :",
                         //hintText: 'Select your preference',
                         callback: () {
@@ -1807,6 +1891,52 @@ class _UpdateClientState extends State<UpdateClient> {
           //icon: const Icon(Icons.save),
           onPressed: () {
 
+            uploadFile();
+
+            final docuser22 =
+            FirebaseFirestore.instance
+                .collection('guest2')
+                .doc(widget.docid);
+                docuser22.update({
+              'name': '${name1.text}',
+              'email': '${email1.text}',
+              'mobilenumber':
+              '${mobilenumber1.text}',
+              'gendervalue':
+              '${genderValue_1}',
+              'addressStreet1':
+              '${addressStreet11.text}',
+              'addressStreet2':
+              '${addressStreet21.text}',
+              'pincode':
+              '${pincode1.text}',
+              'city': '${cityValue1_1}',
+              'state': '${stateValue1_1}',
+              'country': '${countryValue1_1}',
+              'companyName':
+              '${companyName1.text}',
+              'companyAdd':
+              '${companyAddress1.text}',
+              'companyMail':
+              '${companyMail1.text}',
+              'website':
+              '${website1.text}',
+              'interestedInValue':
+              '${interestedInValue_1}',
+              'nextStepsValue':
+              '${nextStepsValue_1}',
+              'reachOutValue':
+              '${reachOutValue_1}',
+              'dateOfNextStepscontroller':
+              '${dateOfNextStepscontroller.text}',
+              'comments':
+              '${comments1.text}',
+              'image':
+              '${urlDownload}',
+            });
+
+
+
           /*  Map<String, String> client ={
               'name':name.text,
               'email': email.text,
@@ -1903,10 +2033,11 @@ class _UpdateClientState extends State<UpdateClient> {
       builder: (context, child) =>
           Theme(
               data: ThemeData().copyWith(
-                colorScheme: const ColorScheme.light(
-                  primary: Color(0xFF00D3FF),
-                  onPrimary: Colors.white,
-                  onSecondary: Colors.black,
+                canvasColor: const Color(0xFFD4FCFF),
+                colorScheme: Theme.of(context).colorScheme.copyWith(
+                  primary: const Color(0xFF00D3FF),
+                  background: Colors.red,
+                  secondary: const Color(0xFFD4F8FF),
                 ),
                 dialogBackgroundColor: Colors.white,
               ),
@@ -1947,6 +2078,7 @@ class _UpdateClientState extends State<UpdateClient> {
     });
 
   }
+
 
 }
 
