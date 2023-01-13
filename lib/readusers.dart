@@ -24,31 +24,33 @@ class ReadUsers extends StatelessWidget {
                             Singleuserread(docid: docid)))));
               },
               child: Card(
-                shape: RoundedRectangleBorder(
-                  side: const BorderSide(
-                    //color: Colors.greenAccent,
-                    width: 1,
-                    color: Colors.transparent,
-                  ),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                color: const Color.fromARGB(255, 173, 238, 248),
+                color:Colors.white54,
                 elevation: 10,
                 shadowColor: const Color(0xFF00D3FF),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
-                  child: Text(
-                    'Name : ${data['name']}\n'
-                        'Email : ${data['email']}\n'
-                        'Gender : ${data['genderValue']}\n'
-                        'City : ${data['cityValue1']}\n'
-                        'State : ${data['stateValue1']}\n'
-                        'Country : ${data['countryValue1']}\n'
-                        'Company : ${data['companyName']}\n',
-                        //'Next Steps Planned : ${data['dateOfNextStepscontroller']}\n'
-                        // 'Website : ${data['website']}\n'
-                        // 'Interested In : ${data['interestedInValue']}'
-                    style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(
+                      //color: Colors.greenAccent,
+                      width: 1,
+                      color: Color(0xFF00D3FF),
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  color:Colors.white,
+                  elevation: 10,
+                  shadowColor: const Color(0xFF00D3FF),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                    child: Text(
+                      'Name : ${data['name']}\n'
+                          'Email : ${data['email']}\n'
+                          'City : ${data['cityValue1']}\n'
+                          'Company : ${data['companyName']}\n',
+                          //'Next Steps Planned : ${data['dateOfNextStepscontroller']}\n'
+                          // 'Website : ${data['website']}\n'
+                          // 'Interested In : ${data['interestedInValue']}'
+                      style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ),
               ),

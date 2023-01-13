@@ -65,24 +65,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 mainAxisSize: MainAxisSize.max,
                 verticalDirection: VerticalDirection.down,
                 children: [
-                      const Center(
+                       Center(
                         child: Card(
                           //elevation: 35,
-                          color: Color(0xFF00D3FF),
-                          shadowColor: Color(0xFF00D3FF),
+                          color: const Color(0xFF00D3FF),
+                          shadowColor: const Color(0xFF00D3FF),
                           child: SizedBox(
                             height: double.maxFinite,
                             width: 80,
-                              child: Icon(
+                            child: Image.asset(
+                              img,
+                              height: 10,
+                              width: 80,
+                            ),
+                             /* child: Icon(
                                   Icons.person_add,
                                   size: 50,color: Colors.white
-                              ),
+                              ),*/
                           ),
-                          /*child: Image.asset(
-                            img,
-                            height: 60,
-                            width: 80,
-                          ),*/
+
                         ),
                       ),
                       const SizedBox(width: 50),
@@ -165,8 +166,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             crossAxisSpacing: 10,
             padding:  const EdgeInsets.all(10),
             children: [
-              makeDashboardItems("Add Client", "assets/user.png",0),
-              makeDashboardItems("Client List", "assets/view.png",1),
+              makeDashboardItems("Add Client", "assets/icons8-add-male-user-100.png",0),
+              makeDashboardItems("Client List", "assets/icons8-list-view-96.png",1),
               // makeDashboardItems("Scan", "assets/ocr.png",2),
               // makeDashboardItems("About", "assets/about.png",3),
             ],

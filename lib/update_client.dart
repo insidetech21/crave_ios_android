@@ -17,8 +17,56 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 
 class UpdateClient extends StatefulWidget {
+
+
   final String docid;
-  const UpdateClient({super.key, required this.docid});
+  final String name;
+  final String email;
+  final String mobilenumber;
+  final String picode;
+  final String addressStreet1;
+  final String addressStreet2;
+  final String companyName;
+  final String companyAdd;
+  final String companyMail;
+  final String comments;
+  final String website;
+  //final String genderValue;
+  final String cityValue1;
+  final String stateValue1;
+  final String countryValue1;
+  final String InterestedInValue;
+  final String nextStepsValue;
+  final String reachOutValue;
+  // final DateTime? dateofNextStep;
+
+
+  const UpdateClient(
+      {super.key,
+        required this.docid,
+        required this.name,
+        required this.email,
+        required this.mobilenumber,
+        required this.picode,
+        required this.addressStreet1,
+        required this.addressStreet2,
+        required this.companyName,
+        required this.companyAdd,
+        required this.companyMail,
+        required this.comments,
+        required this.website,
+       // required this.genderValue,
+        required this.cityValue1,
+        required this.stateValue1,
+        required this.countryValue1,
+        required this.InterestedInValue,
+        required this.nextStepsValue,
+        required this.reachOutValue,
+        // required this.dateofNextStep
+      });
+
+/*  final String docid;
+  const UpdateClient({super.key, required this.docid});*/
 
   @override
   State<UpdateClient> createState() => _UpdateClientState();
@@ -26,29 +74,54 @@ class UpdateClient extends StatefulWidget {
 
 class _UpdateClientState extends State<UpdateClient> {
 
-  late DatabaseReference dbRef; // for Getting Data
+  // late DatabaseReference dbRef; // for Getting Data
+  //
+  //
+  //
+  // TextEditingController name = TextEditingController();
+  // TextEditingController email = TextEditingController();
+  // TextEditingController mobilenumber = TextEditingController();
+  // TextEditingController addressStreet1 = TextEditingController();
+  // TextEditingController addressStreet2 = TextEditingController();
+  // TextEditingController pincode = TextEditingController();
+  // TextEditingController companyName = TextEditingController();
+  // TextEditingController companyAddress = TextEditingController();
+  // TextEditingController companyMail = TextEditingController();
+  // TextEditingController website = TextEditingController();
+  // TextEditingController comments = TextEditingController();
 
-  TextEditingController name = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController mobilenumber = TextEditingController();
-  TextEditingController addressStreet1 = TextEditingController();
-  TextEditingController addressStreet2 = TextEditingController();
-  TextEditingController pincode = TextEditingController();
-  TextEditingController companyName = TextEditingController();
-  TextEditingController companyAddress = TextEditingController();
-  TextEditingController companyMail = TextEditingController();
-  TextEditingController website = TextEditingController();
-  TextEditingController comments = TextEditingController();
+  CollectionReference users = FirebaseFirestore.instance.collection("guest2");
+  TextEditingController name1 = TextEditingController();
+  TextEditingController email1 = TextEditingController();
+  TextEditingController mobilenumber1 = TextEditingController();
+  TextEditingController addressStreet11 = TextEditingController();
+  TextEditingController addressStreet21 = TextEditingController();
+  TextEditingController pincode1 = TextEditingController();
+  TextEditingController companyName1 = TextEditingController();
+  TextEditingController companyAddress1 = TextEditingController();
+  TextEditingController companyMail1 = TextEditingController();
+  TextEditingController website1 = TextEditingController();
+  TextEditingController comments1 = TextEditingController();
+
+  _buildtext(TextEditingController controller, String labelText) {
+    return Container(
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(labelText: labelText),
+      ),
+    );
+  }
+
   final TextEditingController dateOfNextStepscontroller = TextEditingController();
   DateTime? _dateofNextStep;
 
-  String genderValue = '';
-  String cityValue1 = '';
-  String stateValue1 = '';
-  String countryValue1 = '';
-  String interestedInValue = '';
-  String nextStepsValue = '';
-  String reachOutValue = '';
+  String genderValue_1 = '';
+  String cityValue1_1 = '';
+  String stateValue1_1 = '';
+  String countryValue1_1 = '';
+  String interestedInValue_1 = '';
+  String nextStepsValue_1 = '';
+  String reachOutValue_1 = '';
 
   var getResult = '';
 
@@ -58,31 +131,55 @@ class _UpdateClientState extends State<UpdateClient> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    dbRef = FirebaseDatabase.instance.ref().child('guest2');
+    getClientData();
+    //dbRef = FirebaseDatabase.instance.ref().child('guest2');
   }
 
   void getClientData() async{
-    DataSnapshot snapshot = await dbRef.child(widget.docid).once() as DataSnapshot;
-    Map client = snapshot.value as Map;
 
-    name.text = client['name'];
-    email.text = client['email'];
-    addressStreet1.text = client['addressStreet1'];
-    addressStreet2.text = client['addressStreet2'];
-    pincode.text = client['pincode'];
-    companyName.text = client['companyName'];
-    companyAddress.text = client['companyAddress'];
-    companyMail.text = client['companyMail'];
-    website.text = client['website'];
-    comments.text = client['comments'];
-    dateOfNextStepscontroller.text = client['dateOfNextStepscontroller'];
-    genderValue = client['genderValue'];
-    cityValue1 = client['cityValue1'];
-    stateValue1 = client['stateValue1'];
-    countryValue1 = client['countryValue1'];
-    interestedInValue = client['interestedInValue'];
-    nextStepsValue = client['nextStepsValue'];
-    reachOutValue = client['reachOutValue'];
+    CollectionReference ref = FirebaseFirestore.instance.collection("guest2");
+    name1.text=widget.name;
+    email1.text=widget.email;
+    mobilenumber1.text=widget.mobilenumber;
+    addressStreet11.text=widget.addressStreet1;
+    addressStreet21.text=widget.addressStreet2;
+    pincode1.text=widget.picode;
+    companyName1.text=widget.companyName;
+    companyAddress1.text=widget.companyAdd;
+    companyMail1.text=widget.companyMail;
+    website1.text=widget.website;
+    comments1.text=widget.comments;
+    //genderValue_1 =widget.genderValue;
+    stateValue1_1=widget.stateValue1;
+    countryValue1_1= widget.countryValue1;
+    cityValue1_1=widget.cityValue1;
+    interestedInValue_1=widget.InterestedInValue;
+    nextStepsValue_1=widget.nextStepsValue;
+    reachOutValue_1= widget.reachOutValue;
+    // _dateofNextStep=widget.dateofNextStep;
+
+
+    // DataSnapshot snapshot = await dbRef.child(widget.docid).once() as DataSnapshot;
+    // Map client = snapshot.value as Map;
+    //
+    // name.text = client['name'];
+    // email.text = client['email'];
+    // addressStreet1.text = client['addressStreet1'];
+    // addressStreet2.text = client['addressStreet2'];
+    // pincode.text = client['pincode'];
+    // companyName.text = client['companyName'];
+    // companyAddress.text = client['companyAddress'];
+    // companyMail.text = client['companyMail'];
+    // website.text = client['website'];
+    // comments.text = client['comments'];
+    // dateOfNextStepscontroller.text = client['dateOfNextStepscontroller'];
+    // genderValue = client['genderValue'];
+    // cityValue1 = client['cityValue1'];
+    // stateValue1 = client['stateValue1'];
+    // countryValue1 = client['countryValue1'];
+    // interestedInValue = client['interestedInValue'];
+    // nextStepsValue = client['nextStepsValue'];
+    // reachOutValue = client['reachOutValue'];
 
   }
 
@@ -174,7 +271,6 @@ class _UpdateClientState extends State<UpdateClient> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0)
@@ -182,7 +278,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     elevation: 15,
                     shadowColor: const Color(0xFF00D3FF),
                     child: TextFormField(
-                      controller: name,
+                      controller: name1,
                       //initialValue: name.text,
                       decoration: const InputDecoration(
                         /*prefixIcon: Container(
@@ -264,9 +360,8 @@ class _UpdateClientState extends State<UpdateClient> {
                     elevation: 15,
                     shadowColor: const Color(0xFF00D3FF),
                     child: TextFormField(
-                      controller: mobilenumber,
+                      controller: mobilenumber1,
                       decoration: const InputDecoration(
-
                         fillColor: Colors.transparent,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -315,7 +410,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     elevation: 15,
                     shadowColor: const Color(0xFF00D3FF),
                     child: TextFormField(
-                      controller: email,
+                      controller: email1,
                       decoration: const InputDecoration(
 
                         fillColor: Colors.transparent,
@@ -380,6 +475,7 @@ class _UpdateClientState extends State<UpdateClient> {
                       elevation: 15,
                       shadowColor: const Color(0xFF00D3FF),
                       child: DropdownButtonFormField<String>(
+                        //value: genderValue_1,
                         isExpanded: true,
                         //iconSize: 30,
                         decoration: const InputDecoration(
@@ -427,7 +523,7 @@ class _UpdateClientState extends State<UpdateClient> {
                         }).toList(),
                         onChanged: (values) {
                           setState(() {
-                            genderValue = values!;
+                            genderValue_1 = values!;
                           }
                           );
                         },
@@ -446,7 +542,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     elevation: 15,
                     shadowColor: const Color(0xFF00D3FF),
                     child: TextFormField(
-                      controller: addressStreet1,
+                      controller: addressStreet11,
                       decoration: const InputDecoration(
                         fillColor: Colors.transparent,
                         enabledBorder: OutlineInputBorder(
@@ -496,7 +592,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     elevation: 15,
                     shadowColor: const Color(0xFF00D3FF),
                     child: TextFormField(
-                      controller: addressStreet2,
+                      controller: addressStreet21,
                       decoration: const InputDecoration(
                         fillColor: Colors.transparent,
                         enabledBorder: OutlineInputBorder(
@@ -568,7 +664,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     elevation: 15,
                     shadowColor: const Color(0xFF00D3FF),
                     child: TextFormField(
-                      controller: pincode,
+                      controller: pincode1,
                       decoration: const InputDecoration(
                         fillColor: Colors.transparent,
                         enabledBorder: OutlineInputBorder(
@@ -654,19 +750,19 @@ class _UpdateClientState extends State<UpdateClient> {
 
                             onCountryChanged: (value) {
                               setState(() {
-                                countryValue1 = value.toString();
+                                countryValue1_1 = value.toString();
                               });
                             },
 
                             onStateChanged: (value) {
                               setState(() {
-                                stateValue1 = value.toString();
+                                stateValue1_1 = value.toString();
                               });
                             },
 
                             onCityChanged: (value) {
                               setState(() {
-                                cityValue1 = value.toString();
+                                cityValue1_1 = value.toString();
                               });
                             },
 
@@ -815,7 +911,6 @@ class _UpdateClientState extends State<UpdateClient> {
                   const Padding(
                     padding: EdgeInsets.only(bottom: 30.0),
                   ),
-
 
                   Card(
                     shape: RoundedRectangleBorder(
@@ -966,7 +1061,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     elevation: 15,
                     shadowColor: const Color(0xFF00D3FF),
                     child: TextFormField(
-                      controller: companyName,
+                      controller: companyName1,
                       decoration: const InputDecoration(
 
                         fillColor: Colors.transparent,
@@ -1017,7 +1112,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     elevation: 15,
                     shadowColor: const Color(0xFF00D3FF),
                     child: TextFormField(
-                      controller: companyAddress,
+                      controller: companyAddress1,
                       decoration: const InputDecoration(
 
                         fillColor: Colors.transparent,
@@ -1069,9 +1164,8 @@ class _UpdateClientState extends State<UpdateClient> {
                     elevation: 15,
                     shadowColor: const Color(0xFF00D3FF),
                     child: TextFormField(
-                      controller: companyMail,
+                      controller: companyMail1,
                       decoration: const InputDecoration(
-
                         fillColor: Colors.transparent,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -1120,7 +1214,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     elevation: 15,
                     shadowColor: const Color(0xFF00D3FF),
                     child: TextFormField(
-                      controller: website,
+                      controller: website1,
                       decoration: const InputDecoration(
 
                         fillColor: Colors.transparent,
@@ -1232,7 +1326,7 @@ class _UpdateClientState extends State<UpdateClient> {
                         }).toList(),
                         onChanged: (values) {
                           setState(() {
-                            interestedInValue = values!;
+                            interestedInValue_1 = values!;
                           }
                           );
                         },
@@ -1309,7 +1403,7 @@ class _UpdateClientState extends State<UpdateClient> {
                         }).toList(),
                         onChanged: (values) {
                           setState(() {
-                            nextStepsValue = values!;
+                            nextStepsValue_1 = values!;
                           }
                           );
                         },
@@ -1380,7 +1474,7 @@ class _UpdateClientState extends State<UpdateClient> {
                         }).toList(),
                         onChanged: (values) {
                           setState(() {
-                            reachOutValue = values!;
+                            reachOutValue_1 = values!;
                           }
                           );
                         },
@@ -1448,7 +1542,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     shadowColor: const Color(0xFF00D3FF),
                     child: TextFormField(
                       //controller: ,
-                      controller: comments,
+                      controller: comments1,
                       decoration: const InputDecoration(
 
                         fillColor: Colors.transparent,
@@ -1540,7 +1634,7 @@ class _UpdateClientState extends State<UpdateClient> {
                         ),
                       )),
 
-                  Text('Name : ${name.text}',
+                  Text('Name : ${name1.text}',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
@@ -1554,102 +1648,102 @@ class _UpdateClientState extends State<UpdateClient> {
                       fontWeight: FontWeight.w500),
                 ),*/
 
-                  Text('Email : ${email.text}',
+                  Text('Email : ${email1.text}',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
                         fontWeight: FontWeight.w500),
                   ),
-                  Text('Mobile Number : ${mobilenumber.text}',
+                  Text('Mobile Number : ${mobilenumber1.text}',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
                         fontWeight: FontWeight.w500),
                   ),
-                  Text('Gender: $genderValue',
+                  Text('Gender: $genderValue_1',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
                         fontWeight: FontWeight.w500),
                   ),
-                  Text('Address Street1 : ${addressStreet1.text}',
+                  Text('Address Street1 : ${addressStreet11.text}',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
                         fontWeight: FontWeight.w500),
                   ),
-                  Text('Address Street2 : ${addressStreet2.text}',
+                  Text('Address Street2 : ${addressStreet21.text}',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
                         fontWeight: FontWeight.w500),
                   ),
-                  Text('PinCode : ${pincode.text}',
+                  Text('PinCode : ${pincode1.text}',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
                         fontWeight: FontWeight.w500),
                   ),
-                  Text('City : $cityValue1',
+                  Text('City : $cityValue1_1',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
                         fontWeight: FontWeight.w500),
                   ),
-                  Text('State : $stateValue1',
+                  Text('State : $stateValue1_1',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
                         fontWeight: FontWeight.w500),
                   ),
-                  Text('Country : $countryValue1',
+                  Text('Country : $countryValue1_1',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
                         fontWeight: FontWeight.w500),
                   ),
-                  Text('Company Name : ${companyName.text}',
-                    style: const TextStyle(
-                        fontSize: 20,
-                        wordSpacing: 1,
-                        fontWeight: FontWeight.w500),
-                  ),
-
-                  Text('Company Add : ${companyAddress.text}',
+                  Text('Company Name : ${companyName1.text}',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
                         fontWeight: FontWeight.w500),
                   ),
 
-                  Text('Company Mail : ${companyMail.text}',
+                  Text('Company Add : ${companyAddress1.text}',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
                         fontWeight: FontWeight.w500),
                   ),
 
-                  Text('Company Website : ${website.text}',
+                  Text('Company Mail : ${companyMail1.text}',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
                         fontWeight: FontWeight.w500),
                   ),
 
-                  Text('Interested In : $interestedInValue',
-                    style: const TextStyle(
-                        fontSize: 20,
-                        wordSpacing: 1,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Text('Next Steps : $nextStepsValue',
+                  Text('Company Website : ${website1.text}',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
                         fontWeight: FontWeight.w500),
                   ),
 
-                  Text('Reach Out In : $reachOutValue',
+                  Text('Interested In : $interestedInValue_1',
+                    style: const TextStyle(
+                        fontSize: 20,
+                        wordSpacing: 1,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  Text('Next Steps : $nextStepsValue_1',
+                    style: const TextStyle(
+                        fontSize: 20,
+                        wordSpacing: 1,
+                        fontWeight: FontWeight.w500),
+                  ),
+
+                  Text('Reach Out In : $reachOutValue_1',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
@@ -1663,7 +1757,7 @@ class _UpdateClientState extends State<UpdateClient> {
                         fontWeight: FontWeight.w500),
                   ),
 
-                  Text('Comments : ${comments.text}',
+                  Text('Comments : ${comments1.text}',
                     style: const TextStyle(
                         fontSize: 20,
                         wordSpacing: 1,
@@ -1713,16 +1807,16 @@ class _UpdateClientState extends State<UpdateClient> {
           //icon: const Icon(Icons.save),
           onPressed: () {
 
-            Map<String, String> client ={
+          /*  Map<String, String> client ={
               'name':name.text,
               'email': email.text,
 
-            };
+            };*/
 
-            dbRef.child(widget.docid).update(client)
+        /*    dbRef.child(widget.docid).update(client)
             .then((value) => {
               Navigator.pop(context)
-            });
+            });*/
 
             uploadFile();
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

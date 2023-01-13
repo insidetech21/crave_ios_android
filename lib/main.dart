@@ -66,12 +66,21 @@ class _MyHomePageState extends State<MyHomePage> {
   String imgString = "";
 
   //final ImagePicker picker = ImagePicker(); // For Image Picker
-
   bool isCompleted = false; //Check completeness of input
   /* final _formKey = GlobalKey<
       FormState>();*/ // form object to be used for form validation
 
   int _activeStepIndex = 0;
+
+  TextEditingController gender = TextEditingController();
+  TextEditingController city = TextEditingController();
+  TextEditingController state = TextEditingController();
+  TextEditingController country = TextEditingController();
+  TextEditingController interestedIn = TextEditingController();
+  TextEditingController nextSteps = TextEditingController();
+  TextEditingController reachOutIn = TextEditingController();
+  TextEditingController nextStepsPlanned = TextEditingController();
+
 
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
@@ -196,7 +205,6 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-
                 Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)
@@ -287,7 +295,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: TextFormField(
                     controller: mobilenumber,
                     decoration: const InputDecoration(
-
                       fillColor: Colors.transparent,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -449,6 +456,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       onChanged: (values) {
                         setState(() {
                           genderValue = values!;
+                          gender.text = genderValue;
                         }
                         );
                       },
@@ -673,18 +681,21 @@ class _MyHomePageState extends State<MyHomePage> {
                           onCountryChanged: (value) {
                             setState(() {
                               countryValue1 = value.toString();
+                              country.text = countryValue1;
                             });
                           },
 
                           onStateChanged: (value) {
                             setState(() {
                               stateValue1 = value.toString();
+                              state.text = stateValue1;
                             });
                           },
 
                           onCityChanged: (value){
                             setState(() {
                               cityValue1 = value.toString();
+                              city.text = cityValue1;
                             });
                           },
 
@@ -1248,6 +1259,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       onChanged: (values) {
                         setState(() {
                           interestedInValue = values!;
+                          interestedIn.text = interestedInValue;
                         }
                         );
                       },
@@ -1320,6 +1332,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       onChanged: (values) {
                         setState(() {
                           nextStepsValue = values!;
+                          nextSteps.text = nextStepsValue;
                         }
                         );
                       },
@@ -1391,6 +1404,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       onChanged: (values) {
                         setState(() {
                           reachOutValue = values!;
+                          reachOutIn.text = reachOutValue;
                         }
                         );
                       },
@@ -1508,7 +1522,7 @@ class _MyHomePageState extends State<MyHomePage> {
           isActive: _activeStepIndex >= 2,
           title: const Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text('Step 3'),
+            child: Text('Review'),
           ),
           content: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -1516,166 +1530,1129 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                    height: 150.0,
-                    width: 300.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      color: Colors.grey.shade200,
-                    ),
-                    child: Center(
-                      child: _image == null
-                          ? const Text(
-                        'No image selected',
-                        style:
-                        TextStyle(fontSize: 20),
-                      )
-                          : Hero(
-                        tag: 'emimg-$_image',
-                        child:
-                        Container(
-                          //duration: Duration(milliseconds: 300),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: Image.memory(setImage(imgString)).image,
-                              fit: BoxFit.cover,
-                            ),
+                Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  child: SizedBox(
+                      height: 150.0,
+                      width: 300.0,
+                      child: Center(
+                        child: _image == null
+                            ? const Text(
+                          'No image selected',
+                          style:
+                          TextStyle(fontSize: 20),
+                        )
+                            : Hero(
+                          tag: 'emimg-$_image',
+                          child:
+                          Container(
+                            //duration: Duration(milliseconds: 300),
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: Image.memory(setImage(imgString)).image,
+                                fit: BoxFit.cover,
+                              ),
 
-                            // your own shape
-                            shape: BoxShape.rectangle,
+                              // your own shape
+                              shape: BoxShape.rectangle,
+                            ),
+                          ),
+                        ),
+                      )),
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.all(10),
+                ),
+
+                Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: name,
+                      readOnly: true,
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Full Name',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.person,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    )),
-
-                Text('Name : ${name.text}',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
                 ),
 
-                /* Text('Personal Data : $getResult',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
-                ),*/
-
-                Text('Email : ${email.text}',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
-                ),
-                Text('Mobile Number : ${mobilenumber.text}',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
-                ),
-                Text('Gender: $genderValue',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
-                ),
-                Text('Address Street1 : ${addressStreet1.text}',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
-                ),
-                Text('Address Street2 : ${addressStreet2.text}',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
-                ),
-                Text('PinCode : ${pincode.text}',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
-                ),
-                Text('City : $cityValue1',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
-                ),
-                Text('State : $stateValue1',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
-                ),
-                Text('Country : $countryValue1',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
-                ),
-                Text('Company Name : ${companyName.text}',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
+                const Padding(
+                  padding: EdgeInsets.all(6),
                 ),
 
-                Text('Company Add : ${companyAddress.text}',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: email,
+                      readOnly: true,
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Email',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.mail,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
                 ),
 
-                Text('Company Mail : ${companyMail.text}',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
+                const Padding(
+                  padding: EdgeInsets.all(6),
                 ),
 
-                Text('Company Website : ${website.text}',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: name,
+                      readOnly: true,
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Mobile Number',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.phone,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
                 ),
 
-                Text('Interested In : $interestedInValue',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
-                ),
-                Text('Next Steps : $nextStepsValue',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
+                const Padding(
+                  padding: EdgeInsets.all(6),
                 ),
 
-                Text('Reach Out In : $reachOutValue',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: gender,
+                      readOnly: true,
+                     /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Gender',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.people,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
                 ),
 
-                Text('Next Steps Planned : ${dateOfNextStepscontroller.text}',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
+                const Padding(
+                  padding: EdgeInsets.all(6),
                 ),
 
-                Text('Comments : ${comments.text}',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      wordSpacing: 1,
-                      fontWeight: FontWeight.w500),
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: addressStreet1,
+                      readOnly: true,
+                      /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Street 1',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.area_chart,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.all(6),
+                ),
+
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: addressStreet2,
+                      readOnly: true,
+                      /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Street 2',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.streetview,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.all(6),
+                ),
+
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: pincode,
+                      readOnly: true,
+                      /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Pin Code',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.numbers,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.all(6),
+                ),
+
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: city,
+                      readOnly: true,
+                      /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'City',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.map,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.all(6),
+                ),
+
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: city,
+                      readOnly: true,
+                      /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'State',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.location_city,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.all(6),
+                ),
+
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: country,
+                      readOnly: true,
+                      /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Country',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.flag,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.all(6),
+                ),
+
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: companyName,
+                      readOnly: true,
+                      /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Company Name:',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.meeting_room,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.all(6),
+                ),
+
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: companyAddress,
+                      readOnly: true,
+                      /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Company Add:',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.location_city,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.all(6),
+                ),
+
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: companyMail,
+                      readOnly: true,
+                      /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Company Mail',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.mail,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.all(6),
+                ),
+
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: website,
+                      readOnly: true,
+                      /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'C Website',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.web,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.all(6),
+                ),
+
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: interestedIn,
+                      readOnly: true,
+                      /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Interested In:',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.interests,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.all(6),
+                ),
+
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: nextSteps,
+                      readOnly: true,
+                      /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Next Steps:',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.handshake,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.all(6),
+                ),
+
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: reachOutIn,
+                      readOnly: true,
+                      /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Reach Out In:',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.area_chart,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.all(6),
+                ),
+
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: dateOfNextStepscontroller,
+                      readOnly: true,
+                      /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Next Steps Planned',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.date_range,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+
+                const Padding(
+                  padding: EdgeInsets.all(6),
+                ),
+
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 15,
+                  shadowColor: const Color(0xFF00D3FF),
+                  margin: const EdgeInsets.all(05),
+                  child:
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextField(
+                      controller: comments,
+                      readOnly: true,
+                      /* onChanged: (values){
+                        setState(() {
+                          genderValue = values!;
+                        });
+                      },*/
+                      //expands: true,
+                      decoration: const InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color(0xFF00D3FF), width: 1),
+                        ),
+                        labelText: 'Comments',
+                        labelStyle: TextStyle(
+                          color: Colors.black45,
+                        ),
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: Card(
+                            color: Color(0xFF00D3FF),
+                            child: SizedBox(
+                              height: 58,
+                              width: 48,
+                              child: Icon(
+                                Icons.text_format,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          wordSpacing: 1,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(6),
                 ),
 
                 // Center(
@@ -1729,11 +2706,12 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: const Color(0xFF00D3FF),
         //icon: const Icon(Icons.save),
         onPressed: () {
-
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
           uploadFile();
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Data Submitted Successfully !"),
-          ));
+          ),
+          );
           //_scanQR(); // calling a function when user click on button
 
           //final image2 = _image;
@@ -1783,11 +2761,10 @@ class _MyHomePageState extends State<MyHomePage> {
             dateOfNextStepscontroller: nextStepsPlanned2,
             comments: comments2,
           );
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
         },
         label: const Text("Submit Data"),
-
         // code added for Firebase Connection Checking
-
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       //
@@ -1968,6 +2945,7 @@ class _MyHomePageState extends State<MyHomePage> {
       return;
     }
     setState(() {
+      _dateofNextStep = newDate;
       _dateofNextStep = newDate;
       String dob = DateFormat('dd/MM/yyy').format(newDate);
 
