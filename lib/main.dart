@@ -4,6 +4,7 @@ import 'package:craveiospro/SelectPhotoOptionsScreen.dart';
 import 'package:craveiospro/dashboard_screen.dart';
 import 'package:craveiospro/utility.dart';
 import 'package:csc_picker/csc_picker.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,6 +15,8 @@ import 'package:intl/intl.dart';
 import 'custom_date_picker_form_field.dart';
 import 'package:image_picker/image_picker.dart';
 
+
+
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -21,13 +24,23 @@ Future main() async {
       const MyApp()
   );
 
-  // FirebaseDatabase.instance.setPersistenceEnabled(true);
-  // final scoresRef = FirebaseDatabase.instance.ref("scores");
-  // scoresRef.keepSynced(true);
-  //
-  // final FirebaseDatabase database = FirebaseDatabase.instance;
-  // database.setPersistenceEnabled(true);
-  // database.setPersistenceCacheSizeBytes(10000000);
+  //final db = FirebaseFirestore.instance.collection('guest2').doc();
+
+  FirebaseDatabase.instance.setPersistenceEnabled(true);
+  final scoresRef = FirebaseDatabase.instance.ref("scores");
+  scoresRef.keepSynced(true);
+
+  final FirebaseDatabase database = FirebaseDatabase.instance;
+  database.setPersistenceEnabled(true);
+  database.setPersistenceCacheSizeBytes(10000000);
+
+// Apple and Android
+ /* db.settings = const Settings(persistenceEnabled: true);
+
+  db.settings = const Settings(
+    persistenceEnabled: true,
+    cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+  );*/
 
 }
 
@@ -113,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future _pickImage(ImageSource source) async {
     try {
       final picker = ImagePicker();
-      PickedFile? image = (await picker.pickImage(source: source)) as PickedFile?;
+      PickedFile? image = (await picker.getImage(source: source));
       // final image = await ImagePicker().pickImage(source: source);
 
       if (image == null) return;
