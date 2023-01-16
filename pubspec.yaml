@@ -31,8 +31,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  qrscan: ^0.3.3
-  flutter_barcode_scanner: ^2.0.0
+  #qrscan: ^0.3.3
+  #flutter_barcode_scanner: ^2.0.0
 
   permission_handler:
 

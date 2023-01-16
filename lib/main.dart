@@ -13,7 +13,6 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'custom_date_picker_form_field.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,6 +54,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
   @override
+  // ignore: library_private_types_in_public_api
   _MyHomePageState createState() => _MyHomePageState();
 }
 class _MyHomePageState extends State<MyHomePage> {
@@ -113,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future _pickImage(ImageSource source) async {
     try {
       final picker = ImagePicker();
-      PickedFile? image = await picker.getImage(source: source);
+      PickedFile? image = (await picker.pickImage(source: source)) as PickedFile?;
       // final image = await ImagePicker().pickImage(source: source);
 
       if (image == null) return;
@@ -121,10 +121,6 @@ class _MyHomePageState extends State<MyHomePage> {
       img = await _cropImage(imageFile: img);
       setState(() {
         _image = img;
-        // final bytes = File().readAsBytesSync();
-        // String imgString= base64Encode(bytes);
-        //String imgString = base64Encode(_image);
-        //final File img2=File(_image.path)
         imgString = Utility.base64String(_image!.readAsBytesSync());
         Navigator.of(context).pop();
       });
@@ -166,32 +162,6 @@ class _MyHomePageState extends State<MyHomePage> {
               }),
     );
   }
-
-//   String result = "Hello World...!";
-//   Future _scanQR() async {
-//     var cameraStatus = await Permission.camera.status;
-//     if(cameraStatus.isGranted)
-//     {
-//       String? qrdata = await scanner.scan();
-//       print(qrdata);
-//     }
-//     else{
-//       var isGrant = await Permission.camera.request();
-//
-//       if(isGrant.isGranted){
-//         String? qrdata = await scanner.scan();
-//         print(qrdata);
-//       }
-//     }
-//     try {
-//       String? cameraScanResult = await scanner.scan();
-//       setState(() {
-//         result = cameraScanResult!; // setting string result with cameraScanResult
-//       });
-//     } on PlatformException catch (e) {
-//       print(e);
-//     }
-//
 
   List<Step> stepList() =>
       [
@@ -3119,38 +3089,3 @@ class Customer {
         comments: json['comments'],
       );
 }
-
-
-/*
-Future <void> pickDateOfBirth(BuildContext context) async{
-  final initialDate = DateTime.now();
-  final newDate = await showDatePicker(
-      context: context,
-      initialDate: _dateOfBirth ?? initialDate, // for selected date as it is
-      firstDate: DateTime(DateTime.now().year - 100),
-      lastDate: DateTime(DateTime.now().year + 1),
-      builder: (context,child) => Theme(
-        data: ThemeData().copyWith(
-          colorScheme: const ColorScheme.light(
-            primary: Colors.yellow,
-            onPrimary: Colors.pink,
-            onSurface: Colors.black,
-          ),
-          dialogBackgroundColor: Colors.white,
-        ),
-        child: child ?? const Text(''),
-      )
-  );
-  if(newDate == null)
-  {
-    return;
-  }
-  setState(() {
-    _dateOfBirth = newDate; // for selected date as it is
-    String dob = DateFormat('dd/MM/yyyy').format(newDate);
-    //_dateOfBirthController.text = newDate.toIso8601String();
-    _dateOfBirthController.text = dob;
-  });
-}
-}
-*/
