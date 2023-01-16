@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:craveiospro/dashboard_screen.dart';
 import 'package:craveiospro/update_client.dart';
 import 'package:craveiospro/viewcust.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +70,7 @@ class _SingleuserreadState extends State<Singleuserread> {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference users = FirebaseFirestore.instance.collection("guest2");
+    CollectionReference users = FirebaseFirestore.instance.collection("guest");
     return Scaffold(
       appBar: AppBar(
         title: const Text('Client Details'),
@@ -109,7 +110,7 @@ class _SingleuserreadState extends State<Singleuserread> {
               //this is for Single User View
               name1.text = '${data['name']}';
               addressStreet1_1.text = '${data['addressStreet1']}';
-              addressStreet2_1.text = '${data['addressStreet2']}';
+              //addressStreet2_1.text = '${data['addressStreet2']}';
               email1.text = '${data['email']}';
               mobileNumber1.text = '${data['mobilenumber']}';
               country1.text = '${data['countryValue1']}';
@@ -398,7 +399,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                                                     borderSide: BorderSide(
                                                         color: Color(0xFF00D3FF), width: 1),
                                                   ),
-                                                  labelText: 'Street 1',
+                                                  labelText: 'Address :',
                                                   labelStyle: TextStyle(
                                                     color: Colors.black45,
                                                   ),
@@ -410,7 +411,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                                               ),
                                             ),
                                           ),
-                                          Card(
+                                         /* Card(
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(8.0),
                                             ),
@@ -441,7 +442,8 @@ class _SingleuserreadState extends State<Singleuserread> {
                                                     fontWeight: FontWeight.w500),
                                               ),
                                             ),
-                                          ),
+                                          ),*/
+
                                           Card(
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(8.0),
@@ -919,7 +921,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                         mobilenumber = data['mobilenumber'];
                         pincode = data['pincode'];
                         addressStreet1 = data['addressStreet1'];
-                        addressStreet2 = data['addressStreet2'];
+                        //addressStreet2 = data['addressStreet2'];
                         companyName = data['companyName'];
                         website = data['website'];
                         companyAddress = data['companyAdd'];
@@ -935,17 +937,12 @@ class _SingleuserreadState extends State<Singleuserread> {
                         old_image = data['image'];
                         dateOfNextStepPlanned = data['dateOfNextStepscontroller'];
 
-                        // _dateofNextStep = data['dateOfNextStepscontroller'];
-                        // DateTime parseDate =
-                        // DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(dateOfNextStepscontroller);
-
-
                         Navigator.push(context, MaterialPageRoute(builder:
                             (context) =>  UpdateClient(docid: widget.docid,
                           name: name,
                           email: email,
                           addressStreet1: addressStreet1,
-                          addressStreet2: addressStreet2,
+                          //addressStreet2: addressStreet2,
                           companyName: companyName,
                           mobilenumber: mobilenumber,
                           companyAdd: companyAddress,
@@ -965,7 +962,6 @@ class _SingleuserreadState extends State<Singleuserread> {
                           // dateofNextStep: _dateofNextStep,
 
                         )));
-
                       },
                       child: const Text('Edit Client Details'),
                     ),
@@ -983,7 +979,7 @@ class _SingleuserreadState extends State<Singleuserread> {
 
   // For Deleting USer
   CollectionReference guests =
-  FirebaseFirestore.instance.collection('guest2');
+  FirebaseFirestore.instance.collection('guest');
 
 
   Future<void> deleteUser(id) {
@@ -1012,7 +1008,7 @@ class _SingleuserreadState extends State<Singleuserread> {
       onPressed: () {
         deleteUser(widget.docid);
         Navigator.of(context, rootNavigator: true).pop();
-        //Navigator.push(context, MaterialPageRoute(builder: (context) => const ViewCustomer()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Data Deleted Successfully !"),
           //duration: Duration(seconds: 2),
@@ -1080,7 +1076,7 @@ class _SingleuserreadState extends State<Singleuserread> {
 /* Future deleteUser(String id) async {
     try {
       await FirebaseFirestore.instance
-          .collection("guest2")
+          .collection("guest")
           .doc(id)
           .delete();
     } catch (e) {

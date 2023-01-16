@@ -8,7 +8,7 @@ class ReadUsers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference users = FirebaseFirestore.instance.collection("guest2");
+    CollectionReference users = FirebaseFirestore.instance.collection("guest");
     return FutureBuilder<DocumentSnapshot>(
         future: users.doc(docid).get(),
         builder: ((context, snapshot) {

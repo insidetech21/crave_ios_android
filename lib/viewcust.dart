@@ -25,7 +25,7 @@ class ViewCustomer extends StatefulWidget {
   State<ViewCustomer> createState() => _ViewCustomerState();
 }
 
-Stream<List<Customer>> readuser() => FirebaseFirestore.instance.collection('guest2').snapshots().map((snapshot)
+Stream<List<Customer>> readuser() => FirebaseFirestore.instance.collection('guest').snapshots().map((snapshot)
 =>snapshot.docs.map((doc) => Customer.fromJson(doc.data())).toList() );
 
 Widget buildUser(Customer cust) => Card(
@@ -46,7 +46,7 @@ Widget buildUser(Customer cust) => Card(
 
 Future<Center> getUserList() async { // Added List? for better typing
 
-  await FirebaseFirestore.instance.collection("guest2").get().
+  await FirebaseFirestore.instance.collection("guest").get().
   then((snapshot) => snapshot.docs.forEach((element) {
     itemList.add(element.reference.id);
     distinctIds = LinkedHashSet<String>.from(itemList).toList();
