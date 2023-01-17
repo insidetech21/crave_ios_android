@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'main.dart';
 
-final userref=FirebaseFirestore.instance.collection("guest2");
+final userref=FirebaseFirestore.instance.collection("guest");
 List<String> itemList = [];
 List<String> distinctIds=[];
-final CollectionReference _reff=FirebaseFirestore.instance.collection('guest2');
+final CollectionReference _reff=FirebaseFirestore.instance.collection('guest');
 
 @override
 void initState() {

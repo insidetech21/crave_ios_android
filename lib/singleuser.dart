@@ -817,7 +817,7 @@ class _SingleuserreadState extends State<Singleuserread> {
                                               child: TextField(
                                                 controller: nextStepsPlanned1,
                                                 readOnly: true,
-                                                //expands: true,
+                                                //expands: trguestue,
                                                 decoration: const InputDecoration(
                                                   fillColor: Colors.transparent,
                                                   border: OutlineInputBorder(
