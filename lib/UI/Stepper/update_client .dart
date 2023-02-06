@@ -1,3 +1,4 @@
+import 'package:craveiospro/Database/firebase_database.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -11,12 +12,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
-import 'custom_date_picker_form_field.dart';
+import 'package:provider/provider.dart';
+import '../../custom_date_picker_form_field.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart' as p;
 
-import 'dashboard_screen.dart';
+import '../dashboard_screen.dart';
 
 
 
@@ -107,8 +109,7 @@ class _UpdateClientState extends State<UpdateClient> {
 
   TextEditingController nextStepPlanned1 = TextEditingController();
 
-
-
+  // Firebase_Database fr=Firebase_Database();
 
 
   _buildtext(TextEditingController controller, String labelText) {
@@ -147,7 +148,7 @@ class _UpdateClientState extends State<UpdateClient> {
 
   void getClientData() async{
 
-    CollectionReference ref = FirebaseFirestore.instance.collection("guest");
+    
     name1.text=widget.name;
     email1.text=widget.email;
     mobilenumber1.text=widget.mobilenumber;
@@ -215,7 +216,7 @@ class _UpdateClientState extends State<UpdateClient> {
   //XFile? image; // For Image Picker
 
   Uint8List? _bytesImage;
-  String imgString = "";
+  String? imgString;
 
   //final ImagePicker picker = ImagePicker(); // For Image Picker
 
@@ -245,6 +246,7 @@ class _UpdateClientState extends State<UpdateClient> {
         //String imgString = base64Encode(_image);
         //final File img2=File(_image.path)
         old_image1 = Utility.base64String(_image!.readAsBytesSync());
+        imgString=Utility.base64String(_image!.readAsBytesSync());
         Navigator.of(context).pop();
       });
     } on Exception catch (e) {
@@ -699,10 +701,10 @@ class _UpdateClientState extends State<UpdateClient> {
                           borderSide: BorderSide(
                               color: Color(0xFF00D3FF), width: 1),
                         ),
+                        border: OutlineInputBorder(),
                         filled: true,
-                        //fillColor: Color(0xFF004B8D),
-                        labelText: 'Enter Zip Code :',
-                        hintText: 'Zip',
+                        labelText: 'Enter Zip Code:',
+                        hintText: 'Zip Code',
                         prefixIcon: Align(
                           widthFactor: 1.0,
                           heightFactor: 1.0,
@@ -712,7 +714,7 @@ class _UpdateClientState extends State<UpdateClient> {
                               height: 58,
                               width: 48,
                               child: Icon(
-                                Icons.numbers,
+                                Icons.location_city,
                                 color: Colors.white,
                                 size: 30,
                               ),
@@ -720,7 +722,7 @@ class _UpdateClientState extends State<UpdateClient> {
                           ),
                         ),
                       ),
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
 
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -749,10 +751,10 @@ class _UpdateClientState extends State<UpdateClient> {
                           borderSide: BorderSide(
                               color: Color(0xFF00D3FF), width: 1),
                         ),
+                        border: OutlineInputBorder(),
                         filled: true,
-                        //fillColor: Color(0xFF004B8D),
-                        labelText: 'Country:',
-                        //hintText: 'Zip',
+                        labelText: 'Enter Country :',
+                        hintText: 'Country',
                         prefixIcon: Align(
                           widthFactor: 1.0,
                           heightFactor: 1.0,
@@ -762,7 +764,7 @@ class _UpdateClientState extends State<UpdateClient> {
                               height: 58,
                               width: 48,
                               child: Icon(
-                                Icons.flag,
+                                Icons.location_city,
                                 color: Colors.white,
                                 size: 30,
                               ),
@@ -770,17 +772,16 @@ class _UpdateClientState extends State<UpdateClient> {
                           ),
                         ),
                       ),
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
 
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please Enter Zip Code';
+                          return 'Please Enter Country';
                         }
                         return null;
                       },
                     ),
                   ),
-
 
                   const Padding(
                     padding: EdgeInsets.only(bottom: 30.0),
@@ -800,10 +801,10 @@ class _UpdateClientState extends State<UpdateClient> {
                           borderSide: BorderSide(
                               color: Color(0xFF00D3FF), width: 1),
                         ),
+                        border: OutlineInputBorder(),
                         filled: true,
-                        //fillColor: Color(0xFF004B8D),
-                        labelText: 'State:',
-                        //hintText: 'Zip',
+                        labelText: 'Enter State :',
+                        hintText: 'State',
                         prefixIcon: Align(
                           widthFactor: 1.0,
                           heightFactor: 1.0,
@@ -813,7 +814,7 @@ class _UpdateClientState extends State<UpdateClient> {
                               height: 58,
                               width: 48,
                               child: Icon(
-                                Icons.flag,
+                                Icons.location_city,
                                 color: Colors.white,
                                 size: 30,
                               ),
@@ -821,11 +822,11 @@ class _UpdateClientState extends State<UpdateClient> {
                           ),
                         ),
                       ),
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
 
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please Enter Zip Code';
+                          return 'Please Enter State';
                         }
                         return null;
                       },
@@ -850,10 +851,10 @@ class _UpdateClientState extends State<UpdateClient> {
                           borderSide: BorderSide(
                               color: Color(0xFF00D3FF), width: 1),
                         ),
+                        border: OutlineInputBorder(),
                         filled: true,
-                        //fillColor: Color(0xFF004B8D),
-                        labelText: 'City:',
-                        //hintText: 'Zip',
+                        labelText: 'Enter City :',
+                        hintText: 'City',
                         prefixIcon: Align(
                           widthFactor: 1.0,
                           heightFactor: 1.0,
@@ -871,11 +872,11 @@ class _UpdateClientState extends State<UpdateClient> {
                           ),
                         ),
                       ),
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
 
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please Enter Zip Code';
+                          return 'Please Enter City';
                         }
                         return null;
                       },
@@ -1010,12 +1011,7 @@ class _UpdateClientState extends State<UpdateClient> {
                                 color: Color(0xFFDDE8EB),
                               ),
                               child: Center(
-                                child: old_image1 == null
-                                    ? const Text(
-                                  'Select Image',
-                                  style: TextStyle(fontSize: 20),
-                                )
-                                    : Center(
+                                child: Center(
                                   /*child: Container(
                                       decoration:const BoxDecoration(
                                         //backgroundImage: FileImage(_image!),
@@ -1026,21 +1022,25 @@ class _UpdateClientState extends State<UpdateClient> {
                                       height: 200.0,
                                       width: 320.0,
                                       decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
+                                        
                                         color: Colors.grey.shade200,
                                       ),
                                       child: Center(
-                                        child: '${old_image1}' == null
-                                            ? const Text(
-                                          'No image selected',
-                                          style:
-                                          TextStyle(fontSize: 20),
-                                        )
-                                            : Hero(
-                                          tag: 'emimg-"${[old_image1]}',
-                                          child:
+                                        child: 
+                                        imgString!=null?
+                                        Container(
+                                  //duration: Duration(milliseconds: 300),
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: Image.memory(setImage(imgString!)).image,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    // your own shape
+                                    shape: BoxShape.rectangle,
+                                  ),
+                                ):
                                           Image.network(old_image1),
-                                        ),
+                                        
                                       )),
                                   /*CircleAvatar(
                                 backgroundImage: FileImage(_image!),
@@ -1538,7 +1538,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     elevation: 15,
                     shadowColor: const Color(0xFF00D3FF),
                     child: CustomDatePickerFormField(
-                        controller: nextStepPlanned1,
+                        controller: dateOfNextStepscontroller,
                         txtLabel: "Next Steps Planned On :",
                         //hintText: 'Select your preference',
                         callback: () {
@@ -1700,20 +1700,15 @@ class _UpdateClientState extends State<UpdateClient> {
                         height: 150.0,
                         width: 300.0,
                         child: Center(
-                          child: _image == null
-                              ? const Text(
-                            'No image selected',
-                            style:
-                            TextStyle(fontSize: 20),
-                          )
-                              : Hero(
-                            tag: 'emimg-$_image',
-                            child:
+                          child: imgString == null
+                              ? Image.network(old_image1)
+
+                            :
                             Container(
                               //duration: Duration(milliseconds: 300),
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: Image.memory(setImage(imgString)).image,
+                                  image: Image.memory(setImage(imgString!)).image,
                                   fit: BoxFit.cover,
                                 ),
 
@@ -1721,7 +1716,7 @@ class _UpdateClientState extends State<UpdateClient> {
                                 shape: BoxShape.rectangle,
                               ),
                             ),
-                          ),
+                         
                         )),
                   ),
 
@@ -2654,7 +2649,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     SizedBox(
                       width: double.infinity,
                       child: TextField(
-                        controller: nextStepPlanned1,
+                        controller: dateOfNextStepscontroller,
                         readOnly: true,
                         /* onChanged: (values){
                         setState(() {
@@ -2833,15 +2828,15 @@ class _UpdateClientState extends State<UpdateClient> {
 
     @override
     Widget build(BuildContext context) {
+      final fr=Provider.of<Firebase_Database>(context,listen: false);
       return Scaffold(
         //drawer: ,
         backgroundColor: Colors.white,
         appBar:
         AppBar(
-          title: const Center(child:
+          title: const
           Text('Crave Client Update')
-          ),
-          actions: <Widget>[
+          /*actions: <Widget>[
             IconButton(
               icon: const Icon(
                 Icons.document_scanner,
@@ -2849,71 +2844,46 @@ class _UpdateClientState extends State<UpdateClient> {
               ),
               onPressed: () {
 
-                /*scanQRCode();
+                *//*scanQRCode();
               qr.value = TextEditingValue(
                 text: getResult,
                 selection: TextSelection.fromPosition(
                   TextPosition(offset: getResult.length),
                 ),
-              );*/
+              );*//*
                 // do something
               },
             ),
-          ],
-          backgroundColor: const Color(0xFF00D3FF),
+          ],*/
+          //backgroundColor: const Color(0xFF00D3FF),
         ),
         //
         floatingActionButton: FloatingActionButton.extended(
           backgroundColor: const Color(0xFF00D3FF),
           //icon: const Icon(Icons.save),
           onPressed: () async {
-            final docuser22 =
-            FirebaseFirestore.instance
-                .collection('guest')
-                .doc(widget.docid);
-                docuser22.update({
-              'name': '${name1.text}',
-              'email': '${email1.text}',
-              'mobilenumber':
-              '${mobilenumber1.text}',
-              'gendervalue':
-              '${genderValue_1}',
-              'addressStreet1':
-              '${addressStreet11.text}',
-             /* 'addressStreet2':
-              '${addressStreet21.text}',*/
-              'pincode':
-              '${pincode1.text}',
-              'city': '${cityValue1_1}',
-              'state': '${stateValue1_1}',
-              'country': '${countryValue1_1}',
-              'companyName':
-              '${companyName1.text}',
-              'companyAdd':
-              '${companyAddress1.text}',
-              'companyMail':
-              '${companyMail1.text}',
-              'website':
-              '${website1.text}',
-              'interestedInValue':
-              '${interestedInValue_1}',
-              'nextStepsValue':
-              '${nextStepsValue_1}',
-              'reachOutValue':
-              '${reachOutValue_1}',
-              'dateOfNextStepscontroller':
-              '${dateOfNextStepscontroller.text}',
-              'comments':
-              '${comments1.text}',
-              'image':
-              '${urlDownload}',
-            });
+
+
+            if(old_image1==null){
+                await uploadFile(_image!.path);
+            }
+            else{
+              urlDownload=old_image1;
+            }
+             
+            fr.update(widget.docid, name1, email1, mobilenumber1,
+             genderValue_1, addressStreet11, pincode1, 
+             cityValue1_1, stateValue1_1, countryValue1_1,
+              companyName1, companyAddress1, companyMail1, 
+              website1, interestedInValue_1, nextStepsValue_1, 
+              reachOutValue_1, dateOfNextStepscontroller,
+               comments1, urlDownload!);
 
             Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text("Data Updated Successfully !"),
             ));
-            await uploadFile(_image!.path);
+           
             //_scanQR(); // calling a function when user click on button
           },
           label: const Text("Update Data"),
@@ -3037,12 +3007,16 @@ class _UpdateClientState extends State<UpdateClient> {
 
       uploadTask = null;
     });*/
+    
     final ref=FirebaseStorage.instance.ref().child('images').child('${DateTime.now().toIso8601String()+p.basename(path)}');
     final result=await ref.putFile(File(path));
     final fileurl=await result.ref.getDownloadURL();
     setState(() {
       urlDownload=fileurl;
     });
+    
+    
+    
   }
 }
 

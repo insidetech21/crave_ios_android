@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:craveiospro/singleuser.dart';
+import 'package:craveiospro/UI/singleuser.dart';
 import 'package:flutter/material.dart';
 
 class ReadUsers extends StatelessWidget {
