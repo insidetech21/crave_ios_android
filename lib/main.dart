@@ -17,10 +17,29 @@ import 'package:provider/provider.dart';
 import 'custom_date_picker_form_field.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as p;
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  if(kIsWeb){
+
+    await Firebase.initializeApp(
+        options: const FirebaseOptions(
+          apiKey: "AIzaSyDROXZb8UFIXXaZx0kecpazKfpGJYxoAJU",
+          appId: "1:151042498941:web:cea9d07a0efa2be3efec14",
+          messagingSenderId: "151042498941",
+          projectId: "crave-guest-registration-d2600"
+    )
+  );
+    
+
+  }
+  else {
+    await Firebase.initializeApp();
+    
+  }
+  
   runApp(
       const MyApp()
   );

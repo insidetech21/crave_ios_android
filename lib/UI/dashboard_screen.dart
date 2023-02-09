@@ -1,7 +1,7 @@
 import 'package:craveiospro/main.dart';
 import 'package:craveiospro/UI/viewcust.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'Stepper/homepage.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -155,6 +155,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
           ),
+          
 
           const Card(
               elevation: 15,
@@ -162,18 +163,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: SizedBox(height: 50),
           ),
           Expanded(
-            child: GridView.count(
+            child:kIsWeb? GridView.count(
             crossAxisCount: 1,
             childAspectRatio: 3,
             crossAxisSpacing: 10,
             padding:  const EdgeInsets.all(10),
             children: [
+              
+              makeDashboardItems("Add Client", "assets/icons8-add-male-user-100.png",0),
+             
+              // makeDashboardItems("Scan", "assets/ocr.png",2),
+              // makeDashboardItems("About", "assets/about.png",3),
+            ],
+          ):
+          GridView.count(
+            crossAxisCount: 1,
+            childAspectRatio: 3,
+            crossAxisSpacing: 10,
+            padding:  const EdgeInsets.all(10),
+            children: [
+              
               makeDashboardItems("Add Client", "assets/icons8-add-male-user-100.png",0),
               makeDashboardItems("Client List", "assets/icons8-list-view-96.png",1),
               // makeDashboardItems("Scan", "assets/ocr.png",2),
               // makeDashboardItems("About", "assets/about.png",3),
             ],
-          ),
+          )
           ),
         ],
       ),

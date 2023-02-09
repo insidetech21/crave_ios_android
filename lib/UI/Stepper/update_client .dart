@@ -391,6 +391,9 @@ class _UpdateClientState extends State<UpdateClient> {
                     shadowColor: const Color(0xFF00D3FF),
                     child: TextFormField(
                       controller: mobilenumber1,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(10),
+                      ],
                       decoration: const InputDecoration(
                         fillColor: Colors.transparent,
                         enabledBorder: OutlineInputBorder(
@@ -695,6 +698,9 @@ class _UpdateClientState extends State<UpdateClient> {
                     shadowColor: const Color(0xFF00D3FF),
                     child: TextFormField(
                       controller: pincode1,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(6),
+                      ],
                       decoration: const InputDecoration(
                         fillColor: Colors.transparent,
                         enabledBorder: OutlineInputBorder(
@@ -1022,7 +1028,6 @@ class _UpdateClientState extends State<UpdateClient> {
                                       height: 200.0,
                                       width: 320.0,
                                       decoration: BoxDecoration(
-                                        
                                         color: Colors.grey.shade200,
                                       ),
                                       child: Center(
@@ -1040,8 +1045,8 @@ class _UpdateClientState extends State<UpdateClient> {
                                   ),
                                 ):
                                           Image.network(old_image1),
-                                        
-                                      )),
+                                      ),
+                                  ),
                                   /*CircleAvatar(
                                 backgroundImage: FileImage(_image!),
                                 radius: 100.0,
@@ -1083,7 +1088,6 @@ class _UpdateClientState extends State<UpdateClient> {
                   //     Navigator.push(context, MaterialPageRoute(builder: (context) =>  const ImagePic()));
                   //   },
                   // ),
-
 
                   /* TextFormField(
               controller: country,
@@ -1538,7 +1542,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     elevation: 15,
                     shadowColor: const Color(0xFF00D3FF),
                     child: CustomDatePickerFormField(
-                        controller: dateOfNextStepscontroller,
+                        controller: nextStepPlanned1,
                         txtLabel: "Next Steps Planned On :",
                         //hintText: 'Select your preference',
                         callback: () {
@@ -1842,6 +1846,9 @@ class _UpdateClientState extends State<UpdateClient> {
                       width: double.infinity,
                       child: TextField(
                         controller: mobilenumber1,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(10),
+                        ],
                         readOnly: true,
                         //expands: true,
                         decoration: const InputDecoration(
@@ -2649,7 +2656,7 @@ class _UpdateClientState extends State<UpdateClient> {
                     SizedBox(
                       width: double.infinity,
                       child: TextField(
-                        controller: dateOfNextStepscontroller,
+                        controller: nextStepPlanned1,
                         readOnly: true,
                         /* onChanged: (values){
                         setState(() {
@@ -2863,14 +2870,15 @@ class _UpdateClientState extends State<UpdateClient> {
           //icon: const Icon(Icons.save),
           onPressed: () async {
 
-
-            if(old_image1==null){
+           /* if(old_image1==null){
                 await uploadFile(_image!.path);
             }
             else{
               urlDownload=old_image1;
-            }
-             
+            }*/
+
+            await uploadFile(_image!.path);
+
             fr.update(widget.docid, name1, email1, mobilenumber1,
              genderValue_1, addressStreet11, pincode1, 
              cityValue1_1, stateValue1_1, countryValue1_1,

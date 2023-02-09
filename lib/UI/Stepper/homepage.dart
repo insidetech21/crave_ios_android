@@ -218,7 +218,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   shadowColor: const Color(0xFF00D3FF),
                   child: TextFormField(
                     controller: mobilenumber,
-                    //maxLength: 10,
                     inputFormatters: [
                       LengthLimitingTextInputFormatter(10),
                     ],
@@ -434,6 +433,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     keyboardType: TextInputType.text,
+
                     /*   validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please Enter Address ';
@@ -518,6 +518,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 //   padding: EdgeInsets.only(bottom: 30.0),
                 // ),
 
+
                 Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)
@@ -526,16 +527,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   shadowColor: const Color(0xFF00D3FF),
                   child: TextFormField(
                     controller: pincode,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(6),
+                    ],
                     decoration: const InputDecoration(
                       fillColor: Colors.transparent,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Color(0xFF00D3FF), width: 1),
                       ),
-                      border: OutlineInputBorder(),
                       filled: true,
+                      //fillColor: Color(0xFF004B8D),
                       labelText: 'Enter Zip Code :',
-                      hintText: 'Zip Code',
+                      hintText: 'Zip',
                       prefixIcon: Align(
                         widthFactor: 1.0,
                         heightFactor: 1.0,
@@ -554,9 +558,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     keyboardType: TextInputType.number,
-                    /*   validator: (value) {
+
+                    /* validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please Enter Address ';
+                            return 'Please Enter Zip Code';
                           }
                           return null;
                         },*/
@@ -626,12 +631,6 @@ class _MyHomePageState extends State<MyHomePage> {
                               city.text = cityValue1;
                             });
                           },
-                          ///Country Filter [OPTIONAL PARAMETER]
-                          countryFilter: const [
-                            CscCountry.India,
-                            CscCountry.United_States,
-                            CscCountry.Canada
-                          ],
 
                           ///Enable disable state dropdown [OPTIONAL PARAMETER]
                           showStates: true,
@@ -642,6 +641,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ///Default Country
                           //defaultCountry: DefaultCountry.India,
                           //defaultCountry: DefaultCountry.United_States,
+
                           dropdownDialogRadius: 20.0,
 
                           ///selected item style [OPTIONAL PARAMETER]
@@ -799,7 +799,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: Color(0xFFDDE8EB),
                             ),
                             child: Center(
-                              child: _image == null
+                              child:
+                              
+                              
+                               _image == null
                                   ? const Text(
                                 'Select Image',
                                 style: TextStyle(fontSize: 20),
@@ -2601,7 +2604,60 @@ class _MyHomePageState extends State<MyHomePage> {
               });
               //if (formKeys[currentstep].currentState!.validate())
               {
-                await uploadFile(_image!.path);
+                if(_image==null){
+                  
+                const image2 = '';
+                final name2 = name.text;
+                final email2 = email.text;
+                final genderValue2 = genderValue;
+                final mobilenumber2 = mobilenumber.text;
+                final addressStreet1_2 = addressStreet1.text;
+                //final addressStreet2_2 = addressStreet2.text;
+                final pincode2 = pincode.text;
+                final city2 = cityValue1;
+                final state2 = stateValue1;
+                final country2 = countryValue1;
+                final companyName2 = companyName.text;
+                final companyAddress2 = companyAddress.text;
+                final companyMail2 = companyMail.text;
+                final website2 = website.text;
+                final interestedIn2 = interestedInValue;
+                final nextSteps2 = nextStepsValue;
+                final reachOutIn2 = reachOutValue;
+                final nextStepsPlanned2 = dateOfNextStepscontroller.text;
+                final comments2 = comments.text;
+                
+
+                fr.createuser(
+                  image: '',
+                  name: name2,
+                  email: email2,
+                  genderValue: genderValue2,
+                  mobilenumber: mobilenumber2,
+                  addressStreet1: addressStreet1_2,
+                  //addressStreet2: addressStreet2_2,
+                  pincode: pincode2,
+                  cityValue1: city2,
+                  stateValue1: state2,
+                  countryValue1: country2,
+                  companyName: companyName2,
+                  companyAdd: companyAddress2,
+                  companyMail: companyMail2,
+                  website: website2,
+                  interestedInValue: interestedIn2,
+                  nextStepsValue: nextSteps2,
+                  reachOutValue: reachOutIn2,
+                  dateOfNextStepscontroller: nextStepsPlanned2,
+                  comments: comments2,
+                );
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Data Submitted Successfully !"),
+                ),
+                );
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
+                }
+                else if(_image!=null){
+                    await uploadFile(_image!.path);
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text("Data Submitted Successfully !"),
                 ),
@@ -2651,6 +2707,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   comments: comments2,
                 );
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
+                }
+                
               }
               // else{
               //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
